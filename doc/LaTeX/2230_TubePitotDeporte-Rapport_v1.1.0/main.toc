@@ -1,0 +1,22 @@
+\babel@toc {french}{}\relax 
+\contentsline {section}{\numberline {1}Cahier des charges}{2}{}%
+\contentsline {section}{\numberline {2}Pré-étude}{2}{}%
+\contentsline {subsection}{\numberline {2.1}Contexte}{2}{}%
+\contentsline {subsection}{\numberline {2.2}Schéma de principe}{2}{}%
+\contentsline {subsection}{\numberline {2.3}Schéma bloc détaillé}{3}{}%
+\contentsline {subsection}{\numberline {2.4}Descriptions des blocs détaillées}{3}{}%
+\contentsline {subsubsection}{\numberline {2.4.1}Bloc Générateur (turbine)}{3}{}%
+\contentsline {subsubsection}{\numberline {2.4.2}Bloc Capteur de pression}{5}{}%
+\contentsline {subsubsection}{\numberline {2.4.3}Bloc Tube Pitot}{5}{}%
+\contentsline {subsubsection}{\numberline {2.4.4}Bloc IMU}{5}{}%
+\contentsline {subsubsection}{\numberline {2.4.5}Bloc Connecteur USB}{6}{}%
+\contentsline {subsubsection}{\numberline {2.4.6}Bloc Module BLE}{7}{}%
+\contentsline {subsubsection}{\numberline {2.4.7}Bloc LED bleue}{7}{}%
+\contentsline {subsubsection}{\numberline {2.4.8}Bloc MCU}{7}{}%
+\contentsline {subsubsection}{\numberline {2.4.9}Bloc Alimentation}{7}{}%
+\contentsline {subsubsection}{\numberline {2.4.10}Bloc Appareil Android}{8}{}%
+\contentsline {subsection}{\numberline {2.5}Design mécanique}{8}{}%
+\contentsline {subsection}{\numberline {2.6}Estimation du prix}{9}{}%
+\contentsline {subsection}{\numberline {2.7}Faisabilité du projet}{9}{}%
+\contentsline {section}{\numberline {3}Design électronique}{10}{}%
+\contentsline {section}{\numberline {4}Annexes}{10}{}%
