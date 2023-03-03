@@ -1,0 +1,95 @@
+Removed Pin From Net: NetName=VGEN Pin=J1-1
+Removed Pin From Net: NetName=GND Pin=J1-2
+Removed Pin From Net: NetName=+4V5 Pin=J2-1
+Removed Pin From Net: NetName=VBAT Pin=J3-1
+Removed Pin From Net: NetName=GND Pin=J3-2
+Removed Member From Class: ClassName=2230_TubePitotDeporte_Schematic_v1.0.0 Member=J1
+Removed Member From Class: ClassName=2230_TubePitotDeporte_Schematic_v1.0.0 Member=J2
+Removed Member From Class: ClassName=2230_TubePitotDeporte_Schematic_v1.0.0 Member=J3
+Added Component: Designator=P3(JST- S2B-PH-SM4-TB(LF)(SN)-2_V)
+Add component (AddParameter): Name = "Colour"; Value = "Black"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink1Description"; Value = "Manufacturer URL"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink1URL"; Value = "http://www.jst.com/home2.html"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink2Description"; Value = "Datasheet"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink2URL"; Value = "http://www.jst-mfg.com/product/pdf/eng/ePH.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Contact Finish"; Value = "Lead"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Contact Material"; Value = "Bronze"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Contact Plating"; Value = "Tin"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Current Rating"; Value = "3 A"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "DatasheetVersion"; Value = "Dec-12"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height"; Value = "8.13 mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Lead Pitch"; Value = "0.1 inch"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Length"; Value = "101.19 mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Max Operating Temperature"; Value = "105degC"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Min Operating Temperature"; Value = "-65degC"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mount"; Value = "Through Hole"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package Quantity"; Value = "100"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Male Header, Pitch 2 mm, 1 x 2 Position, Height 5.5 mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "S2B-PH-SM4-TB(LF)(SN)-2"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Packaging"; Value = "Bulk"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Pins"; Value = "40"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Radiation Hardening"; Value = "No"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "RoHSCompliant"; Value = "True"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Width"; Value = "2.34 mm"; VariantName = "[No Variations]"
+Added Component: Designator=P4(JST- S2B-PH-SM4-TB(LF)(SN)-2_V)
+Add component (AddParameter): Name = "Colour"; Value = "Black"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink1Description"; Value = "Manufacturer URL"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink1URL"; Value = "http://www.jst.com/home2.html"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink2Description"; Value = "Datasheet"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink2URL"; Value = "http://www.jst-mfg.com/product/pdf/eng/ePH.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Contact Finish"; Value = "Lead"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Contact Material"; Value = "Bronze"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Contact Plating"; Value = "Tin"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Current Rating"; Value = "3 A"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "DatasheetVersion"; Value = "Dec-12"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height"; Value = "8.13 mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Lead Pitch"; Value = "0.1 inch"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Length"; Value = "101.19 mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Max Operating Temperature"; Value = "105degC"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Min Operating Temperature"; Value = "-65degC"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mount"; Value = "Through Hole"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package Quantity"; Value = "100"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Male Header, Pitch 2 mm, 1 x 2 Position, Height 5.5 mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "S2B-PH-SM4-TB(LF)(SN)-2"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Packaging"; Value = "Bulk"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Pins"; Value = "40"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Radiation Hardening"; Value = "No"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "RoHSCompliant"; Value = "True"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Width"; Value = "2.34 mm"; VariantName = "[No Variations]"
+Added Component: Designator=P5(JST- S2B-PH-SM4-TB(LF)(SN)-2_V)
+Add component (AddParameter): Name = "Colour"; Value = "Black"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink1Description"; Value = "Manufacturer URL"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink1URL"; Value = "http://www.jst.com/home2.html"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink2Description"; Value = "Datasheet"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink2URL"; Value = "http://www.jst-mfg.com/product/pdf/eng/ePH.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Contact Finish"; Value = "Lead"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Contact Material"; Value = "Bronze"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Contact Plating"; Value = "Tin"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Current Rating"; Value = "3 A"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "DatasheetVersion"; Value = "Dec-12"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height"; Value = "8.13 mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Lead Pitch"; Value = "0.1 inch"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Length"; Value = "101.19 mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Max Operating Temperature"; Value = "105degC"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Min Operating Temperature"; Value = "-65degC"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mount"; Value = "Through Hole"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package Quantity"; Value = "100"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageDescription"; Value = "Male Header, Pitch 2 mm, 1 x 2 Position, Height 5.5 mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "PackageReference"; Value = "S2B-PH-SM4-TB(LF)(SN)-2"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Packaging"; Value = "Bulk"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Pins"; Value = "40"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Radiation Hardening"; Value = "No"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "RoHSCompliant"; Value = "True"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Width"; Value = "2.34 mm"; VariantName = "[No Variations]"
+Add Pin To Net: Unknown Pin: Pin D3-1
+Add Pin To Net: Unknown Pin: Pin D3-2
+Added Pin To Net: NetName=VGEN Pin=P3-1
+Added Pin To Net: NetName=GND Pin=P3-2
+Added Pin To Net: NetName=+4V5 Pin=P4-1
+Added Pin To Net: NetName=VBAT Pin=P5-1
+Added Pin To Net: NetName=GND Pin=P5-2
+Add Class Member: Failed to add class member : Component D3 LED0
+Added Member To Class: ClassName=2230_TubePitotDeporte_Schematic_v1.0.0 Member=Component P3 S2B-PH-SM4-TB(LF)(SN)
+Added Member To Class: ClassName=2230_TubePitotDeporte_Schematic_v1.0.0 Member=Component P4 S2B-PH-SM4-TB(LF)(SN)
+Added Member To Class: ClassName=2230_TubePitotDeporte_Schematic_v1.0.0 Member=Component P5 S2B-PH-SM4-TB(LF)(SN)
+Added Room: Name=2230_TubePitotDeporte_Schematic_v1.0.0

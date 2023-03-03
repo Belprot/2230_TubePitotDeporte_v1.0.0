@@ -1,0 +1,11 @@
+Added Component: Designator=P2(ICSP)
+Add Pin To Net: Unknown Pin: Pin D3-1
+Add Pin To Net: Unknown Pin: Pin D3-2
+Added Pin To Net: NetName=MCLR Pin=P2-1
+Added Pin To Net: NetName=+3V3 Pin=P2-2
+Added Pin To Net: NetName=GND Pin=P2-3
+Added Pin To Net: NetName=PGED1 Pin=P2-4
+Added Pin To Net: NetName=PGEC1 Pin=P2-5
+Add Class Member: Failed to add class member : Component D3 LED0
+Added Member To Class: ClassName=2230_TubePitotDeporte_Schematic_v1.0.0 Member=Component P2 ICSP
+Added Room: Name=2230_TubePitotDeporte_Schematic_v1.0.0
