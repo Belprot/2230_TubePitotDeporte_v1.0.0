@@ -1,0 +1,13 @@
+Added Component: Designator=U4(ICM-42670-P)
+Add Pin To Net: Unknown Pin: Pin D3-1
+Add Pin To Net: Unknown Pin: Pin D3-2
+Added Pin To Net: NetName=GND Pin=U4-1
+Added Pin To Net: NetName=+3V3 Pin=U4-5
+Added Pin To Net: NetName=GND Pin=U4-6
+Added Pin To Net: NetName=GND Pin=U4-7
+Added Pin To Net: NetName=+3V3 Pin=U4-8
+Added Pin To Net: NetName=+3V3 Pin=U4-12
+Added Pin To Net: NetName=SCL1 Pin=U4-13
+Added Pin To Net: NetName=SDA1 Pin=U4-14
+Add Class Member: Failed to add class member : Component D3 LED0
+Added Member To Class: ClassName=2230_TubePitotDeporte_Schematic_v1.0.0 Member=Component U4 ICM-42670-P
