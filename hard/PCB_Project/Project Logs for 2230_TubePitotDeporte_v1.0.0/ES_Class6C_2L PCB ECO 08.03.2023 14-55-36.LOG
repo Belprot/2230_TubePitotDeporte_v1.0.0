@@ -1,0 +1,8 @@
+Removed Pin From Net: NetName=VGEN Pin=P3-1
+Removed Pin From Net: NetName=GND Pin=P3-2
+Add Pin To Net: Unknown Pin: Pin D3-1
+Add Pin To Net: Unknown Pin: Pin D3-2
+Added Pin To Net: NetName=GND Pin=P3-1
+Added Pin To Net: NetName=VGEN Pin=P3-2
+Add Class Member: Failed to add class member : Component D3 LED0
+Added Room: Name=2230_TubePitotDeporte_Schematic_v1.0.0

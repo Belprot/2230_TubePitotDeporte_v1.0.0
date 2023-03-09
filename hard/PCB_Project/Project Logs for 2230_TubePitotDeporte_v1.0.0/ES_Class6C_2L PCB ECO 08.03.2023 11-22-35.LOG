@@ -1,0 +1,10 @@
+Add Pin To Net: Unknown Pin: Pin D3-1
+Add Pin To Net: Unknown Pin: Pin D3-2
+Added Pin To Net: NetName=SCL Pin=U4-13
+Added Pin To Net: NetName=SDA Pin=U4-14
+Added Pin To Net: NetName=SCL Pin=U5-17
+Added Pin To Net: NetName=SDA Pin=U5-18
+Change Net Name : Old Net Name=SCL New Net Name=SCL1
+Change Net Name : Old Net Name=SDA New Net Name=SDA1
+Add Class Member: Failed to add class member : Component D3 LED0
+Added Room: Name=2230_TubePitotDeporte_Schematic_v1.0.0
