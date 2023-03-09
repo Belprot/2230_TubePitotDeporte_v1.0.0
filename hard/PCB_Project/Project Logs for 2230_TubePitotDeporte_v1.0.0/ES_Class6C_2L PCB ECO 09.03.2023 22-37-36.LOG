@@ -1,0 +1,9 @@
+Removed Pin From Net: NetName=U1RTS Pin=U5-21
+Removed Pin From Net: NetName=RESET_BLE Pin=U5-22
+Add Pin To Net: Unknown Pin: Pin D3-1
+Add Pin To Net: Unknown Pin: Pin D3-2
+Added Pin To Net: NetName=RESET_BLE Pin=U5-21
+Added Pin To Net: NetName=U1RTS Pin=U5-22
+Add Class Member: Failed to add class member : Component D3 LED0
+Added Member To Class: ClassName=2230_TubePitotDeporte_Schematic_v1.0.0 Member=Component U1 RN4678-V/100
+Added Room: Name=2230_TubePitotDeporte_Schematic_v1.0.0
