@@ -1,7 +1,7 @@
 Protel Design System Design Rule Check
-PCB File : P:\School\PROJ\2230_TubePitotDeporte\hard\PCB_Project\ES_Class6C_2L.PcbDoc
-Date     : 12.03.2023
-Time     : 18:39:45
+PCB File : C:\Users\mevricchier\Documents\2230_TubePitotDeporte\hard\PCB_Project\ES_Class6C_2L.PcbDoc
+Date     : 15.03.2023
+Time     : 16:07:12
 
 Processing Rule : Clearance Constraint (Gap=0.151mm) (All),(All)
 Rule Violations :0
@@ -25,7 +25,37 @@ Processing Rule : Power Plane Connect Rule(Relief Connect )(Expansion=0.175mm) (
 Rule Violations :0
 
 Processing Rule : Minimum Annular Ring (Minimum=0.175mm) (((ObjectKind = 'Pad') OR (ObjectKind = 'Via')) And (Layer = 'MultiLayer') And (HoleDiameter <= AsMM(0.45)))
-Rule Violations :0
+   Violation between Minimum Annular Ring: (0.125mm < 0.175mm) Via (51.3mm,22.98mm) from Top Layer to Bottom Layer (Annular Ring=0.125mm) On (Top Layer)
+   Violation between Minimum Annular Ring: (0.125mm < 0.175mm) Via (52.3mm,20.98mm) from Top Layer to Bottom Layer (Annular Ring=0.125mm) On (Top Layer)
+   Violation between Minimum Annular Ring: (0.125mm < 0.175mm) Via (53.3mm,22.98mm) from Top Layer to Bottom Layer (Annular Ring=0.125mm) On (Top Layer)
+   Violation between Minimum Annular Ring: (0.125mm < 0.175mm) Via (54.3mm,20.98mm) from Top Layer to Bottom Layer (Annular Ring=0.125mm) On (Top Layer)
+   Violation between Minimum Annular Ring: (0.125mm < 0.175mm) Via (55.3mm,18.98mm) from Top Layer to Bottom Layer (Annular Ring=0.125mm) On (Top Layer)
+   Violation between Minimum Annular Ring: (0.125mm < 0.175mm) Via (55.3mm,22.98mm) from Top Layer to Bottom Layer (Annular Ring=0.125mm) On (Top Layer)
+   Violation between Minimum Annular Ring: (0.125mm < 0.175mm) Via (56.3mm,20.98mm) from Top Layer to Bottom Layer (Annular Ring=0.125mm) On (Top Layer)
+   Violation between Minimum Annular Ring: (0.125mm < 0.175mm) Via (57.3mm,18.98mm) from Top Layer to Bottom Layer (Annular Ring=0.125mm) On (Top Layer)
+   Violation between Minimum Annular Ring: (0.125mm < 0.175mm) Via (57.3mm,22.98mm) from Top Layer to Bottom Layer (Annular Ring=0.125mm) On (Top Layer)
+   Violation between Minimum Annular Ring: (0.125mm < 0.175mm) Via (59.3mm,18.98mm) from Top Layer to Bottom Layer (Annular Ring=0.125mm) On (Top Layer)
+   Violation between Minimum Annular Ring: (0.125mm < 0.175mm) Via (61.3mm,18.98mm) from Top Layer to Bottom Layer (Annular Ring=0.125mm) On (Top Layer)
+   Violation between Minimum Annular Ring: (0.125mm < 0.175mm) Via (62.3mm,20.98mm) from Top Layer to Bottom Layer (Annular Ring=0.125mm) On (Top Layer)
+   Violation between Minimum Annular Ring: (0.125mm < 0.175mm) Via (63.3mm,18.98mm) from Top Layer to Bottom Layer (Annular Ring=0.125mm) On (Top Layer)
+   Violation between Minimum Annular Ring: (0.125mm < 0.175mm) Via (63.3mm,22.98mm) from Top Layer to Bottom Layer (Annular Ring=0.125mm) On (Top Layer)
+   Violation between Minimum Annular Ring: (0.125mm < 0.175mm) Via (64.3mm,20.98mm) from Top Layer to Bottom Layer (Annular Ring=0.125mm) On (Top Layer)
+   Violation between Minimum Annular Ring: (0.125mm < 0.175mm) Via (65.3mm,18.98mm) from Top Layer to Bottom Layer (Annular Ring=0.125mm) On (Top Layer)
+   Violation between Minimum Annular Ring: (0.125mm < 0.175mm) Via (65.3mm,22.98mm) from Top Layer to Bottom Layer (Annular Ring=0.125mm) On (Top Layer)
+   Violation between Minimum Annular Ring: (0.125mm < 0.175mm) Via (66.3mm,20.98mm) from Top Layer to Bottom Layer (Annular Ring=0.125mm) On (Top Layer)
+   Violation between Minimum Annular Ring: (0.125mm < 0.175mm) Via (67.3mm,18.98mm) from Top Layer to Bottom Layer (Annular Ring=0.125mm) On (Top Layer)
+   Violation between Minimum Annular Ring: (0.125mm < 0.175mm) Via (67.3mm,22.98mm) from Top Layer to Bottom Layer (Annular Ring=0.125mm) On (Top Layer)
+   Violation between Minimum Annular Ring: (0.125mm < 0.175mm) Via (68.3mm,20.98mm) from Top Layer to Bottom Layer (Annular Ring=0.125mm) On (Top Layer)
+   Violation between Minimum Annular Ring: (0.125mm < 0.175mm) Via (69.3mm,22.98mm) from Top Layer to Bottom Layer (Annular Ring=0.125mm) On (Top Layer)
+   Violation between Minimum Annular Ring: (0.125mm < 0.175mm) Via (70.3mm,20.98mm) from Top Layer to Bottom Layer (Annular Ring=0.125mm) On (Top Layer)
+   Violation between Minimum Annular Ring: (0.125mm < 0.175mm) Via (71.3mm,22.98mm) from Top Layer to Bottom Layer (Annular Ring=0.125mm) On (Top Layer)
+   Violation between Minimum Annular Ring: (0.125mm < 0.175mm) Via (73.3mm,22.98mm) from Top Layer to Bottom Layer (Annular Ring=0.125mm) On (Top Layer)
+   Violation between Minimum Annular Ring: (0.125mm < 0.175mm) Via (74.3mm,20.98mm) from Top Layer to Bottom Layer (Annular Ring=0.125mm) On (Top Layer)
+   Violation between Minimum Annular Ring: (0.125mm < 0.175mm) Via (75.3mm,22.98mm) from Top Layer to Bottom Layer (Annular Ring=0.125mm) On (Top Layer)
+   Violation between Minimum Annular Ring: (0.125mm < 0.175mm) Via (76.3mm,20.98mm) from Top Layer to Bottom Layer (Annular Ring=0.125mm) On (Top Layer)
+   Violation between Minimum Annular Ring: (0.125mm < 0.175mm) Via (77.3mm,22.98mm) from Top Layer to Bottom Layer (Annular Ring=0.125mm) On (Top Layer)
+   Violation between Minimum Annular Ring: (0.125mm < 0.175mm) Via (78.3mm,20.98mm) from Top Layer to Bottom Layer (Annular Ring=0.125mm) On (Top Layer)
+Rule Violations :30
 
 Processing Rule : Minimum Annular Ring (Minimum=0.175mm) (((ObjectKind = 'Pad') OR (ObjectKind = 'Via')) And (Layer = 'MultiLayer') And (HoleDiameter > AsMM(0.45)))
 Rule Violations :0
@@ -52,7 +82,8 @@ Processing Rule : Net Antennae (Tolerance=0mm) (All)
 Rule Violations :0
 
 Processing Rule : Board Clearance Constraint (Gap=0mm) (All)
-   Violation between Board Outline Clearance(Outline Edge): (Collision < 0.25mm) Between Board Edge And Text "U6" (-3.341mm,6.453mm) on Bottom Overlay 
+   Violation between Board Outline Clearance(Outline Edge): (0.2mm < 0.25mm) Between Board Edge And Pad P3-MP1(118.1mm,11.65mm) on Top Layer 
+   Violation between Board Outline Clearance(Outline Edge): (0.2mm < 0.25mm) Between Board Edge And Pad P3-MP2(118.1mm,18.35mm) on Top Layer 
    Violation between Board Outline Clearance(Outline Edge): (Collision < 0.25mm) Between Board Edge And Track (-1.961mm,12.61mm)(0.359mm,12.61mm) on Bottom Overlay 
    Violation between Board Outline Clearance(Outline Edge): (Collision < 0.25mm) Between Board Edge And Track (-1.961mm,12.61mm)(-1.961mm,13.026mm) on Bottom Overlay 
    Violation between Board Outline Clearance(Outline Edge): (Collision < 0.25mm) Between Board Edge And Track (-1.961mm,12.61mm)(-1.961mm,13.026mm) on Bottom Overlay 
@@ -77,7 +108,7 @@ Processing Rule : Board Clearance Constraint (Gap=0mm) (All)
    Violation between Board Outline Clearance(Outline Edge): (0.028mm < 0.25mm) Between Board Edge And Track (71.555mm,2.092mm)(71.555mm,3.342mm) on Top Overlay 
    Violation between Board Outline Clearance(Outline Edge): (0.028mm < 0.25mm) Between Board Edge And Track (71.555mm,2.092mm)(80.495mm,2.092mm) on Top Overlay 
    Violation between Board Outline Clearance(Outline Edge): (0.028mm < 0.25mm) Between Board Edge And Track (80.495mm,2.092mm)(80.495mm,3.342mm) on Top Overlay 
-Rule Violations :25
+Rule Violations :26
 
 Processing Rule : Component Clearance Constraint ( Horizontal Gap = 0.25mm, Vertical Gap = 0.25mm ) (All),(All) 
 Rule Violations :0
@@ -86,7 +117,6 @@ Processing Rule : Height Constraint (Min=0mm) (Max=25mm) (Prefered=12.5mm) (All)
 Rule Violations :0
 
 
-Violations Detected : 25
+Violations Detected : 56
 Waived Violations : 0
-PCB Health Issues : 0
-Time Elapsed        : 00:00:02
+Time Elapsed        : 00:00:01
