@@ -1,0 +1,29 @@
+Change Component Footprint: Designator=J3 Old Footprint=FP-SM02B-GHS-TB_LF_SN-MFG New Footprint=FP-BM03B-GHS-TBT_LF_SN-MFG
+Change Component Comment : Designator=J3 Old Comment=SM02B-GHS-TB(LF)(SN) New Comment=BM03B-GHS-TBT(LF)(SN)(N)
+Change Managed Component Library Link : Designator=J3 Old VaultGUID=B7D15EC3-160A-466F-A46C-7801FE6295A7 New VaultGUID=B7D15EC3-160A-466F-A46C-7801FE6295A7 Old ItemGUID=553A0A49-74B5-4373-A55D-69D15CF7B644 New ItemGUID=18355CBE-A281-47ED-9447-FB2456767574 Old RevisionGUID=1FB2ED07-084D-4A1C-BEAB-FA0E09279245 New RevisionGUID=E3D542E9-CA13-47BC-8B11-3CA8F6BF4249
+Change component parameters: Designator = "J3" ("J3"); Footprint = "FP-SM02B-GHS-TB_LF_SN-MFG"; UniqueID = "\WJJFHBEV" ("\WJJFHBEV")
+Change component parameters (AddParameter): Name = "Color"; Value = "Natural"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Connector Type"; Value = "Header"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Contact Finish - Mating"; Value = "TIN"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Contact Material"; Value = "Bronze"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Contact Plating"; Value = "Tin"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Contact Shape"; Value = "Rectangular"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Contact Type"; Value = "Outer Shroud Contact"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Fastening Type"; Value = "Ramp"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Flammability Rating"; Value = "UL94 V-0"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Insulation Color"; Value = "Natural"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Insulation Material"; Value = "Nylon"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Lead Free"; Value = "Lead Free"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Max Operating Temperature"; Value = "85°C"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Min Operating Temperature"; Value = "-25°C"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Mount"; Value = "Surface Mount"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Number of Positions"; Value = "3"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Number of Rows"; Value = "1"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Packaging"; Value = "Cut Tape"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Pitch"; Value = "0.049inch"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Series"; Value = "GH"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Termination"; Value = "Solder"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=NetJ3_3 Pin=J3-3
+Added Pin To Net: NetName=NetJ3_3 Pin=Q2-3
+Added Net: Name=NetJ3_3
+Added Room: Name=2230_TubePitotDeporte_Schematic_v1.0.0

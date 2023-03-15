@@ -1,0 +1,427 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html">
+<style type="text/css">
+		h1, h2, h3, h4, h5, h6 {
+			font-family : segoe ui;
+			color : black;
+			background-color : #EDE7D9;
+			padding: 0.3em;
+		}
+
+		h1 {
+			font-size: 1.2em;
+		}		
+
+		h2 {
+			font-size: 1.2em;
+		}
+
+		body {
+			font-family : segoe ui;
+		}
+
+		td, th {
+			padding: 0.5em;
+			text-align : left;
+			width: 10em;
+		}
+		th {
+			background-color : #EEEEEE;
+
+		}
+		th.column1, td.column1 {
+			text-align: left;
+			width : auto;
+		}
+		table {
+			width : 100%;
+			font-size: 0.9em;
+		}
+
+		.DRC_summary_header {
+			padding-bottom : 0.1em;
+			border : 0px solid black;
+			width: 100%;
+			align: left;
+		}
+
+		.DRC_summary_header_col1,
+		.DRC_summary_header_col2, 
+		.DRC_summary_header_col3 {
+			color : black;
+			font-size:100%;
+			padding : 0em;
+			padding-top : 0.2em;
+			padding-bottom 0.2em;
+			border : 0px solid black;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.DRC_summary_header_col1 {
+			font-weight: bold;
+			width: 9em;
+		}
+
+		.DRC_summary_header_col2 {
+			width: 0.1em;
+		
+		}
+
+		.DRC_summary_header_col3 {
+			width : auto;
+		}
+
+		.header_holder {
+		    Width = 100%;
+		    border = 0px solid green;
+		    padding = 0;
+		}
+
+
+		.front_matter, .front_matter_column1, .front_matter_column2, .front_matter_column3
+		{
+			left : 0;
+			top : 0;
+			padding: 0em;
+			padding-top : 0.1em;
+			border : 0px solid black;
+			width : 100%;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.front_matter_column1 {
+			width : 8em;
+			font-weight: bold;
+		}
+
+		.front_matter_column2 {
+			width: 0.1em;
+		}
+
+		.front_matter_column3 {
+			width : auto;
+		}
+
+		.total_column1, .total_column {
+			font-weight : bold;
+		}
+		.total_column1 {
+			text-align : left;
+		}
+		.warning, .error {
+			color : red;
+			font-weight : bold;
+		}
+		tr.onmouseout_odd {
+			background-color : #white;
+		}
+		tr.onmouseout_even { 
+			background-color : #FAFAFA;
+		}
+		tr.onmouseover_odd, tr.onmouseover_even { 
+			background-color : #EEEEEE;
+		} 
+		a:link, a:visited, .q a:link,.q a:active,.q {
+			color: #21489e; 
+		}
+		a:link.callback, a:visited.callback { 
+			color: #21489e;
+		}
+		a:link.customize, a:visited.customize {
+			color: #C0C0C0;
+			position: absolute; 
+			right: 10px;
+		}	
+		p.contents_level1 {
+			font-weight : bold;
+			font-size : 110%;
+			margin : 0.5em;
+		}
+		p.contents_level2 {
+			position : relative;
+			left : 20px;
+			margin : 0.5em;
+		}
+	</style><script type="text/javascript">
+		function coordToMils(coord) {
+			var number = coord / 10000;
+			
+			if (number != number.toFixed(3))
+				number = number.toFixed(3);
+
+			return number + 'mil'
+		}
+
+		function coordToMM(coord) {
+			var number = 0.0254 * coord / 10000;
+			
+			if (number != number.toFixed(4))
+				number = number.toFixed(4);
+			
+			return number + 'mm'
+		}
+	
+		function convertCoord(coordNode, units) {
+			for (var i = 0; i < coordNode.childNodes.length; i++) {
+				coordNode.removeChild(coordNode.childNodes[i]);
+			}
+
+			var coord = coordNode.getAttribute('value');
+			if (coord != null) {
+				if (units == 'mm') {
+					textNode = document.createTextNode(coordToMM(coord));
+					coordNode.appendChild(textNode);
+				} else if (units == 'mil') {
+					textNode = document.createTextNode(coordToMils(coord));		
+					coordNode.appendChild(textNode);	
+				}
+			}
+		}
+	
+		function convertUnits(unitNode, units) {
+			for (var i = 0; i < unitNode.childNodes.length; i++) {
+				unitNode.removeChild(unitNode.childNodes[i]);		
+			}
+		
+			textNode = document.createTextNode(units); 
+			unitNode.appendChild(textNode);
+		}
+	
+		function changeUnits(radio_input, units) {
+			if (radio_input.checked) {
+			
+				var elements = document.getElementsByName('coordinate');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertCoord(elements[i], units);
+					}
+				}
+	
+				var elements = document.getElementsByName('units');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertUnits(elements[i], units);
+					}
+				}
+			}
+		}
+	</script><title>Design Rule Verification Report</title>
+</head>
+<body onload=""><img ALT="Altium" src="
+			file://C:\Users\Public\Documents\Altium\AD22\Templates\AD_logo.png
+		"><h1>Design Rule Verification Report</h1>
+<table class="header_holder">
+<td class="column1">
+<table class="front_matter">
+<tr class="front_matter">
+<td class="front_matter_column1">Date:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">12.03.2023</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">18:39:45</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Elapsed Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">00:00:02</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Filename:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3"><a href="file:///P:\School\PROJ\2230_TubePitotDeporte\hard\PCB_Project\ES_Class6C_2L.PcbDoc" class="file"><acronym title="P:\School\PROJ\2230_TubePitotDeporte\hard\PCB_Project\ES_Class6C_2L.PcbDoc">P:\School\PROJ\2230_TubePitotDeporte\hard\PCB_Project\ES_Class6C_2L.PcbDoc</acronym></a></td>
+</tr>
+</table>
+</td>
+<td class="column2">
+<table class="DRC_summary_header">
+<tr>
+<td class="DRC_summary_header_col1">Warnings:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3">0</td></tr>
+<tr>
+<td class="DRC_summary_header_col1">Rule Violations:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3" style="color : red">25</td></tr>
+</table>
+</td>
+</table><a name="IDQM15WGP1IQ3FHSAFJ5TVJHZYNJYLBWLZ0MBVUHIX2OSYGVRT5CJJ"><h2>Summary</h2></a><table>
+<tr>
+<th class="column1">Warnings</th>
+<th class="column2">Count</th>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">0</td>
+</tr>
+</table><br><table>
+<tr>
+<th class="column1">Rule Violations</th>
+<th class="column2">Count</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDV05120MJ1QKNMTY22ORHOZWJYJXTI3S332J4YUK0AEM3RFPK4RUH">Clearance Constraint (Gap=0.151mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDVTWX44230CIODKRIBAU5CWTKFCN3GUZFEETCNZHTUOP4MVAY5I2E">Short-Circuit Constraint (Allowed=No) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDKDSCZO5OWBDWFMP2W2EBI5RTBICURTU4IOV0UYI1VV2SKKPMS42C">Un-Routed Net Constraint ( (All) )</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID5EUY02LMXFC3MBSWPPMWSCNGGJKU5SLT2ZOIMMNHP5JF2KTTAMAH">Modified Polygon (Allow modified: No), (Allow shelved: No)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDARAWBSK3FOS0KXT4AYBEDCXWKMM1ABEOOORYRGDACURR0MF353FD">Width Constraint (Min=0.254mm) (Max=0.5mm) (Preferred=0.3mm) (InNetClass('PowerLine'))</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID00WUQNWODNJDNZLWL5WI1USKFPEKI3KWUOYFE1N201VNBUZUOM4N">Width Constraint (Min=0.254mm) (Max=0.254mm) (Preferred=0.254mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDZZQQPKKWP45GCXIQAZINBBME4DT2RLSCIAWOAQO5LCELSDEBUYDM">Power Plane Connect Rule(Relief Connect )(Expansion=0.175mm) (Conductor Width=0.2mm) (Air Gap=0.2mm) (Entries=4) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDJQHLETK222JELI44EQYNR1Z43HCZZ0U3ZAW15VGGDXNMD2OUR54H">Minimum Annular Ring (Minimum=0.175mm) (((ObjectKind = 'Pad') OR (ObjectKind = 'Via')) And (Layer = 'MultiLayer') And (HoleDiameter &lt;= AsMM(0.45)))</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID4CTHCWWI4X3LI1XLQNCKP52U2CKCNC4U0TLMDBF4E2SD20E0RNKB">Minimum Annular Ring (Minimum=0.175mm) (((ObjectKind = 'Pad') OR (ObjectKind = 'Via')) And (Layer = 'MultiLayer') And (HoleDiameter &gt; AsMM(0.45)))</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDODAFUREW2AHTJYO1HCPUZROI1BXEAQDBSQWDOB3YKOCMATUPW1H">Hole Size Constraint (Min=0.25mm) (Max=10mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDT1YXKKUW2SY0FLLW4TGDGZAKUEK4XIVYUPLLCEBZ4QOQCU2EWVNJ">Pads and Vias to follow the Drill pairs settings</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDYLWJLI5UUUHYBZ1HXKKQXJA1OHIX1T0FBSRTCEC2WOGKLAOXRYPF">Hole To Hole Clearance (Gap=0.35mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDKTFIU3NWFCLQERU3BESKXKVS0P4AQRK4M4LVM3BKK5KU5QPTKPHO">Minimum Solder Mask Sliver (Gap=0.08mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID5RVUDFJXXYB3OZP4444VRDORGBMZIKYOO0AH5MGOQVAJOZTNE3MJ">Silk To Solder Mask (Clearance=0.05mm) (IsPad),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDQEHBGOU2MCOWH45FEGVXVPESLNTUVD4NIO1ZJZOQ1MH1KCHAR50P">Silk to Silk (Clearance=0.2mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDGFQOP3DRZODWPKSUIGKFVGAXRFWJYPMYRLUFM2MIUYJE4VZYOXMJ">Net Antennae (Tolerance=0mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDQB3OJT0YIN2E02WOQ2SUY0XIEEDWF1GCTPHKUCDHZUETLRZVFBP">Board Clearance Constraint (Gap=0mm) (All)</a></td>
+<td class="column2">25</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDPCVBUUUP045YO4A3YTZYDVPL3OICJYAIW05YECGLSYKWBSZQ34AK">Component Clearance Constraint ( Horizontal Gap = 0.25mm, Vertical Gap = 0.25mm ) (All),(All) </a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID200EMHDDHLLWB1H2J1INRY2NAOHXDREUBKSXJVKCZR1BDGZN5Q5O">Height Constraint (Min=0mm) (Max=25mm) (Prefered=12.5mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">25</td>
+</tr>
+</table><br><a name="IDQB3OJT0YIN2E02WOQ2SUY0XIEEDWF1GCTPHKUCDHZUETLRZVFBP"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Board Clearance Constraint (Gap=0mm) (All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=P:\School\PROJ\2230_TubePitotDeporte\hard\PCB_Project\ES_Class6C_2L.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10257.197mil|Location2.X=10264.758mil|Location1.Y=11362.8mil|Location2.Y=11370.361mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=P:\School\PROJ\2230_TubePitotDeporte\hard\PCB_Project\ES_Class6C_2L.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10257.197mil|Location2.X=10264.758mil|Location1.Y=11362.8mil|Location2.Y=11370.361mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Text "U6" (-3.341mm,6.453mm) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=P:\School\PROJ\2230_TubePitotDeporte\hard\PCB_Project\ES_Class6C_2L.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10298mil|Location2.X=10305.562mil|Location1.Y=11635.195mil|Location2.Y=11642.757mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=P:\School\PROJ\2230_TubePitotDeporte\hard\PCB_Project\ES_Class6C_2L.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10298mil|Location2.X=10305.562mil|Location1.Y=11635.195mil|Location2.Y=11642.757mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Track (-1.961mm,12.61mm)(0.359mm,12.61mm) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=P:\School\PROJ\2230_TubePitotDeporte\hard\PCB_Project\ES_Class6C_2L.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10261.524mil|Location2.X=10269.085mil|Location1.Y=11643.385mil|Location2.Y=11650.946mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=P:\School\PROJ\2230_TubePitotDeporte\hard\PCB_Project\ES_Class6C_2L.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10261.524mil|Location2.X=10269.085mil|Location1.Y=11643.385mil|Location2.Y=11650.946mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Track (-1.961mm,12.61mm)(-1.961mm,13.026mm) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=P:\School\PROJ\2230_TubePitotDeporte\hard\PCB_Project\ES_Class6C_2L.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10261.524mil|Location2.X=10269.085mil|Location1.Y=11643.385mil|Location2.Y=11650.946mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=P:\School\PROJ\2230_TubePitotDeporte\hard\PCB_Project\ES_Class6C_2L.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10261.524mil|Location2.X=10269.085mil|Location1.Y=11643.385mil|Location2.Y=11650.946mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Track (-1.961mm,12.61mm)(-1.961mm,13.026mm) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=P:\School\PROJ\2230_TubePitotDeporte\hard\PCB_Project\ES_Class6C_2L.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10298mil|Location2.X=10305.562mil|Location1.Y=11651.574mil|Location2.Y=11659.135mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=P:\School\PROJ\2230_TubePitotDeporte\hard\PCB_Project\ES_Class6C_2L.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10298mil|Location2.X=10305.562mil|Location1.Y=11651.574mil|Location2.Y=11659.135mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Track (-1.961mm,13.026mm)(0.359mm,13.026mm) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=P:\School\PROJ\2230_TubePitotDeporte\hard\PCB_Project\ES_Class6C_2L.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10298mil|Location2.X=10305.562mil|Location1.Y=11807.006mil|Location2.Y=11814.568mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=P:\School\PROJ\2230_TubePitotDeporte\hard\PCB_Project\ES_Class6C_2L.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10298mil|Location2.X=10305.562mil|Location1.Y=11807.006mil|Location2.Y=11814.568mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Track (-1.961mm,16.974mm)(0.359mm,16.974mm) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=P:\School\PROJ\2230_TubePitotDeporte\hard\PCB_Project\ES_Class6C_2L.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10261.524mil|Location2.X=10269.085mil|Location1.Y=11815.195mil|Location2.Y=11822.757mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=P:\School\PROJ\2230_TubePitotDeporte\hard\PCB_Project\ES_Class6C_2L.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10261.524mil|Location2.X=10269.085mil|Location1.Y=11815.195mil|Location2.Y=11822.757mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Track (-1.961mm,16.974mm)(-1.961mm,17.39mm) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=P:\School\PROJ\2230_TubePitotDeporte\hard\PCB_Project\ES_Class6C_2L.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10261.524mil|Location2.X=10269.085mil|Location1.Y=11815.195mil|Location2.Y=11822.757mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=P:\School\PROJ\2230_TubePitotDeporte\hard\PCB_Project\ES_Class6C_2L.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10261.524mil|Location2.X=10269.085mil|Location1.Y=11815.195mil|Location2.Y=11822.757mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Track (-1.961mm,16.974mm)(-1.961mm,17.39mm) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=P:\School\PROJ\2230_TubePitotDeporte\hard\PCB_Project\ES_Class6C_2L.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10298mil|Location2.X=10305.562mil|Location1.Y=11823.385mil|Location2.Y=11830.946mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=P:\School\PROJ\2230_TubePitotDeporte\hard\PCB_Project\ES_Class6C_2L.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10298mil|Location2.X=10305.562mil|Location1.Y=11823.385mil|Location2.Y=11830.946mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Track (-1.961mm,17.39mm)(0.359mm,17.39mm) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=P:\School\PROJ\2230_TubePitotDeporte\hard\PCB_Project\ES_Class6C_2L.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10255.815mil|Location2.X=10263.377mil|Location1.Y=11627.006mil|Location2.Y=11634.568mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=P:\School\PROJ\2230_TubePitotDeporte\hard\PCB_Project\ES_Class6C_2L.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10255.815mil|Location2.X=10263.377mil|Location1.Y=11627.006mil|Location2.Y=11634.568mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Track (-2.251mm,12.194mm)(-1.961mm,12.61mm) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=P:\School\PROJ\2230_TubePitotDeporte\hard\PCB_Project\ES_Class6C_2L.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10255.815mil|Location2.X=10263.377mil|Location1.Y=11659.743mil|Location2.Y=11667.304mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=P:\School\PROJ\2230_TubePitotDeporte\hard\PCB_Project\ES_Class6C_2L.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10255.815mil|Location2.X=10263.377mil|Location1.Y=11659.743mil|Location2.Y=11667.304mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Track (-2.251mm,13.441mm)(-1.961mm,13.026mm) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=P:\School\PROJ\2230_TubePitotDeporte\hard\PCB_Project\ES_Class6C_2L.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10255.815mil|Location2.X=10263.377mil|Location1.Y=11798.837mil|Location2.Y=11806.399mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=P:\School\PROJ\2230_TubePitotDeporte\hard\PCB_Project\ES_Class6C_2L.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10255.815mil|Location2.X=10263.377mil|Location1.Y=11798.837mil|Location2.Y=11806.399mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Track (-2.251mm,16.559mm)(-1.961mm,16.974mm) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=P:\School\PROJ\2230_TubePitotDeporte\hard\PCB_Project\ES_Class6C_2L.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10255.815mil|Location2.X=10263.377mil|Location1.Y=11831.574mil|Location2.Y=11839.135mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=P:\School\PROJ\2230_TubePitotDeporte\hard\PCB_Project\ES_Class6C_2L.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10255.815mil|Location2.X=10263.377mil|Location1.Y=11831.574mil|Location2.Y=11839.135mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Track (-2.251mm,17.806mm)(-1.961mm,17.39mm) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=P:\School\PROJ\2230_TubePitotDeporte\hard\PCB_Project\ES_Class6C_2L.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10244.398mil|Location2.X=10251.959mil|Location1.Y=11618.818mil|Location2.Y=11626.379mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=P:\School\PROJ\2230_TubePitotDeporte\hard\PCB_Project\ES_Class6C_2L.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10244.398mil|Location2.X=10251.959mil|Location1.Y=11618.818mil|Location2.Y=11626.379mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Track (-2.541mm,12.194mm)(-2.251mm,12.194mm) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=P:\School\PROJ\2230_TubePitotDeporte\hard\PCB_Project\ES_Class6C_2L.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10238.689mil|Location2.X=10246.251mil|Location1.Y=11635.195mil|Location2.Y=11642.757mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=P:\School\PROJ\2230_TubePitotDeporte\hard\PCB_Project\ES_Class6C_2L.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10238.689mil|Location2.X=10246.251mil|Location1.Y=11635.195mil|Location2.Y=11642.757mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Track (-2.541mm,12.194mm)(-2.541mm,13.026mm) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=P:\School\PROJ\2230_TubePitotDeporte\hard\PCB_Project\ES_Class6C_2L.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10238.689mil|Location2.X=10246.251mil|Location1.Y=11643.365mil|Location2.Y=11650.926mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=P:\School\PROJ\2230_TubePitotDeporte\hard\PCB_Project\ES_Class6C_2L.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10238.689mil|Location2.X=10246.251mil|Location1.Y=11643.365mil|Location2.Y=11650.926mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Track (-2.541mm,12.194mm)(-2.541mm,13.441mm) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=P:\School\PROJ\2230_TubePitotDeporte\hard\PCB_Project\ES_Class6C_2L.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10244.398mil|Location2.X=10251.959mil|Location1.Y=11667.912mil|Location2.Y=11675.474mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=P:\School\PROJ\2230_TubePitotDeporte\hard\PCB_Project\ES_Class6C_2L.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10244.398mil|Location2.X=10251.959mil|Location1.Y=11667.912mil|Location2.Y=11675.474mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Track (-2.541mm,13.441mm)(-2.251mm,13.441mm) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=P:\School\PROJ\2230_TubePitotDeporte\hard\PCB_Project\ES_Class6C_2L.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10244.398mil|Location2.X=10251.959mil|Location1.Y=11790.668mil|Location2.Y=11798.23mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=P:\School\PROJ\2230_TubePitotDeporte\hard\PCB_Project\ES_Class6C_2L.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10244.398mil|Location2.X=10251.959mil|Location1.Y=11790.668mil|Location2.Y=11798.23mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Track (-2.541mm,16.559mm)(-2.251mm,16.559mm) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=P:\School\PROJ\2230_TubePitotDeporte\hard\PCB_Project\ES_Class6C_2L.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10238.689mil|Location2.X=10246.251mil|Location1.Y=11798.837mil|Location2.Y=11806.399mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=P:\School\PROJ\2230_TubePitotDeporte\hard\PCB_Project\ES_Class6C_2L.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10238.689mil|Location2.X=10246.251mil|Location1.Y=11798.837mil|Location2.Y=11806.399mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Track (-2.541mm,16.559mm)(-2.541mm,16.974mm) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=P:\School\PROJ\2230_TubePitotDeporte\hard\PCB_Project\ES_Class6C_2L.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10238.689mil|Location2.X=10246.251mil|Location1.Y=11815.215mil|Location2.Y=11822.777mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=P:\School\PROJ\2230_TubePitotDeporte\hard\PCB_Project\ES_Class6C_2L.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10238.689mil|Location2.X=10246.251mil|Location1.Y=11815.215mil|Location2.Y=11822.777mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Track (-2.541mm,16.559mm)(-2.541mm,17.806mm) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=P:\School\PROJ\2230_TubePitotDeporte\hard\PCB_Project\ES_Class6C_2L.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10244.398mil|Location2.X=10251.959mil|Location1.Y=11839.762mil|Location2.Y=11847.324mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=P:\School\PROJ\2230_TubePitotDeporte\hard\PCB_Project\ES_Class6C_2L.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=10244.398mil|Location2.X=10251.959mil|Location1.Y=11839.762mil|Location2.Y=11847.324mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.25mm) Between Board Edge And Track (-2.541mm,17.806mm)(-2.251mm,17.806mm) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=P:\School\PROJ\2230_TubePitotDeporte\hard\PCB_Project\ES_Class6C_2L.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=12620.438mil|Location2.X=12631.53mil|Location1.Y=12239.11mil|Location2.Y=12250.202mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=P:\School\PROJ\2230_TubePitotDeporte\hard\PCB_Project\ES_Class6C_2L.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=12620.438mil|Location2.X=12631.53mil|Location1.Y=12239.11mil|Location2.Y=12250.202mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.012mm &lt; 0.25mm) Between Board Edge And Track (58mm,27.925mm)(70mm,27.925mm) on Bottom Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=P:\School\PROJ\2230_TubePitotDeporte\hard\PCB_Project\ES_Class6C_2L.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=13154.099mil|Location2.X=13165.192mil|Location1.Y=11216.274mil|Location2.Y=11227.366mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=P:\School\PROJ\2230_TubePitotDeporte\hard\PCB_Project\ES_Class6C_2L.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=13154.099mil|Location2.X=13165.192mil|Location1.Y=11216.274mil|Location2.Y=11227.366mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.028mm &lt; 0.25mm) Between Board Edge And Track (71.555mm,2.092mm)(71.555mm,3.342mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=P:\School\PROJ\2230_TubePitotDeporte\hard\PCB_Project\ES_Class6C_2L.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=13506.068mil|Location2.X=13517.16mil|Location1.Y=11216.274mil|Location2.Y=11227.366mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=P:\School\PROJ\2230_TubePitotDeporte\hard\PCB_Project\ES_Class6C_2L.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=13506.068mil|Location2.X=13517.16mil|Location1.Y=11216.274mil|Location2.Y=11227.366mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.028mm &lt; 0.25mm) Between Board Edge And Track (71.555mm,2.092mm)(80.495mm,2.092mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=P:\School\PROJ\2230_TubePitotDeporte\hard\PCB_Project\ES_Class6C_2L.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=13506.068mil|Location2.X=13517.16mil|Location1.Y=11216.274mil|Location2.Y=11227.366mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=P:\School\PROJ\2230_TubePitotDeporte\hard\PCB_Project\ES_Class6C_2L.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=13506.068mil|Location2.X=13517.16mil|Location1.Y=11216.274mil|Location2.Y=11227.366mil|Absolute=True">Board Outline Clearance(Outline Edge): (0.028mm &lt; 0.25mm) Between Board Edge And Track (80.495mm,2.092mm)(80.495mm,3.342mm) on Top Overlay </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br></body>
+</html>
