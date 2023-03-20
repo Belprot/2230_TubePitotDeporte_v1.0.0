@@ -1,0 +1,20 @@
+----------------------------------------------------------------------------------------------------------------------------------
+NCDrill File Report For: 2230_TubePitotDeporte_PCB_v1.0.0.PcbDoc   20.03.2023  23:05:14
+----------------------------------------------------------------------------------------------------------------------------------
+
+Layer Pair : Top Layer to Bottom Layer
+ASCII RoundHoles File : 2230_TubePitotDeporte_PCB_v1.0.0-RoundHoles.TXT
+ASCII SlotHoles File : 2230_TubePitotDeporte_PCB_v1.0.0-SlotHoles.TXT
+
+Tool       Hole Size               Hole Tolerance               Hole Type       Hole Count   Plated         Tool Travel
+----------------------------------------------------------------------------------------------------------------------------------
+T1      0.3mm (12mil)                                             Round             47        PTH        293.51mm (11.56inch)
+T2      0.35mm (14mil)                                            Round             64        PTH        412.54mm (16.24inch)
+T3      0.5mm (20mil)                                             Slot              4         PTH        35.31mm (1.39inch)
+T4      0.762mm (30mil)                                           Round             8         PTH        106.82mm (4.21inch)
+T5      1mm (39mil)                                               Round             3         PTH        5.08mm (0.20inch)
+T6      10mm (394mil)                                             Round             2         PTH        48.57mm (1.91inch)
+----------------------------------------------------------------------------------------------------------------------------------
+Totals                                                                              128
+
+Total Processing Time (hh:mm:ss) : 00:00:00
