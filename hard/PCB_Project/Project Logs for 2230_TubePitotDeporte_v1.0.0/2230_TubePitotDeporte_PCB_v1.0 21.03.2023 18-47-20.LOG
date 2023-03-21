@@ -1,0 +1,13 @@
+Added Component: Designator=P1(UJC-HP-3-SMT-TR)
+Added Pin To Net: NetName=NetP1_A5 Pin=P1-A5
+Added Pin To Net: NetName=VBUS Pin=P1-A9
+Added Pin To Net: NetName=GND Pin=P1-A12
+Added Pin To Net: NetName=NetP1_B5 Pin=P1-B5
+Added Pin To Net: NetName=VBUS Pin=P1-B9
+Added Pin To Net: NetName=GND Pin=P1-B12
+Added Pin To Net: NetName=GND Pin=P1-S1
+Added Pin To Net: NetName=GND Pin=P1-S2
+Added Pin To Net: NetName=GND Pin=P1-S3
+Added Pin To Net: NetName=GND Pin=P1-S4
+Added Member To Class: ClassName=2230_TubePitotDeporte_Schematic_v1.0.0 Member=Component P1 UJC-HP-3-SMT-TR
+Added Room: Name=2230_TubePitotDeporte_Schematic_v1.0.0

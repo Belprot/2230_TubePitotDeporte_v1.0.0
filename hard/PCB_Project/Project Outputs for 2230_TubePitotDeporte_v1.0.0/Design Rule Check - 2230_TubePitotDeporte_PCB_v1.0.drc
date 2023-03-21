@@ -1,7 +1,7 @@
 Protel Design System Design Rule Check
-PCB File : P:\School\PROJ\2230_TubePitotDeporte\hard\PCB_Project\2230_TubePitotDeporte_PCB_v1.0.0.PcbDoc
-Date     : 20.03.2023
-Time     : 23:03:21
+PCB File : C:\Users\mevricchier\Documents\2230_TubePitotDeporte\hard\PCB_Project\2230_TubePitotDeporte_PCB_v1.0.0.PcbDoc
+Date     : 21.03.2023
+Time     : 20:34:24
 
 Processing Rule : Clearance Constraint (Gap=0.151mm) (All),(All)
 Rule Violations :0
@@ -30,7 +30,7 @@ Rule Violations :0
 Processing Rule : Minimum Annular Ring (Minimum=0.175mm) (((ObjectKind = 'Pad') OR (ObjectKind = 'Via')) And (Layer = 'MultiLayer') And (HoleDiameter > AsMM(0.45)))
 Rule Violations :0
 
-Processing Rule : Hole Size Constraint (Min=0.25mm) (Max=10mm) (All)
+Processing Rule : Hole Size Constraint (Min=0.25mm) (Max=15mm) (All)
 Rule Violations :0
 
 Processing Rule : Pads and Vias to follow the Drill pairs settings
@@ -53,9 +53,9 @@ Rule Violations :0
 
 Processing Rule : Board Clearance Constraint (Gap=0mm) (All)
    Violation between Board Outline Clearance(Outline Edge): (0.012mm < 0.25mm) Between Board Edge And Track (58mm,27.925mm)(70mm,27.925mm) on Bottom Overlay 
-   Violation between Board Outline Clearance(Outline Edge): (0.028mm < 0.25mm) Between Board Edge And Track (71.555mm,2.092mm)(71.555mm,3.342mm) on Top Overlay 
-   Violation between Board Outline Clearance(Outline Edge): (0.028mm < 0.25mm) Between Board Edge And Track (71.555mm,2.092mm)(80.495mm,2.092mm) on Top Overlay 
-   Violation between Board Outline Clearance(Outline Edge): (0.028mm < 0.25mm) Between Board Edge And Track (80.495mm,2.092mm)(80.495mm,3.342mm) on Top Overlay 
+   Violation between Board Outline Clearance(Outline Edge): (0.029mm < 0.25mm) Between Board Edge And Track (71.555mm,2.092mm)(71.555mm,3.342mm) on Top Overlay 
+   Violation between Board Outline Clearance(Outline Edge): (0.029mm < 0.25mm) Between Board Edge And Track (71.555mm,2.092mm)(80.495mm,2.092mm) on Top Overlay 
+   Violation between Board Outline Clearance(Outline Edge): (0.029mm < 0.25mm) Between Board Edge And Track (80.495mm,2.092mm)(80.495mm,3.342mm) on Top Overlay 
 Rule Violations :4
 
 Processing Rule : Component Clearance Constraint ( Horizontal Gap = 0.25mm, Vertical Gap = 0.25mm ) (All),(All) 
@@ -67,5 +67,4 @@ Rule Violations :0
 
 Violations Detected : 4
 Waived Violations : 0
-PCB Health Issues : 0
-Time Elapsed        : 00:00:02
+Time Elapsed        : 00:00:01

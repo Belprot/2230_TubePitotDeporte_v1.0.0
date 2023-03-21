@@ -1,8 +1,8 @@
-%TF.GenerationSoftware,Altium Limited,Altium Designer,22.5.1 (42)*%
+%TF.GenerationSoftware,Altium Limited,Altium Designer,22.7.1 (60)*%
 G04 Layer_Color=32768*
 %FSLAX43Y43*%
 %MOMM*%
-%TF.SameCoordinates,F834D1AD-2218-43A0-9239-15D80BA758C3*%
+%TF.SameCoordinates,9191ECB2-230E-4BD1-81F0-C314D0E832B5*%
 %TF.FilePolarity,Positive*%
 %TF.FileFunction,Other,Board_Outline_(ES)*%
 %TF.Part,Single*%
@@ -48,5 +48,5 @@ X2500Y30000D02*
 X12500D01*
 X14500Y2000D02*
 X105500Y2000D01*
-%TF.MD5,220f7604c5b18a843b0c00f3890615eb*%
+%TF.MD5,a467152807f52d25218e76acc6d0eb10*%
 M02*
