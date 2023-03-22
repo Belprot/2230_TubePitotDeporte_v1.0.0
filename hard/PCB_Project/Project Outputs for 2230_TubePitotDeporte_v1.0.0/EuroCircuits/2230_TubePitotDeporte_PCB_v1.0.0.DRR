@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------------------------------------------------------------------
-NCDrill File Report For: 2230_TubePitotDeporte_PCB_v1.0.0.PcbDoc   21.03.2023  13:03:49
+NCDrill File Report For: 2230_TubePitotDeporte_PCB_v1.0.0.PcbDoc   22.03.2023  08:36:53
 ----------------------------------------------------------------------------------------------------------------------------------
 
 Layer Pair : Top Layer to Bottom Layer
@@ -8,13 +8,13 @@ ASCII SlotHoles File : 2230_TubePitotDeporte_PCB_v1.0.0-SlotHoles.TXT
 
 Tool       Hole Size               Hole Tolerance               Hole Type       Hole Count   Plated         Tool Travel
 ----------------------------------------------------------------------------------------------------------------------------------
-T1      0.3mm (12mil)                                             Round             47        PTH        293.91mm (11.57inch)
-T2      0.35mm (14mil)                                            Round             63        PTH        402.54mm (15.85inch)
+T1      0.3mm (12mil)                                             Round             51        PTH        287.43mm (11.32inch)
+T2      0.35mm (14mil)                                            Round             64        PTH        403.72mm (15.89inch)
 T3      0.5mm (20mil)                                             Slot              4         PTH        35.31mm (1.39inch)
 T4      0.762mm (30mil)                                           Round             8         PTH        106.82mm (4.21inch)
 T5      1mm (39mil)                                               Round             3         PTH        5.08mm (0.20inch)
 T6      11mm (433mil)                                             Round             2         PTH        48.57mm (1.91inch)
 ----------------------------------------------------------------------------------------------------------------------------------
-Totals                                                                              127
+Totals                                                                              132
 
 Total Processing Time (hh:mm:ss) : 00:00:00

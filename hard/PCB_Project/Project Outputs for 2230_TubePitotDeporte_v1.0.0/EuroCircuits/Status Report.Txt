@@ -1,14 +1,13 @@
-Project Outputs Generation Report
----------------------------------
-Start Output Generation At 18:55:51 On 21.03.2023
+Output: NC Drill Files
+Type  : NC Drill
+From  : PCB Document [2230_TubePitotDeporte_PCB_v1.0.0.PcbDoc]
+   Generated File[2230_TubePitotDeporte_PCB_v1.0.0-RoundHoles.TXT]
+   Generated File[2230_TubePitotDeporte_PCB_v1.0.0-SlotHoles.TXT]
+   Generated File[2230_TubePitotDeporte_PCB_v1.0.0.LDP]
+   Generated File[2230_TubePitotDeporte_PCB_v1.0.0.DRR]
 
-Output: Export STEP
-Type  : ExportSTEP
-From  : Variant [[No Variations]] of PCB Document [2230_TubePitotDeporte_PCB_v1.0.0.PcbDoc]
-   Generated File[2230_TubePitotDeporte_PCB_v1.0.0.step]
 
-
-Files Generated   : 1
+Files Generated   : 4
 Documents Printed : 0
 
-Finished Output Generation At 18:56:10 On 21.03.2023
+Finished Output Generation At 08:36:53 On 22.03.2023

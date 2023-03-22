@@ -1,7 +1,7 @@
 Protel Design System Design Rule Check
 PCB File : C:\Users\mevricchier\Documents\2230_TubePitotDeporte\hard\PCB_Project\2230_TubePitotDeporte_PCB_v1.0.0.PcbDoc
-Date     : 21.03.2023
-Time     : 20:34:24
+Date     : 22.03.2023
+Time     : 08:36:30
 
 Processing Rule : Clearance Constraint (Gap=0.151mm) (All),(All)
 Rule Violations :0
@@ -67,4 +67,4 @@ Rule Violations :0
 
 Violations Detected : 4
 Waived Violations : 0
-Time Elapsed        : 00:00:01
+Time Elapsed        : 00:00:02
