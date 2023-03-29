@@ -1,13 +1,14 @@
-Output: NC Drill Files
-Type  : NC Drill
-From  : PCB Document [2230_TubePitotDeporte_PCB_v1.0.0.PcbDoc]
-   Generated File[2230_TubePitotDeporte_PCB_v1.0.0-RoundHoles.TXT]
-   Generated File[2230_TubePitotDeporte_PCB_v1.0.0-SlotHoles.TXT]
-   Generated File[2230_TubePitotDeporte_PCB_v1.0.0.LDP]
-   Generated File[2230_TubePitotDeporte_PCB_v1.0.0.DRR]
+Project Outputs Generation Report
+---------------------------------
+Start Output Generation At 10:51:35 On 29.03.2023
+
+Output: Copy of Bill of Materials
+Type  : BOM
+From  : Variant [[No Variations]] of Project [2230_TubePitotDeporte_v1.0.0.PrjPcb]
+   Generated File[Copy of Bill of Materials-2230_TubePitotDeporte_v1.0.0.csv]
 
 
-Files Generated   : 4
+Files Generated   : 1
 Documents Printed : 0
 
-Finished Output Generation At 08:36:53 On 22.03.2023
+Finished Output Generation At 10:51:36 On 29.03.2023
