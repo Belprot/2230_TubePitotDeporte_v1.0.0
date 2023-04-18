@@ -11,11 +11,8 @@
 void test(){
     
     uint8_t MSB, LSB;
-    uint16_t temp;
+    int16_t temp;
     float tempf;
-    
-    
-    
     
     i2c_start();
     i2c_write(ICM42670P_ADDR_W);
@@ -30,7 +27,7 @@ void test(){
     temp = temp << 8;
     temp = temp | LSB;
     
-    tempf = (temp/128.0) + 25;
+    tempf = ((float)temp/128.0);
 }
 
 void init(){

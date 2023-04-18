@@ -114,7 +114,7 @@ void TIMER2_Callback_Function(){
     if(bluethoothIsReady == 1){
         
         // Reads the differential pressure sensor
-        velocity = getVelocity_HSCMRRN001PD2A3();
+        //velocity = getVelocity_HSCMRRN001PD2A3(); ////////////////////
         // Converts the velocity in m/s in km/h
         velocity = velocity * 3.6;
         if(velocity <= 8) velocity = 0.0000;
@@ -129,10 +129,10 @@ void TIMER2_Callback_Function(){
         a_velocity[5] = '\r';
         
         
-        //test();
+        test();
         //sendData_RN4678(&a_frameToSend[0]);
         sendData_RN4678(&a_velocity[0]);
-        
+        SIGN_LEDToggle();
     }
 }
 /* TODO:  Add any necessary callback functions.
@@ -196,7 +196,7 @@ void APP_Tasks ( void )
             
             i2c_init(true);
             // _____________________
-            //init();
+            init();
             
             
             // Enable TIMERs
