@@ -26,13 +26,12 @@
 
 //----------------------------------------------------------------------------// Functions
 
-//.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.://
 // Get the raw compensed differential pressure of the HSCMRRN001PD2A3 sensor
 float getVelocity_HSCMRRN001PD2A3(){
     
-    int16_t rawDiffPressure;
     uint8_t MSB;
     uint8_t LSB;
+    int16_t rawDiffPressure;
     float velocity;
     
     i2c_start();
@@ -56,7 +55,21 @@ float getVelocity_HSCMRRN001PD2A3(){
 }
 
 
-//.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.://
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Get the raw compensed differential pressure of the HSCMRRN001PD2A3 sensor
 int16_t getCompDiffPress_HSCMRRN001PD2A3(){
     
@@ -85,7 +98,7 @@ int16_t getCompDiffPress_HSCMRRN001PD2A3(){
 }
 
 
-//.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.://
+
 // Convert raw compensed differential pressure to velocity
 float convertRawToVelocity(int16_t rawDiffPressure){
     

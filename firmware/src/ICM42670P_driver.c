@@ -8,32 +8,48 @@
 #define TEMP_CONFIG0 0x22
 
 
+
 void test(){
     
-    uint8_t MSB, LSB;
-    uint16_t temp;
-    float tempf;
-    
-    
+    uint8_t gyro_data_x0;
+    uint8_t gyro_data_x1;
+    uint16_t gyro_data_x;
+    float f_gyro_data_x;
+    char a_gyro_data_x[20];
     
     
     i2c_start();
     i2c_write(ICM42670P_ADDR_W);
-    i2c_write(0x09); 
+    i2c_write(0x0B); 
     i2c_reStart(); 
     i2c_write(ICM42670P_ADDR_R);
-    MSB = i2c_read(1);
-    LSB = i2c_read(0);
+    gyro_data_x1 = i2c_read(1);
+    gyro_data_x0 = i2c_read(0);
     i2c_stop();
     
-    temp = MSB;
-    temp = temp << 8;
-    temp = temp | LSB;
+    gyro_data_x = gyro_data_x1;
+    gyro_data_x = gyro_data_x << 8;
+    gyro_data_x = gyro_data_x | gyro_data_x0;
     
-    tempf = (temp/128.0) + 25;
+    // Reset of the array
+    int i;
+    for (i = 0; i < sizeof(a_gyro_data_x); i++){
+
+        a_gyro_data_x[i] = 0;
+    }
+        
+    f_gyro_data_x = (float)gyro_data_x * 0.00137331197;
+    
+    
+    // Converts float in a char array (only integer part)
+    sprintf(a_gyro_data_x, "X=%f\r", f_gyro_data_x);
+    sendData_RN4678(&a_gyro_data_x[0]);
 }
 
-void init(){
+
+
+
+void init_ICM42670P(){
     
     i2c_start();
     i2c_write(ICM42670P_ADDR_W);

@@ -12,7 +12,7 @@
 extern "C" {
 #endif
 
-
+    void init_ICM42670P();
 
 
 #ifdef	__cplusplus

@@ -7,13 +7,11 @@
             <file>file:/C:/microchip/harmony/v2_06/apps/PROJ/2230_TubePitotDeporte_v1.0.0/firmware/src/RN4678_driver.c</file>
             <file>file:/C:/microchip/harmony/v2_06/apps/PROJ/2230_TubePitotDeporte_v1.0.0/firmware/src/system_config/default/system_tasks.c</file>
             <file>file:/C:/microchip/harmony/v2_06/apps/PROJ/2230_TubePitotDeporte_v1.0.0/firmware/src/ICM42670P_driver.c</file>
-            <file>file:/C:/microchip/harmony/v2_06/apps/PROJ/2230_TubePitotDeporte_v1.0.0/firmware/src/app.h</file>
-            <file>file:/C:/microchip/harmony/v2_06/apps/PROJ/2230_TubePitotDeporte_v1.0.0/firmware/src/Mc32_I2cUtilCCS.c</file>
-            <file>file:/C:/microchip/harmony/v2_06/apps/PROJ/2230_TubePitotDeporte_v1.0.0/firmware/src/system_config/default/system_interrupt.c</file>
-            <file>file:/C:/microchip/harmony/v2_06/apps/PROJ/2230_TubePitotDeporte_v1.0.0/firmware/src/main.c</file>
+            <file>file:/C:/microchip/harmony/v2_06/apps/PROJ/2230_TubePitotDeporte_v1.0.0/firmware/src/system_config/default/system_exceptions.c</file>
+            <file>file:/C:/microchip/harmony/v2_06/apps/PROJ/2230_TubePitotDeporte_v1.0.0/firmware/src/system_config/default/system_init.c</file>
             <file>file:/C:/microchip/harmony/v2_06/apps/PROJ/2230_TubePitotDeporte_v1.0.0/firmware/src/HSCMRRN001PD2A3_driver.c</file>
-            <file>file:/C:/microchip/harmony/v2_06/apps/PROJ/2230_TubePitotDeporte_v1.0.0/firmware/src/RN4678_driver.h</file>
-            <file>file:/C:/microchip/harmony/v2_06/apps/PROJ/2230_TubePitotDeporte_v1.0.0/firmware/src/ICM42670P_driver.h</file>
+            <file>file:/C:/microchip/harmony/v2_06/apps/PROJ/2230_TubePitotDeporte_v1.0.0/firmware/src/main.c</file>
+            <file>file:/C:/microchip/harmony/v2_06/apps/PROJ/2230_TubePitotDeporte_v1.0.0/firmware/src/system_config/default/system_interrupt.c</file>
         </group>
     </open-files>
 </project-private>

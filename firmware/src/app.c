@@ -60,7 +60,11 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "ICM42670P_driver.h"
 #include "stdio.h"
 
+#define FAST 1
+#define SLOW 0
 
+
+        
 // *****************************************************************************
 // *****************************************************************************
 // Section: Global Data Definitions
@@ -100,39 +104,38 @@ void TIMER1_Callback_Function(){
     }
     else{
         
-        
-        
     }
 }
 
 void TIMER2_Callback_Function(){
     
-    float velocity;
-    char a_velocity[5];
-    char a_frameToSend[30] = "ABC_ABC_ABC_ABC_123_123_123\r";
+    uint16_t velocity;
+    char a_velocity[9];
+    //char a_frameToSend[30] = "ABC_ABC_ABC_ABC_123_123_123\r";
     
     if(bluethoothIsReady == 1){
         
-        // Reads the differential pressure sensor
+        // Reads the differential pressures sensor
         velocity = getVelocity_HSCMRRN001PD2A3();
         // Converts the velocity in m/s in km/h
-        velocity = velocity * 3.6;
-        if(velocity <= 8) velocity = 0.0000;
+        velocity = (float)velocity * 3.6;
+        if(velocity <= 15) velocity = 0;
+        
+        
         // Reset of the array
         int i;
         for (i = 0; i < sizeof(a_velocity); i++){
             
-            a_velocity[i] = NULL;
+            a_velocity[i] = 0;
         }
-        // Converts float in a char array
-        sprintf(a_velocity, "%g", velocity);
-        a_velocity[5] = '\r';
+        
+        // Converts float in a char array (only integer part)
+        sprintf(a_velocity, "S=%03dkm/h\r", velocity);
         
         
-        //test();
-        //sendData_RN4678(&a_frameToSend[0]);
+        test();
         sendData_RN4678(&a_velocity[0]);
-        
+        SIGN_LEDToggle();
     }
 }
 /* TODO:  Add any necessary callback functions.
@@ -172,6 +175,9 @@ void APP_Initialize ( void )
     /* TODO: Initialize your application's state machine and other
      * parameters.
      */
+    //TEST_OUTToggle();
+
+    RESET_BLEOff();
 }
 
 
@@ -194,20 +200,17 @@ void APP_Tasks ( void )
         {
             bool appInitialized = true;
             
-            i2c_init(true);
-            // _____________________
-            //init();
+            // Initialization of the I2C communication
+            i2c_init(FAST);
             
+            // Initialization of the 6 axis IMU 
+            init_ICM42670P();
             
             // Enable TIMERs
             DRV_TMR0_Start();
             DRV_TMR1_Start();
 
-            
-            
-            
-            if (appInitialized)
-            {
+            if (appInitialized){
             
                 appData.state = APP_STATE_SERVICE_TASKS;
             }

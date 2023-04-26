@@ -139,7 +139,6 @@
         <Name dnOrder="0">drv_usart_static.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/default/framework/driver/usart/src</Path>
         <Checksum dnOrder="2">7E0D2EE80E0F4E29FCFF60B2F4D16FD1</Checksum>
-        <ProjectFileChecksum dnOrder="3">6628BCACFE31A2E21128626F2F7F3BC5</ProjectFileChecksum>
       </Template>
       <Template dnOrder="1">
         <Name dnOrder="0">sys_ports_static.c</Name>
@@ -222,7 +221,7 @@
       <Template dnOrder="17">
         <Name dnOrder="0">system_config.h</Name>
         <Path dnOrder="1">Header&amp;#160;Files/app/system_config/default</Path>
-        <Checksum dnOrder="2">86791721B65C49A236B8D8C66BF4FDEC</Checksum>
+        <Checksum dnOrder="2">DAB01456A1106EDA1F4458CDC74A3CC9</Checksum>
       </Template>
       <Template dnOrder="18">
         <Name dnOrder="0">app.h</Name>
