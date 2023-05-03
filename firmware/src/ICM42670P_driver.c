@@ -1,5 +1,6 @@
-
+#include "ICM42670P_driver.h"
 #include "Mc32_I2cUtilCCS.h"
+#include "stdio.h"
 
 #define ICM42670P_ADDR_W 0b11010000 // W
 #define ICM42670P_ADDR_R 0b11010001 // R

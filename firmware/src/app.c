@@ -58,7 +58,10 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "HSCMRRN001PD2A3_driver.h"
 #include "RN4678_driver.h"
 #include "ICM42670P_driver.h"
+#include "imu/inv_imu_driver.h"
+#include "imu/inv_imu_transport.h"
 #include "stdio.h"
+#include <stdint.h>
 
 #define FAST 1
 #define SLOW 0
@@ -86,10 +89,9 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
     Application strings and buffers are be defined outside this structure.
 */
 
+//----------------------------------------------------------------------------// Global data
 APP_DATA appData;
-
-
-static bool bluethoothIsReady = 0;
+bool bluethoothIsReady = 0;
 
 
 // *****************************************************************************
@@ -97,6 +99,8 @@ static bool bluethoothIsReady = 0;
 // Section: Application Callback Functions
 // *****************************************************************************
 // *****************************************************************************
+
+//----------------------------------------------------------------------------// TIMER1 callback function
 void TIMER1_Callback_Function(){
     
     if(bluethoothIsReady == 0){
@@ -107,6 +111,8 @@ void TIMER1_Callback_Function(){
     }
 }
 
+
+//----------------------------------------------------------------------------// TIMER2 callback function
 void TIMER2_Callback_Function(){
     
     uint16_t velocity;
@@ -115,31 +121,43 @@ void TIMER2_Callback_Function(){
     
     if(bluethoothIsReady == 1){
         
-        // Reads the differential pressures sensor
-        velocity = getVelocity_HSCMRRN001PD2A3();
-        // Converts the velocity in m/s in km/h
-        velocity = (float)velocity * 3.6;
-        if(velocity <= 15) velocity = 0;
+//        // Reads the differential pressures sensor
+//        velocity = getVelocity_HSCMRRN001PD2A3();
+//        // Converts the velocity in m/s in km/h
+//        velocity = (float)velocity * 3.6;
+//        // Blocks values under 15km/h
+//        if(velocity <= 15) velocity = 0;
+//        
+//        // Reset of the velocity array
+//        int i;
+//        for (i = 0; i < sizeof(a_velocity); i++){
+//            
+//            a_velocity[i] = 0;
+//        }
+//        
+//        // Converts float in a char array (only integer part)
+//        sprintf(a_velocity, "S=%03dkm/h\r", velocity);
+//        
+//        // IMU
+//        //test();
+//        
+//        // Sends data to the Bluetooth module
+//        sendData_RN4678(&a_velocity[0]);
         
-        
-        // Reset of the array
-        int i;
-        for (i = 0; i < sizeof(a_velocity); i++){
-            
-            a_velocity[i] = 0;
-        }
-        
-        // Converts float in a char array (only integer part)
-        sprintf(a_velocity, "S=%03dkm/h\r", velocity);
-        
-        
-        test();
-        sendData_RN4678(&a_velocity[0]);
-        SIGN_LEDToggle();
+        //SIGN_LEDToggle();
     }
 }
-/* TODO:  Add any necessary callback functions.
-*/
+
+void TIMER5_Callback_Function(){
+    
+    // 2^32 = 4294967296
+    appData.usCounter64 += 4294967296;
+}
+
+void imu_callback(inv_imu_sensor_event_t *event){
+	
+    
+}
 
 // *****************************************************************************
 // *****************************************************************************
@@ -148,8 +166,10 @@ void TIMER2_Callback_Function(){
 // *****************************************************************************
 
 
-/* TODO:  Add any necessary local functions.
-*/
+void APP_UpdateState(APP_STATES NewState){
+    
+    appData.state = NewState;
+}
 
 
 // *****************************************************************************
@@ -171,12 +191,6 @@ void APP_Initialize ( void )
     /* Place the App state machine in its initial state. */
     appData.state = APP_STATE_INIT;
 
-    
-    /* TODO: Initialize your application's state machine and other
-     * parameters.
-     */
-    //TEST_OUTToggle();
-
     RESET_BLEOff();
 }
 
@@ -191,29 +205,35 @@ void APP_Initialize ( void )
 
 void APP_Tasks ( void )
 {
-
+    struct inv_imu_device myImuDevice;
+    struct inv_imu_serif myImuSertif;
+    uint8_t who_am_i;
+    int rc = 0;
+    
     /* Check the application's current state. */
     switch ( appData.state )
     {
         /* Application's initial state. */
         case APP_STATE_INIT:
         {
-            bool appInitialized = true;
-            
             // Initialization of the I2C communication
-            i2c_init(FAST);
-            
-            // Initialization of the 6 axis IMU 
-            init_ICM42670P();
+            //i2c_init(FAST);
             
             // Enable TIMERs
             DRV_TMR0_Start();
             DRV_TMR1_Start();
+            DRV_TMR2_Start();
 
-            if (appInitialized){
-            
-                appData.state = APP_STATE_SERVICE_TASKS;
+            // Initialization of the 6 axis IMU 
+            setup_mcu(&myImuSertif);
+            //rc = inv_imu_get_who_am_i(&myImuDevice, &who_am_i);
+            if(inv_imu_init(&myImuDevice, &myImuSertif, imu_callback)){
+                
+                SIGN_LEDToggle();
             }
+            
+            
+            APP_UpdateState(APP_STATE_SERVICE_TASKS);
             break;
         }
 
@@ -235,8 +255,67 @@ void APP_Tasks ( void )
     }
 }
 
- 
 
+
+
+
+
+
+
+int setup_mcu(struct inv_imu_serif *icm_serif)
+{
+	int rc = 0;
+
+	/*
+	 * Configure input capture mode GPIO connected to pin EXT3-9 (pin PB03).
+	 * This pin is connected to Icm406xx INT1 output and thus will receive interrupts 
+	 * enabled on INT1 from the device.
+	 * A callback function is also passed that will be executed each time an interrupt
+	 * fires.
+	*/
+
+	/* Initialize serial interface between MCU and IMU */
+	icm_serif->context    = 0; /* no need */
+	//icm_serif->read_reg   = inv_io_hal_read_reg;
+	//icm_serif->write_reg  = inv_io_hal_write_reg;
+	icm_serif->max_read   = 1024 * 32; /* maximum number of bytes allowed per serial read */
+	icm_serif->max_write  = 1024 * 32; /* maximum number of bytes allowed per serial write */
+	icm_serif->serif_type = SERIF_TYPE;
+	//rc |= inv_io_hal_init(icm_serif->serif_type);
+
+	return rc;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Sleep function // IMU 
+void inv_imu_sleep_us(uint32_t us){
+    
+	DRV_TMR3_Stop();
+    DRV_TMR3_CounterClear();
+    appData.usCounter32 = 0;
+    DRV_TMR3_Start();
+    while (appData.usCounter32 < us)
+    {}
+    DRV_TMR3_Stop();
+}
+
+// Timeout useful function // IMU
+uint64_t inv_imu_get_time_us(void){
+    
+    return DRV_TMR2_CounterValueGet() + appData.usCounter64;
+}
 /*******************************************************************************
  End of File
  */

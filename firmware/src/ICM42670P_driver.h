@@ -12,7 +12,9 @@
 extern "C" {
 #endif
 
-    void init_ICM42670P();
+    void init_ICM42670P(void);
+    void test();
+    void sendData_RN4678(char *pArray);
 
 
 #ifdef	__cplusplus

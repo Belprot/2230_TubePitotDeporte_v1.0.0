@@ -58,6 +58,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include <stdlib.h>
 #include "system_config.h"
 #include "system_definitions.h"
+#include "imu/inv_imu_driver.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -72,7 +73,42 @@ extern "C" {
 // Section: Type Definitions
 // *****************************************************************************
 // *****************************************************************************
+    
+/* 
+ * Select communication link between SmartMotion and IMU 
+ */
+#define SERIF_TYPE UI_I2C
 
+/*
+ * Set power mode flag
+ * Set this flag to run example in low-noise mode.
+ * Reset this flag to run example in low-power mode.
+ * Note: low-noise mode is not available with sensor data frequencies less than 12.5Hz.
+ */
+#define USE_LOW_NOISE_MODE 1
+    
+/*
+ * Select Fifo resolution Mode (default is low resolution mode)
+ * Low resolution mode: 16 bits data format
+ * High resolution mode: 20 bits data format
+ * Warning: Enabling High Res mode will force FSR to 16g and 2000dps
+ */
+#define USE_HIGH_RES_MODE 0
+
+/*
+ * Select to use FIFO or to read data from registers
+ */
+#define USE_FIFO 1
+
+/*
+ * Print raw data or scaled data
+ * 0 : print raw accel, gyro and temp data
+ * 1 : print scaled accel, gyro and temp data in g, dps and degree Celsius
+ */
+#define SCALED_DATA_G_DPS 1
+    
+    
+    
 // *****************************************************************************
 /* Application states
 
@@ -114,7 +150,8 @@ typedef struct{
     
     /* The application's current state */
     APP_STATES state;
-
+    uint32_t usCounter32;
+    uint64_t usCounter64;
     /* TODO: Define any additional data used by the application. */
 
 } APP_DATA;
@@ -212,7 +249,11 @@ void APP_Initialize ( void );
 void APP_Tasks( void );
 void TIMER1_Callback_Function(void);
 void TIMER2_Callback_Function(void);
+void TIMER5_Callback_Function(void);
 
+
+void imu_callback(inv_imu_sensor_event_t *event);
+uint64_t inv_imu_get_time_us(void);
 #endif /* _APP_H */
 
 //DOM-IGNORE-BEGIN

@@ -5,6 +5,28 @@
                    displayName="Header Files"
                    projectFiles="true">
       <logicalFolder name="f2" displayName="app" projectFiles="true">
+        <logicalFolder name="imu" displayName="imu" projectFiles="true">
+          <itemPath>../src/imu/inv_imu_apex.h</itemPath>
+          <itemPath>../src/imu/inv_imu_defs.h</itemPath>
+          <itemPath>../src/imu/inv_imu_driver.h</itemPath>
+          <itemPath>../src/imu/inv_imu_extfunc.h</itemPath>
+          <itemPath>../src/imu/inv_imu_regmap_rev_a.h</itemPath>
+          <itemPath>../src/imu/inv_imu_selftest.h</itemPath>
+          <itemPath>../src/imu/inv_imu_transport.h</itemPath>
+          <itemPath>../src/imu/inv_imu_version.h</itemPath>
+        </logicalFolder>
+        <logicalFolder name="Invn" displayName="Invn" projectFiles="true">
+          <logicalFolder name="EmbUtils" displayName="EmbUtils" projectFiles="true">
+            <itemPath>../src/Invn/EmbUtils/DataConverter.h</itemPath>
+            <itemPath>../src/Invn/EmbUtils/ErrorHelper.h</itemPath>
+            <itemPath>../src/Invn/EmbUtils/InvBasicMath.h</itemPath>
+            <itemPath>../src/Invn/EmbUtils/Message.h</itemPath>
+            <itemPath>../src/Invn/EmbUtils/RingBuffer.h</itemPath>
+          </logicalFolder>
+          <itemPath>../src/Invn/InvBool.h</itemPath>
+          <itemPath>../src/Invn/InvError.h</itemPath>
+          <itemPath>../src/Invn/InvExport.h</itemPath>
+        </logicalFolder>
         <logicalFolder name="f1" displayName="system_config" projectFiles="true">
           <logicalFolder name="f1" displayName="default" projectFiles="true">
             <logicalFolder name="f1" displayName="framework" projectFiles="true">
@@ -106,6 +128,16 @@
                    displayName="Source Files"
                    projectFiles="true">
       <logicalFolder name="f2" displayName="app" projectFiles="true">
+        <logicalFolder name="imu" displayName="imu" projectFiles="true">
+          <itemPath>../src/imu/inv_imu_apex.c</itemPath>
+          <itemPath>../src/imu/inv_imu_driver.c</itemPath>
+          <itemPath>../src/imu/inv_imu_selftest.c</itemPath>
+          <itemPath>../src/imu/inv_imu_transport.c</itemPath>
+        </logicalFolder>
+        <logicalFolder name="f2" displayName="Invn" projectFiles="true">
+          <logicalFolder name="EmbUtils" displayName="EmbUtils" projectFiles="true">
+          </logicalFolder>
+        </logicalFolder>
         <logicalFolder name="f1" displayName="system_config" projectFiles="true">
           <logicalFolder name="f1" displayName="default" projectFiles="true">
             <logicalFolder name="f1" displayName="framework" projectFiles="true">
@@ -493,6 +525,78 @@
         <property key="programoptions.uselvpprogramming" value="false"/>
         <property key="voltagevalue" value="3.25"/>
       </PICkit3PlatformTool>
+      <Tool>
+        <property key="ADC 1" value="true"/>
+        <property key="AutoSelectMemRanges" value="auto"/>
+        <property key="CHANGE NOTICE" value="true"/>
+        <property key="COMPARATOR" value="true"/>
+        <property key="CTMU" value="true"/>
+        <property key="DMA" value="true"/>
+        <property key="Freeze All Other Peripherals" value="true"/>
+        <property key="I2C1" value="true"/>
+        <property key="I2C2" value="true"/>
+        <property key="INPUT CAPTURE 1" value="true"/>
+        <property key="INPUT CAPTURE 2" value="true"/>
+        <property key="INPUT CAPTURE 3" value="true"/>
+        <property key="INPUT CAPTURE 4" value="true"/>
+        <property key="INPUT CAPTURE 5" value="true"/>
+        <property key="INTERRUPT CONTROL" value="true"/>
+        <property key="OUTPUT COMPARE 1" value="true"/>
+        <property key="OUTPUT COMPARE 2" value="true"/>
+        <property key="OUTPUT COMPARE 3" value="true"/>
+        <property key="OUTPUT COMPARE 4" value="true"/>
+        <property key="OUTPUT COMPARE 5" value="true"/>
+        <property key="PARALLEL MASTER/SLAVE PORT" value="true"/>
+        <property key="REAL TIME CLOCK" value="true"/>
+        <property key="SPI/I2S 1" value="true"/>
+        <property key="SPI/I2S 2" value="true"/>
+        <property key="SecureSegment.SegmentProgramming" value="FullChipProgramming"/>
+        <property key="TIMER1" value="true"/>
+        <property key="TIMER2" value="true"/>
+        <property key="TIMER3" value="true"/>
+        <property key="TIMER4" value="true"/>
+        <property key="TIMER5" value="true"/>
+        <property key="ToolFirmwareFilePath"
+                  value="Press to browse for a specific firmware version"/>
+        <property key="ToolFirmwareOption.UseLatestFirmware" value="true"/>
+        <property key="UART1" value="true"/>
+        <property key="UART2" value="true"/>
+        <property key="USB" value="true"/>
+        <property key="debugoptions.debug-startup" value="Use system settings"/>
+        <property key="debugoptions.reset-behaviour" value="Use system settings"/>
+        <property key="debugoptions.useswbreakpoints" value="false"/>
+        <property key="firmware.download.all" value="false"/>
+        <property key="hwtoolclock.frcindebug" value="false"/>
+        <property key="memories.aux" value="false"/>
+        <property key="memories.bootflash" value="false"/>
+        <property key="memories.configurationmemory" value="true"/>
+        <property key="memories.configurationmemory2" value="true"/>
+        <property key="memories.dataflash" value="true"/>
+        <property key="memories.eeprom" value="true"/>
+        <property key="memories.flashdata" value="true"/>
+        <property key="memories.id" value="true"/>
+        <property key="memories.instruction.ram" value="true"/>
+        <property key="memories.instruction.ram.ranges"
+                  value="${memories.instruction.ram.ranges}"/>
+        <property key="memories.programmemory" value="true"/>
+        <property key="memories.programmemory.ranges" value="1d000000-1d00ffff"/>
+        <property key="poweroptions.powerenable" value="false"/>
+        <property key="programoptions.donoteraseauxmem" value="false"/>
+        <property key="programoptions.eraseb4program" value="true"/>
+        <property key="programoptions.preservedataflash" value="false"/>
+        <property key="programoptions.preservedataflash.ranges" value=""/>
+        <property key="programoptions.preserveeeprom" value="false"/>
+        <property key="programoptions.preserveeeprom.ranges" value=""/>
+        <property key="programoptions.preserveprogram.ranges" value=""/>
+        <property key="programoptions.preserveprogramrange" value="false"/>
+        <property key="programoptions.preserveuserid" value="false"/>
+        <property key="programoptions.programcalmem" value="false"/>
+        <property key="programoptions.programuserotp" value="false"/>
+        <property key="programoptions.testmodeentrymethod" value="VDDFirst"/>
+        <property key="programoptions.usehighvoltageonmclr" value="false"/>
+        <property key="programoptions.uselvpprogramming" value="false"/>
+        <property key="voltagevalue" value="3.25"/>
+      </Tool>
     </conf>
   </confs>
 </configurationDescriptor>

@@ -241,7 +241,9 @@ build/default/production/_ext/1360937237/HSCMRRN001PD2A3_driver.o: \
  ../../../../../framework/peripheral/ports/processor/../templates/ports_ChangeNoticeEdgeControl_Unsupported.h \
  ../../../../../framework/peripheral/ports/processor/../templates/ports_ChangeNoticeEdgeStatus_Unsupported.h \
  ../../../../../framework/peripheral/ports/plib_ports_compatibility.h \
- ../src/app.h ../src/Mc32_I2cUtilCCS.h \
+ ../src/app.h ../src/imu/inv_imu_driver.h ../src/imu/inv_imu_defs.h \
+ ../src/imu/inv_imu_regmap_rev_a.h ../src/imu/inv_imu_transport.h \
+ ../src/Invn/InvError.h ../src/Mc32_I2cUtilCCS.h \
  ../../../../../framework/peripheral\i2c\plib_i2c.h \
  ../../../../../framework/peripheral/i2c/plib_i2c_helper_macros.h \
  ../../../../../framework/peripheral/i2c/processor/i2c_processor.h \
@@ -779,6 +781,16 @@ build/default/production/_ext/1360937237/HSCMRRN001PD2A3_driver.o: \
 ../../../../../framework/peripheral/ports/plib_ports_compatibility.h:
 
 ../src/app.h:
+
+../src/imu/inv_imu_driver.h:
+
+../src/imu/inv_imu_defs.h:
+
+../src/imu/inv_imu_regmap_rev_a.h:
+
+../src/imu/inv_imu_transport.h:
+
+../src/Invn/InvError.h:
 
 ../src/Mc32_I2cUtilCCS.h:
 
