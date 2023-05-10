@@ -60,12 +60,12 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "ICM42670P_driver.h"
 #include "imu/inv_imu_driver.h"
 #include "imu/inv_imu_transport.h"
+#include "I2C_ICM42670P_Functions.h"
 #include "stdio.h"
 #include <stdint.h>
 
 #define FAST 1
 #define SLOW 0
-
 
         
 // *****************************************************************************
@@ -74,24 +74,11 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 // *****************************************************************************
 // *****************************************************************************
 
-// *****************************************************************************
-/* Application Data
-
-  Summary:
-    Holds application data
-
-  Description:
-    This structure holds the application's data.
-
-  Remarks:
-    This structure should be initialized by the APP_Initialize function.
-    
-    Application strings and buffers are be defined outside this structure.
-*/
-
 //----------------------------------------------------------------------------// Global data
 APP_DATA appData;
 bool bluethoothIsReady = 0;
+struct inv_imu_device myImuDevice;
+struct inv_imu_serif myImuSertif;
 
 
 // *****************************************************************************
@@ -115,12 +102,18 @@ void TIMER1_Callback_Function(){
 //----------------------------------------------------------------------------// TIMER2 callback function
 void TIMER2_Callback_Function(){
     
-    uint16_t velocity;
-    char a_velocity[9];
+    //uint16_t velocity;
+    //char a_velocity[9];
     //char a_frameToSend[30] = "ABC_ABC_ABC_ABC_123_123_123\r";
     
-    if(bluethoothIsReady == 1){
-        
+//    GYRO_CONFIG0_FS_SEL_t  gyro_fsr_bitfield;
+//    gyro_fsr_bitfield = 1;
+//    inv_imu_get_gyro_fsr(&myImuDevice, &gyro_fsr_bitfield);
+    
+    
+    
+//    if(bluethoothIsReady == 1){
+//        
 //        // Reads the differential pressures sensor
 //        velocity = getVelocity_HSCMRRN001PD2A3();
 //        // Converts the velocity in m/s in km/h
@@ -143,13 +136,15 @@ void TIMER2_Callback_Function(){
 //        
 //        // Sends data to the Bluetooth module
 //        sendData_RN4678(&a_velocity[0]);
-        
-        //SIGN_LEDToggle();
-    }
+//        
+//        //SIGN_LEDToggle();
+//    }
 }
 
+//----------------------------------------------------------------------------// TIMER5 callback function
 void TIMER5_Callback_Function(){
     
+    // 64 bits counter
     // 2^32 = 4294967296
     appData.usCounter64 += 4294967296;
 }
@@ -165,12 +160,10 @@ void imu_callback(inv_imu_sensor_event_t *event){
 // *****************************************************************************
 // *****************************************************************************
 
-
 void APP_UpdateState(APP_STATES NewState){
     
     appData.state = NewState;
 }
-
 
 // *****************************************************************************
 // *****************************************************************************
@@ -203,11 +196,30 @@ void APP_Initialize ( void )
     See prototype in app.h.
  */
 
+int setup_imu(struct inv_imu_serif *icm_serif)
+{
+	int rc = 0;
+
+	/* Initialize serial interface between MCU and IMU */
+	icm_serif->context    = 0; /* no need */
+    // Points to the function
+	icm_serif->read_reg   = ICM42670P_I2C_bus_read;
+    // Points to the function
+	icm_serif->write_reg  = ICM42670P_I2C_bus_write;
+	icm_serif->max_read   = 1024 * 32; /* maximum number of bytes allowed per serial read */
+	icm_serif->max_write  = 1024 * 32; /* maximum number of bytes allowed per serial write */
+	icm_serif->serif_type = SERIF_TYPE;
+	//rc |= inv_io_hal_init(icm_serif->serif_type);
+    
+	return rc;
+}
+
+
 void APP_Tasks ( void )
 {
-    struct inv_imu_device myImuDevice;
-    struct inv_imu_serif myImuSertif;
-    uint8_t who_am_i;
+//    struct inv_imu_device myImuDevice;
+//    struct inv_imu_serif myImuSertif;
+    //uint8_t who_am_i;
     int rc = 0;
     
     /* Check the application's current state. */
@@ -217,22 +229,25 @@ void APP_Tasks ( void )
         case APP_STATE_INIT:
         {
             // Initialization of the I2C communication
-            //i2c_init(FAST);
-            
+            i2c_init(FAST);
             // Enable TIMERs
             DRV_TMR0_Start();
             DRV_TMR1_Start();
             DRV_TMR2_Start();
-
+            
             // Initialization of the 6 axis IMU 
-            setup_mcu(&myImuSertif);
-            //rc = inv_imu_get_who_am_i(&myImuDevice, &who_am_i);
+            setup_imu(&myImuSertif);
+            
             if(inv_imu_init(&myImuDevice, &myImuSertif, imu_callback)){
                 
                 SIGN_LEDToggle();
             }
+            inv_imu_enable_gyro_low_noise_mode(&myImuDevice);
             
-            
+            uint8_t who_am_i;
+            inv_imu_get_who_am_i(&myImuDevice, &who_am_i);
+    
+            // State machine update
             APP_UpdateState(APP_STATE_SERVICE_TASKS);
             break;
         }
@@ -243,52 +258,12 @@ void APP_Tasks ( void )
             break;
         }
 
-        /* TODO: implement your application state machine.*/
-        
-
-        /* The default state should never be executed. */
         default:
         {
-            /* TODO: Handle error in application's state machine. */
             break;
         }
     }
 }
-
-
-
-
-
-
-
-
-int setup_mcu(struct inv_imu_serif *icm_serif)
-{
-	int rc = 0;
-
-	/*
-	 * Configure input capture mode GPIO connected to pin EXT3-9 (pin PB03).
-	 * This pin is connected to Icm406xx INT1 output and thus will receive interrupts 
-	 * enabled on INT1 from the device.
-	 * A callback function is also passed that will be executed each time an interrupt
-	 * fires.
-	*/
-
-	/* Initialize serial interface between MCU and IMU */
-	icm_serif->context    = 0; /* no need */
-	//icm_serif->read_reg   = inv_io_hal_read_reg;
-	//icm_serif->write_reg  = inv_io_hal_write_reg;
-	icm_serif->max_read   = 1024 * 32; /* maximum number of bytes allowed per serial read */
-	icm_serif->max_write  = 1024 * 32; /* maximum number of bytes allowed per serial write */
-	icm_serif->serif_type = SERIF_TYPE;
-	//rc |= inv_io_hal_init(icm_serif->serif_type);
-
-	return rc;
-}
-
-
-
-
 
 
 
@@ -307,7 +282,10 @@ void inv_imu_sleep_us(uint32_t us){
     appData.usCounter32 = 0;
     DRV_TMR3_Start();
     while (appData.usCounter32 < us)
-    {}
+    {
+        us = us + 1;
+        us = us -1 ;
+    }
     DRV_TMR3_Stop();
 }
 
@@ -319,3 +297,5 @@ uint64_t inv_imu_get_time_us(void){
 /*******************************************************************************
  End of File
  */
+
+

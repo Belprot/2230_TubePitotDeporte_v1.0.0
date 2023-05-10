@@ -26,6 +26,8 @@
 #include "imu/inv_imu_defs.h"
 
 #include "Invn/InvError.h"
+#include "Mc32_I2cUtilCCS.h"
+#include "inv_imu_driver.h"
 
 /* Function definition */
 static uint8_t *get_register_cache_addr(struct inv_imu_device *s, uint32_t reg);
@@ -185,6 +187,7 @@ static uint8_t *get_register_cache_addr(struct inv_imu_device *s, uint32_t reg)
 	}
 }
 
+//-----------------------------------------------------------------------------------------------------------------------------------------------------//
 static int read_sreg(struct inv_imu_device *s, uint8_t reg, uint32_t len, uint8_t *buf)
 {
 	struct inv_imu_serif *serif = (struct inv_imu_serif *)s;
@@ -198,18 +201,20 @@ static int read_sreg(struct inv_imu_device *s, uint8_t reg, uint32_t len, uint8_
 	return 0;
 }
 
+//-----------------------------------------------------------------------------------------------------------------------------------------------------//
 static int write_sreg(struct inv_imu_device *s, uint8_t reg, uint32_t len, const uint8_t *buf)
 {
 	struct inv_imu_serif *serif = (struct inv_imu_serif *)s;
-
-	if (len > serif->max_write)
+    
+    if (len > serif->max_write)
 		return INV_ERROR_SIZE;
 
 	if (serif->write_reg(serif, reg, buf, len) != 0)
 		return INV_ERROR_TRANSPORT;
-
+    
 	return 0;
 }
+
 
 static int read_mclk_reg(struct inv_imu_device *s, uint16_t regaddr, uint8_t rd_cnt, uint8_t *buf)
 {

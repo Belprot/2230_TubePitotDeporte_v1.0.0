@@ -59,6 +59,7 @@
         <itemPath>../src/HSCMRRN001PD2A3_driver.h</itemPath>
         <itemPath>../src/Mc32_I2cUtilCCS.h</itemPath>
         <itemPath>../src/ICM42670P_driver.h</itemPath>
+        <itemPath>../src/I2C_ICM42670P_Functions.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f1" displayName="framework" projectFiles="true">
         <logicalFolder name="f1" displayName="driver" projectFiles="true">
@@ -187,6 +188,7 @@
         <itemPath>../src/HSCMRRN001PD2A3_driver.c</itemPath>
         <itemPath>../src/Mc32_I2cUtilCCS.c</itemPath>
         <itemPath>../src/ICM42670P_driver.c</itemPath>
+        <itemPath>../src/I2C_ICM42670P_Functions.c</itemPath>
       </logicalFolder>
       <logicalFolder name="f1" displayName="framework" projectFiles="true">
         <logicalFolder name="f1" displayName="system" projectFiles="true">
