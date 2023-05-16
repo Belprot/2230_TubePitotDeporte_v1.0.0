@@ -48,7 +48,7 @@ int ICM42670P_I2C_bus_read(struct inv_imu_serif *serif, uint8_t reg, uint8_t *bu
     i2c_start();
     i2c_write(ICM42670P_ADDR_W);
     i2c_write(reg);
-    i2c_reStart();
+    i2c_start();
     i2c_write(ICM42670P_ADDR_R);
     
     for (cursor = 0; cursor < len; cursor++){
@@ -58,7 +58,8 @@ int ICM42670P_I2C_bus_read(struct inv_imu_serif *serif, uint8_t reg, uint8_t *bu
         else
             array[cursor] = i2c_read(0);
         
-        *(buf+cursor) = array[cursor];
+        buf[cursor] = array[cursor];
+        //*(buf+cursor) = array[cursor];
     }
     i2c_stop();
     return 0;

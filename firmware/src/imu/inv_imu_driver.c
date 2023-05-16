@@ -109,7 +109,7 @@ static int select_rcosc(struct inv_imu_device *s)
 {
 	int     status = 0;
 	uint8_t data;
-
+    
 	status |= inv_imu_read_reg(s, PWR_MGMT0, 1, &data);
 	data &= ~PWR_MGMT0_ACCEL_LP_CLK_SEL_MASK;
 	data |= PWR_MGMT0_ACCEL_LP_CLK_RCOSC;

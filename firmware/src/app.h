@@ -60,6 +60,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "system_definitions.h"
 #include "imu/inv_imu_driver.h"
 
+
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
 
@@ -98,7 +99,7 @@ extern "C" {
 /*
  * Select to use FIFO or to read data from registers
  */
-#define USE_FIFO 1
+#define USE_FIFO 0
 
 /*
  * Print raw data or scaled data
