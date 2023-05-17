@@ -5,7 +5,8 @@
  * Created on 10. mai 2023, 11:40
  */
 
-#include "stdint.h"
+#include "app.h"
+
 
 #ifndef I2C_ICM42670P_FUNCTIONS_H
 #define	I2C_ICM42670P_FUNCTIONS_H

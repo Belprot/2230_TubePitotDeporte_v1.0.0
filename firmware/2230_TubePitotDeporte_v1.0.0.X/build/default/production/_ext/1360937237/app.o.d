@@ -240,12 +240,13 @@ build/default/production/_ext/1360937237/app.o: ../src/app.c ../src/app.h \
  ../../../../../framework/peripheral/ports/processor/../templates/ports_ChangeNoticeEdgeControl_Unsupported.h \
  ../../../../../framework/peripheral/ports/processor/../templates/ports_ChangeNoticeEdgeStatus_Unsupported.h \
  ../../../../../framework/peripheral/ports/plib_ports_compatibility.h \
- ../src/app.h ../src/imu/inv_imu_driver.h ../src/imu/inv_imu_defs.h \
- ../src/imu/inv_imu_regmap_rev_a.h ../src/imu/inv_imu_transport.h \
- ../src/Invn/InvError.h ../src/Mc32_I2cUtilCCS.h \
- ../src/HSCMRRN001PD2A3_driver.h ../src/RN4678_driver.h \
- ../src/ICM42670P_driver.h ../src/imu/inv_imu_transport.h \
- ../src/I2C_ICM42670P_Functions.h ../src/Invn/EmbUtils/RingBuffer.h
+ ../src/app.h ../src/ICM42670P_driver.h ../src/imu/inv_imu_driver.h \
+ ../src/imu/inv_imu_defs.h ../src/imu/inv_imu_regmap_rev_a.h \
+ ../src/imu/inv_imu_transport.h ../src/Invn/InvError.h \
+ ../src/imu/inv_imu_transport.h ../src/Invn/EmbUtils/RingBuffer.h \
+ ../src/I2C_ICM42670P_Functions.h ../src/inv_imu_personnal_functions.h \
+ ../src/Mc32_I2cUtilCCS.h ../src/HSCMRRN001PD2A3_driver.h \
+ ../src/RN4678_driver.h
 
 ../src/app.h:
 
@@ -733,6 +734,8 @@ build/default/production/_ext/1360937237/app.o: ../src/app.c ../src/app.h \
 
 ../src/app.h:
 
+../src/ICM42670P_driver.h:
+
 ../src/imu/inv_imu_driver.h:
 
 ../src/imu/inv_imu_defs.h:
@@ -743,16 +746,16 @@ build/default/production/_ext/1360937237/app.o: ../src/app.c ../src/app.h \
 
 ../src/Invn/InvError.h:
 
+../src/imu/inv_imu_transport.h:
+
+../src/Invn/EmbUtils/RingBuffer.h:
+
+../src/I2C_ICM42670P_Functions.h:
+
+../src/inv_imu_personnal_functions.h:
+
 ../src/Mc32_I2cUtilCCS.h:
 
 ../src/HSCMRRN001PD2A3_driver.h:
 
 ../src/RN4678_driver.h:
-
-../src/ICM42670P_driver.h:
-
-../src/imu/inv_imu_transport.h:
-
-../src/I2C_ICM42670P_Functions.h:
-
-../src/Invn/EmbUtils/RingBuffer.h:

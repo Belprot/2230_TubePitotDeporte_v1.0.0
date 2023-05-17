@@ -56,10 +56,16 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include "system_config.h"
 #include "system_definitions.h"
-#include "imu/inv_imu_driver.h"
 
+#include "ICM42670P_driver.h"
+#include "imu/inv_imu_driver.h"
+#include "imu/inv_imu_transport.h"
+#include "Invn/EmbUtils/RingBuffer.h"
+#include "I2C_ICM42670P_Functions.h"
+#include "inv_imu_personnal_functions.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -246,6 +252,11 @@ void APP_Initialize ( void );
   Remarks:
     This routine must be called from SYS_Tasks() routine.
  */
+
+extern APP_DATA appData;
+extern struct inv_imu_device myImuDevice;
+extern struct inv_imu_serif myImuSertif;
+
 
 void APP_Tasks( void );
 void TIMER1_Callback_Function(void);

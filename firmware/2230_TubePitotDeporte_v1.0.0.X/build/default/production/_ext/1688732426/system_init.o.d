@@ -243,9 +243,12 @@ build/default/production/_ext/1688732426/system_init.o: \
  ../../../../../framework/peripheral/ports/processor/../templates/ports_ChangeNoticeEdgeStatus_Unsupported.h \
  ../../../../../framework/peripheral/ports/plib_ports_compatibility.h \
  ../src/app.h ../src/system_config/default/system_definitions.h \
- ../src/imu/inv_imu_driver.h ../src/imu/inv_imu_defs.h \
- ../src/imu/inv_imu_regmap_rev_a.h ../src/imu/inv_imu_transport.h \
- ../src/Invn/InvError.h
+ ../src/ICM42670P_driver.h ../src/imu/inv_imu_driver.h \
+ ../src/imu/inv_imu_defs.h ../src/imu/inv_imu_regmap_rev_a.h \
+ ../src/imu/inv_imu_transport.h ../src/Invn/InvError.h \
+ ../src/imu/inv_imu_transport.h ../src/Invn/EmbUtils/RingBuffer.h \
+ ../src/I2C_ICM42670P_Functions.h ../src/app.h \
+ ../src/inv_imu_personnal_functions.h
 
 ../src/system_config/default/system_config.h:
 
@@ -735,6 +738,8 @@ build/default/production/_ext/1688732426/system_init.o: \
 
 ../src/system_config/default/system_definitions.h:
 
+../src/ICM42670P_driver.h:
+
 ../src/imu/inv_imu_driver.h:
 
 ../src/imu/inv_imu_defs.h:
@@ -744,3 +749,13 @@ build/default/production/_ext/1688732426/system_init.o: \
 ../src/imu/inv_imu_transport.h:
 
 ../src/Invn/InvError.h:
+
+../src/imu/inv_imu_transport.h:
+
+../src/Invn/EmbUtils/RingBuffer.h:
+
+../src/I2C_ICM42670P_Functions.h:
+
+../src/app.h:
+
+../src/inv_imu_personnal_functions.h:

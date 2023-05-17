@@ -22,7 +22,7 @@
 #include <stdint.h>
 
 #include "Invn/InvBool.h"
-//#include "InvAssert.h"
+#include "Invn/InvAssert.h"
 
 /** @brief 	RingByteBuffer object definitions
 */

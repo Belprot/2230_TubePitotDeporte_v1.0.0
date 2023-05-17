@@ -55,15 +55,12 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 
 #include "app.h"
 #include "Mc32_I2cUtilCCS.h"
+
 #include "HSCMRRN001PD2A3_driver.h"
+
 #include "RN4678_driver.h"
-#include "ICM42670P_driver.h"
-#include "imu/inv_imu_driver.h"
-#include "imu/inv_imu_transport.h"
-#include "I2C_ICM42670P_Functions.h"
-#include "stdio.h"
-#include <stdint.h>
-#include "Invn/EmbUtils/RingBuffer.h"
+
+
 
 #define FAST 1
 #define SLOW 0
@@ -78,16 +75,10 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 //----------------------------------------------------------------------------// Global data
 APP_DATA appData;
 bool bluethoothIsReady = 0;
-struct inv_imu_device myImuDevice;
-struct inv_imu_serif myImuSertif;
+struct inv_imu_device   myImuDevice;
+struct inv_imu_serif    myImuSertif;
 
-#if !USE_FIFO
-/* 
-	 * Buffer to keep track of the timestamp when IMU data ready interrupt fires.
-	 * The buffer can contain up to 64 items in order to store one timestamp for each packet in FIFO.
-	 */
-RINGBUFFER(timestamp_buffer, 64, uint64_t);
-#endif
+
 
 // *****************************************************************************
 // *****************************************************************************
@@ -165,7 +156,29 @@ void TIMER5_Callback_Function(){
 
 void imu_callback(inv_imu_sensor_event_t *event){
 	
+    char a_gyro[10];
+    char a_accel[50];
+    float gyroX, gyroY, gyroZ;
+    float accelX, accelY, accelZ;
     
+    gyroX = (event->gyro[0])/250; // 250 dps
+    gyroY = (event->gyro[1])/250; // 250 dps
+    gyroZ = (event->gyro[2])/250; // 250 dps
+    
+    accelX = (float)(event->accel[0])/8192.0; // 8192 bits
+    accelY = (float)(event->accel[1])/8192.0; // 8192 bits
+    accelZ = (float)(event->accel[2])/8192.0; // 8192 bits per g
+    
+    // Converts float in a char array (only integer part)
+//    sprintf(a_gyro, "GX=%5d\r", gyroX);
+//    sendData_RN4678(&a_gyro[0]);
+//    sprintf(a_gyro, "GY=%5d\r", gyroY);
+//    sendData_RN4678(&a_gyro[0]);
+//    sprintf(a_gyro, "GZ=%5d\r", gyroZ);
+//    sendData_RN4678(&a_gyro[0]);
+    
+    sprintf(a_accel, "AX=%+1.02f AY=%+1.02f AZ=%+1.02f \r", accelX, accelY, accelZ);
+    sendData_RN4678(&a_accel[0]);
 }
 
 // *****************************************************************************
@@ -210,10 +223,11 @@ void APP_Initialize ( void )
     See prototype in app.h.
  */
 
-int initImuParam(struct inv_imu_serif *icm_serif){
+// Initialize serial interface between MCU and IMU 
+int initImuInterface(struct inv_imu_serif *icm_serif){
     
-	/* Initialize serial interface between MCU and IMU */
-	icm_serif->context    = 0; /* no need */
+    // No need
+	icm_serif->context    = 0;
     // Points to the function
 	icm_serif->read_reg   = ICM42670P_I2C_bus_read;
     // Points to the function
@@ -245,14 +259,14 @@ void APP_Tasks ( void ){
             DRV_TMR2_Start();
             
             
-            // Initializes ICM42670 parameters
-            rc |= initImuParam(&myImuSertif);
-            rc |= setup_imu_device(&myImuSertif);
-            rc |= configure_imu_device();
+            // Initializes the ICM42670 interface
+            rc |= initImuInterface(&myImuSertif);
+            // Resets and prepares the chip for the configuration
+            rc |= setupImuDevice(&myImuSertif);
+            // Configures ICM42670 parameters
+            rc |= configureImuDevice();
             
-            //inv_imu_init(&myImuDevice, &myImuSertif, imu_callback);
-
-    
+            
             // State machine update
             APP_UpdateState(APP_STATE_SERVICE_TASKS);
             break;
@@ -273,117 +287,6 @@ void APP_Tasks ( void ){
 
 
 
-
-
-int get_imu_data(void)
-{
-#if USE_FIFO
-	return inv_imu_get_data_from_fifo(&myImuDevice);
-#else
-	return inv_imu_get_data_from_registers(&myImuDevice);
-#endif
-}
-
-
-
-/**
- * \brief This function configures the device in order to output gyro and accelerometer.
- * \return 0 on success, negative value on error.
- */
-int configure_imu_device()
-{
-	int rc = 0;
-
-	if (!USE_FIFO)
-		rc |= inv_imu_configure_fifo(&myImuDevice, INV_IMU_FIFO_DISABLED);
-
-	if (USE_HIGH_RES_MODE) {
-		rc |= inv_imu_enable_high_resolution_fifo(&myImuDevice);
-	} else {
-		rc |= inv_imu_set_accel_fsr(&myImuDevice, ACCEL_CONFIG0_FS_SEL_4g);
-		rc |= inv_imu_set_gyro_fsr(&myImuDevice, GYRO_CONFIG0_FS_SEL_2000dps);
-	}
-
-	if (USE_LOW_NOISE_MODE) {
-		rc |= inv_imu_set_accel_frequency(&myImuDevice, ACCEL_CONFIG0_ODR_100_HZ);
-		rc |= inv_imu_set_gyro_frequency(&myImuDevice, GYRO_CONFIG0_ODR_100_HZ);
-		rc |= inv_imu_enable_accel_low_noise_mode(&myImuDevice);
-	} else {
-		rc |= inv_imu_set_accel_frequency(&myImuDevice, ACCEL_CONFIG0_ODR_100_HZ);
-		rc |= inv_imu_set_gyro_frequency(&myImuDevice, GYRO_CONFIG0_ODR_100_HZ);
-		rc |= inv_imu_enable_accel_low_power_mode(&myImuDevice);
-	}
-
-	rc |= inv_imu_enable_gyro_low_noise_mode(&myImuDevice);
-
-	if (!USE_FIFO)
-		inv_imu_sleep_us(GYR_STARTUP_TIME_US);
-
-	return rc;
-}
-
-
-
-
-
-int setup_imu_device(struct inv_imu_serif *icm_serif)
-{
-	int     rc = 0;
-	uint8_t who_am_i;
-
-	/* Init device */
-	rc = inv_imu_init(&myImuDevice, icm_serif, imu_callback);
-	if (rc != INV_ERROR_SUCCESS) {
-		return rc;
-	}
-
-	/* Check WHOAMI */
-	rc = inv_imu_get_who_am_i(&myImuDevice, &who_am_i);
-	if (rc != INV_ERROR_SUCCESS) {
-		return rc;
-	}
-
-	if (who_am_i != ICM_WHOAMI) {
-		return INV_ERROR;
-	}
-
-#if !USE_FIFO
-	RINGBUFFER_CLEAR(&timestamp_buffer);
-#endif
-
-	return rc;
-}
-
-
-
-
-
-
-
-
-
-
-
-// Sleep function // IMU 
-void inv_imu_sleep_us(uint32_t us){
-    
-	DRV_TMR3_Stop();
-    DRV_TMR3_CounterClear();
-    appData.usCounter32 = 0;
-    DRV_TMR3_Start();
-    while (appData.usCounter32 < us)
-    {
-        us = us + 1;
-        us = us -1 ;
-    }
-    DRV_TMR3_Stop();
-}
-
-// Timeout useful function // IMU
-uint64_t inv_imu_get_time_us(void){
-    
-    return DRV_TMR2_CounterValueGet() + appData.usCounter64;
-}
 /*******************************************************************************
  End of File
  */
