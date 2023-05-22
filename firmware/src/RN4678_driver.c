@@ -19,19 +19,17 @@
 #define CMD_MODE_EXIT       "---\r"
 #define CMD_BLE_DISCOV_EN   "Q,0\r"
 #define CMD_BLE_ONLY        "SG,1\r"
+#define CMD_BT_CLASSIC_ONLY "SG,2\r"
+#define CMD_PREFIX_SUFIX    "SO,<,>\r"
 #define CMD_REBOOT_DEVICE   "R,1\r"
 
 // Answers
 #define CMD_MODE_ANSWER     "CMD> "
 #define CMD_POS_ANSWER      "AOK\r\nCMD> "
 #define CMD_NEG_ANSWER      "ERR\r\nCMD> "
-#define CMD_REBOOT_ANSWER   "%REBOOT%"
+#define CMD_REBOOT_ANSWER   "<REBOOT>"
 
 // Device name
-#define DEVICE_NAME_A       "SN,TubePi"
-#define DEVICE_NAME_B       "totDeport" 
-#define DEVICE_NAME_C       "e_v2.0.0\r"
-
 #define DEVICE_NAME         "SN,TubePitotDeporte_v1.0.0\r"
 
 //----------------------------------------------------------------------------// Global variables / arrays
@@ -41,32 +39,27 @@ bool isANewAnswer;
 //----------------------------------------------------------------------------// Functions
 
 //.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:// Initialization function
-bool initialize_RN4678(void){
+bool init_RN4678(void){
     
     bool initIsDone = 0;
-    static uint32_t _100us_counter = 0;
+    
+        // Reset the module
+        RESET_BLEOff();
+
+        inv_imu_sleep_us(200000);
+        RESET_BLEOn();
+
+        inv_imu_sleep_us(200000);
         
-    switch(_100us_counter){
+        // Initilialization process
+        initIsDone =  sendCMD_RN4678(CMD_MODE_ENTER, CMD_MODE_ANSWER);
+        initIsDone *= sendCMD_RN4678(DEVICE_NAME, CMD_POS_ANSWER);
+        initIsDone *= sendCMD_RN4678(CMD_BT_CLASSIC_ONLY, CMD_POS_ANSWER);
+        initIsDone *= sendCMD_RN4678(CMD_PREFIX_SUFIX, CMD_POS_ANSWER);
+        initIsDone *= sendCMD_RN4678(CMD_REBOOT_DEVICE, CMD_REBOOT_ANSWER);
         
-        case 0:
-            // Reset the module
-            RESET_BLEOff();
-        break;
-        case 5000:
-            RESET_BLEOn();
-        break;
-        case 10000:
-            initIsDone = sendCMD_RN4678(CMD_MODE_ENTER, CMD_MODE_ANSWER);
-            initIsDone *= sendCMD_RN4678(DEVICE_NAME, CMD_POS_ANSWER);
-            initIsDone *= sendCMD_RN4678(CMD_BLE_ONLY, CMD_POS_ANSWER);
-            initIsDone *= sendCMD_RN4678(CMD_REBOOT_DEVICE, CMD_REBOOT_ANSWER);
-        break;
-    }
-    // 10'000 corresponds to 1 second
-    if(_100us_counter < 10000){
-        
-        _100us_counter++;
-    }
+        inv_imu_sleep_us(200000);
+    
     return initIsDone;
 }
 
@@ -141,4 +134,44 @@ void sendData_RN4678(char* pArrayToSend){
             cursor++;
         }
     }while(pArrayToSend[cursor-1] != '\r');
+}
+
+//.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.://
+void readStatus(char *pArrayStatus){
+    
+    int cursor = 0;
+    
+    while(PLIB_USART_ReceiverDataIsAvailable(USART_ID_1)){
+        // Reads and saves the characters received in an array
+        pArrayStatus[cursor] = PLIB_USART_ReceiverByteReceive(USART_ID_1);
+        // Increments the cursor value
+        cursor++;
+    }
+}
+
+//.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.://
+void performAction(const char* word){
+    if (strcmp(word, "CONNECT") == 0){
+        
+        isBluetoothConnected = true;
+        
+    } else if (strcmp(word, "DISCONN") == 0){
+        
+        isBluetoothConnected = false;
+        
+    } else {
+        // Ajoutez ici le code pour les autres actions ou traitements
+    }
+}
+
+
+//.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.://
+bool searchWord(char* message, const char* word){
+    
+    const char* pch = strstr(message, word);
+    if (pch != NULL) {
+        performAction(word);
+        return true;
+    }
+    return false;
 }

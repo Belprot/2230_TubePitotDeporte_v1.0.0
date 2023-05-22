@@ -52,7 +52,7 @@ extern "C" {
 /** Max user offset value for accel (mg) */
 #define ACCEL_OFFUSER_MAX_MG 1000
 
-/** Max user offset value for gyro (dps) */
+    /** Max user offset value for gyro (dps) */
 #define GYRO_OFFUSER_MAX_DPS 64
 
 /** Max buffer size mirrored from FIFO at polling time */

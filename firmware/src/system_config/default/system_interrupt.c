@@ -71,44 +71,56 @@ extern APP_DATA appData;
 // Section: System Interrupt Vector Functions
 // *****************************************************************************
 // *****************************************************************************
-void __ISR(_UART_1_VECTOR, ipl1AUTO) _IntHandlerDrvUsartInstance0(void){
-    
-    //U1RTS... CTS?
-    
-    USART_ERROR usartStatus;
-    if(PLIB_INT_SourceFlagGet(INT_ID_0, INT_SOURCE_USART_1_RECEIVE) && 
-            PLIB_INT_SourceIsEnabled(INT_ID_0, INT_SOURCE_USART_1_RECEIVE)){
-        
-        usartStatus = PLIB_USART_ErrorsGet(USART_ID_1);
-        if((usartStatus & (USART_ERROR_PARITY | USART_ERROR_FRAMING | USART_ERROR_RECEIVER_OVERRUN)) == 0){
-            
-            
-            while(PLIB_USART_ReceiverDataIsAvailable(USART_ID_1)){
-                
-                // ...
-            }
-            PLIB_INT_SourceFlagClear(INT_ID_0,INT_SOURCE_USART_1_RECEIVE);  
-        }
-        else{
-            
-            if((usartStatus & USART_ERROR_RECEIVER_OVERRUN) == USART_ERROR_RECEIVER_OVERRUN){
-                
-                PLIB_USART_ReceiverOverrunErrorClear(USART_ID_1);
-            }
-        }
-    }
-    
-    //U1RTS... CTS?
+void __ISR(_UART_1_VECTOR, ipl0AUTO) _IntHandlerDrvUsartInstance0(void)
+{
+//    DRV_USART_TasksTransmit(sysObj.drvUsart0);
+//    DRV_USART_TasksError(sysObj.drvUsart0);
+//    DRV_USART_TasksReceive(sysObj.drvUsart0);
 }
 
+
+
+//void __ISR(_UART_1_VECTOR, ipl1AUTO) _IntHandlerDrvUsartInstance0(void){
+//    char charReceived;
+//    
+//    USART_ERROR usartStatus;
+//    if(PLIB_INT_SourceFlagGet(INT_ID_0, INT_SOURCE_USART_1_RECEIVE) && 
+//            PLIB_INT_SourceIsEnabled(INT_ID_0, INT_SOURCE_USART_1_RECEIVE)){
+//        
+//        usartStatus = PLIB_USART_ErrorsGet(USART_ID_1);
+//        if((usartStatus & (USART_ERROR_PARITY | USART_ERROR_FRAMING | USART_ERROR_RECEIVER_OVERRUN)) == 0){
+//            
+//            
+//            while(PLIB_USART_ReceiverDataIsAvailable(USART_ID_1)){
+//                
+//                
+//                charReceived = PLIB_USART_ReceiverByteReceive(USART_ID_1);
+//                
+//                
+//                if (charReceived == '%'){
+//                    
+//                   
+//                } else{
+//                    // Put char in FIFO
+//                }
+//                
+//                
+//            }
+//            PLIB_INT_SourceFlagClear(INT_ID_0,INT_SOURCE_USART_1_RECEIVE);  
+//        }
+//        else{
+//            
+//            if((usartStatus & USART_ERROR_RECEIVER_OVERRUN) == USART_ERROR_RECEIVER_OVERRUN){
+//                
+//                PLIB_USART_ReceiverOverrunErrorClear(USART_ID_1);
+//            }
+//        }
+//    }
+//}
+
  
 
 
- 
-
- 
- 
- 
 
 void __ISR(_TIMER_1_VECTOR, ipl1AUTO) IntHandlerDrvTmrInstance0(void){
     

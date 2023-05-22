@@ -62,8 +62,6 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 
 
 
-#define FAST 1
-#define SLOW 0
 
 
 // *****************************************************************************
@@ -73,8 +71,12 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 // *****************************************************************************
 
 //----------------------------------------------------------------------------// Global data
-APP_DATA appData;
-bool bluethoothIsReady = 0;
+APP_DATA        appData;
+SENS_DATA       sensData;
+
+bool isBluethoothModuleInit     = false;
+bool isBluetoothConnected       = false;
+
 struct inv_imu_device   myImuDevice;
 struct inv_imu_serif    myImuSertif;
 
@@ -87,98 +89,105 @@ struct inv_imu_serif    myImuSertif;
 // *****************************************************************************
 
 //----------------------------------------------------------------------------// TIMER1 callback function
-void TIMER1_Callback_Function(){
+void TIMER1_Callback_Function(){ //156Hz
     
-    if(bluethoothIsReady == 0){
-        bluethoothIsReady = initialize_RN4678();
-    }
-    else{
-        
-    }
+//    if(bluethoothModuleIsInit == false){
+//        bluethoothModuleIsInit = init_RN4678();
+//    }
+//    else{
+//        
+//    }
+    
+    
+    char        a_status[100];
+    int cursor = 0;
+    bool result = 0;
+
+    const char* word =  "<RFCOMM_OPEN>";
+    const char* word2 = "<RFCOMM_CLOSE>";
+    clearArray(sizeof(a_status), &a_status[0]);
+    
+    
+//    do{
+//        // While data are available in the buffer
+//        while(PLIB_USART_ReceiverDataIsAvailable(USART_ID_1)){
+//            // Reads and saves the characters received in an array
+//            a_status[cursor] = PLIB_USART_ReceiverByteReceive(USART_ID_1);
+//            
+//            if(a_status[cursor] == '>') result = 1;
+//            // Increments the cursor value
+//            cursor++;
+//            
+//        }
+//        // If data read are the same as expected
+//    }while(!result);
+    
+        if(strcmp(&a_status[0], word) == 0) isBluetoothConnected = 1;
+        if(strcmp(&a_status[0], word2) == 0) isBluetoothConnected = 0;
+    //searchWord(a_status, word);
 }
 
 
 //----------------------------------------------------------------------------// TIMER2 callback function
-void TIMER2_Callback_Function(){
+void TIMER2_Callback_Function(){ // 20Hz
     
+    char    a_dataToSend[100];
     
-//    uint8_t who_am_i;
-//    inv_imu_get_who_am_i(&myImuDevice, &who_am_i);
-            
-    //uint16_t velocity;
-    //char a_velocity[9];
-    //char a_frameToSend[30] = "ABC_ABC_ABC_ABC_123_123_123\r";
-    
-//    GYRO_CONFIG0_FS_SEL_t  gyro_fsr_bitfield;
-//    gyro_fsr_bitfield = (3 << GYRO_CONFIG0_GYRO_UI_FS_SEL_POS);
-//    inv_imu_get_gyro_fsr(&myImuDevice, &gyro_fsr_bitfield);
-    
-    
-    
-//    if(bluethoothIsReady == 1){
-//        
-//        // Reads the differential pressures sensor
-//        velocity = getVelocity_HSCMRRN001PD2A3();
-//        // Converts the velocity in m/s in km/h
-//        velocity = (float)velocity * 3.6;
-//        // Blocks values under 15km/h
-//        if(velocity <= 15) velocity = 0;
-//        
-//        // Reset of the velocity array
-//        int i;
-//        for (i = 0; i < sizeof(a_velocity); i++){
-//            
-//            a_velocity[i] = 0;
-//        }
-//        
-//        // Converts float in a char array (only integer part)
-//        sprintf(a_velocity, "S=%03dkm/h\r", velocity);
-//        
-//        // IMU
-//        //test();
-//        
-//        // Sends data to the Bluetooth module
-//        sendData_RN4678(&a_velocity[0]);
-//        
-    
+    if(isBluetoothConnected == true){
+        
+        // Reads the differential pressures sensor
+        sensData.velocity = getVelocity_HSCMRRN001PD2A3();
+        // Converts the velocity in m/s in km/h
+        sensData.velocity = (float)sensData.velocity * 3.6;
+        // Blocks values under 15km/h to avoid wrong values
+        if(sensData.velocity <= 15) sensData.velocity = 0;
+        
+        
+        // Gets new IMU data
         get_imu_data();
+        
+        // Clears the array before saving new values
+        clearArray(sizeof(a_dataToSend), &a_dataToSend[0]);
+        // Converts float values in a char array
+        sprintf(a_dataToSend, "S=%03dkm/h " 
+                              "GX=%+3.02f GY=%+3.02f GZ=%+3.02f "
+                              "AX=%+1.02f AY=%+1.02f AZ=%+1.02f\r",
+            sensData.velocity,
+            sensData.gyroX,     sensData.gyroY,     sensData.gyroZ,
+            sensData.accelX,    sensData.accelY,    sensData.accelZ);
+    
+        // Send data through USART
+        sendData_RN4678(&a_dataToSend[0]);
+        
         SIGN_LEDToggle();
-//    }
+    }
+    else SIGN_LEDOn();
 }
 
 //----------------------------------------------------------------------------// TIMER5 callback function
-void TIMER5_Callback_Function(){
+void TIMER5_Callback_Function(void){
     
     // 64 bits counter
     // 2^32 = 4294967296
     appData.usCounter64 += 4294967296;
 }
 
+
+//----------------------------------------------------------------------------// IMU callback function
 void imu_callback(inv_imu_sensor_event_t *event){
-	
-    char a_gyro[10];
-    char a_accel[50];
-    float gyroX, gyroY, gyroZ;
-    float accelX, accelY, accelZ;
     
-    gyroX = (event->gyro[0])/250; // 250 dps
-    gyroY = (event->gyro[1])/250; // 250 dps
-    gyroZ = (event->gyro[2])/250; // 250 dps
+    // Transforms 16bits values into degrees and saves them in the sensor data 
+    // structure
+    sensData.gyroX = (event->gyro[0])/250; // 250 dps
+    sensData.gyroY = (event->gyro[1])/250; // 250 dps
+    sensData.gyroZ = (event->gyro[2])/250; // 250 dps
     
-    accelX = (float)(event->accel[0])/8192.0; // 8192 bits
-    accelY = (float)(event->accel[1])/8192.0; // 8192 bits
-    accelZ = (float)(event->accel[2])/8192.0; // 8192 bits per g
-    
-    // Converts float in a char array (only integer part)
-//    sprintf(a_gyro, "GX=%5d\r", gyroX);
-//    sendData_RN4678(&a_gyro[0]);
-//    sprintf(a_gyro, "GY=%5d\r", gyroY);
-//    sendData_RN4678(&a_gyro[0]);
-//    sprintf(a_gyro, "GZ=%5d\r", gyroZ);
-//    sendData_RN4678(&a_gyro[0]);
-    
-    sprintf(a_accel, "AX=%+1.02f AY=%+1.02f AZ=%+1.02f \r", accelX, accelY, accelZ);
-    sendData_RN4678(&a_accel[0]);
+    // Reads and transforms 16bits values into 
+    // Transforms 16bits values into g acceleration and saves them in the sensor 
+    // data structure
+    sensData.accelX = (float)(event->accel[0])/8192.0; // 8192 bits per g
+    sensData.accelY = (float)(event->accel[1])/8192.0; // 8192 bits per g
+    sensData.accelZ = (float)(event->accel[2])/8192.0 + 0.075; // 8192 bits per g + offset
 }
 
 // *****************************************************************************
@@ -215,13 +224,7 @@ void APP_Initialize ( void )
 }
 
 
-/******************************************************************************
-  Function:
-    void APP_Tasks ( void )
 
-  Remarks:
-    See prototype in app.h.
- */
 
 // Initialize serial interface between MCU and IMU 
 int initImuInterface(struct inv_imu_serif *icm_serif){
@@ -240,32 +243,34 @@ int initImuInterface(struct inv_imu_serif *icm_serif){
 	return 1;
 }
 
-
+//----------------------------------------------------------------------------// APP_Tasks
 void APP_Tasks ( void ){
     
     int rc = 0;
     
     /* Check the application's current state. */
-    switch ( appData.state )
-    {
+    switch(appData.state){
+        
         /* Application's initial state. */
         case APP_STATE_INIT:
         {
             // Initialization of the I2C communication
             i2c_init(SLOW);
+            
+            // Initialization of the Bluetooth module
+            isBluethoothModuleInit = init_RN4678();
+            
             // Starts TIMERs
             DRV_TMR0_Start();
             DRV_TMR1_Start();
             DRV_TMR2_Start();
             
-            
-            // Initializes the ICM42670 interface
+            // Initialization of the ICM42670 interface
             rc |= initImuInterface(&myImuSertif);
             // Resets and prepares the chip for the configuration
             rc |= setupImuDevice(&myImuSertif);
             // Configures ICM42670 parameters
             rc |= configureImuDevice();
-            
             
             // State machine update
             APP_UpdateState(APP_STATE_SERVICE_TASKS);
@@ -274,10 +279,15 @@ void APP_Tasks ( void ){
 
         case APP_STATE_SERVICE_TASKS:
         {
-        
+            
             break;
         }
-
+        
+        case APP_STATE_WAIT:
+        {
+            
+            break;
+        }
         default:
         {
             break;
@@ -285,10 +295,17 @@ void APP_Tasks ( void ){
     }
 }
 
+//----------------------------------------------------------------------------// clearArray
+void clearArray(size_t arraySize, char *pArrayToClear){
+    
+    int i;
+    for (i = 0; i < arraySize; i++){
 
+        pArrayToClear[i] = NULL;
+    }
+}
 
 /*******************************************************************************
  End of File
  */
-
 

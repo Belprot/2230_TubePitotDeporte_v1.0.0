@@ -15,15 +15,18 @@
 extern "C" {
 #endif
     
-//extern char a_answerCMD[5];
-//extern bool isANewAnswer;
     
-bool initialize_RN4678(void);
+    
+    
+    
+    
+bool init_RN4678(void);
 void clearAnswerArray_RN4678();
 bool sendCMD_RN4678(char* pArrayToSend, char* pArrayExpected);
 void sendData_RN4678(char* pArrayToSend);
-
-
+void performAction(const char* word);
+bool searchWord(char* message, const char* word);
+void readStatus();
 
     
     

@@ -80,7 +80,7 @@ extern "C" {
 // Section: Type Definitions
 // *****************************************************************************
 // *****************************************************************************
-    
+
 /* 
  * Select communication link between SmartMotion and IMU 
  */
@@ -113,8 +113,11 @@ extern "C" {
  * 1 : print scaled accel, gyro and temp data in g, dps and degree Celsius
  */
 #define SCALED_DATA_G_DPS 1
+
     
     
+#define FAST 1
+#define SLOW 0
     
 // *****************************************************************************
 /* Application states
@@ -134,6 +137,7 @@ typedef enum
 	/* Application's state machine's initial state. */
 	APP_STATE_INIT=0,
 	APP_STATE_SERVICE_TASKS,
+    APP_STATE_WAIT,
 
 	/* TODO: Define states used by the application state machine. */
 
@@ -165,15 +169,12 @@ typedef struct{
 
 typedef struct{
     
-    char velocity[10];
-    char x_acc[10];
-    char y_acc[10];
-    char z_acc[10];
-    char x_gyr[10];
-    char y_gyr[10];
-    char z_gyr[10];
+    uint16_t velocity;
+    float gyroX, gyroY, gyroZ;
+    float accelX, accelY, accelZ;
+    float batVoltage, genVoltage;
     
-} UART_DATA_TO_SEND;
+} SENS_DATA;
 
 // *****************************************************************************
 // *****************************************************************************
@@ -189,83 +190,43 @@ typedef struct{
 // *****************************************************************************
 // *****************************************************************************
 
-/*******************************************************************************
-  Function:
-    void APP_Initialize ( void )
-
-  Summary:
-     MPLAB Harmony application initialization routine.
-
-  Description:
-    This function initializes the Harmony application.  It places the 
-    application in its initial state and prepares it to run so that its 
-    APP_Tasks function can be called.
-
-  Precondition:
-    All other system initialization routines should be called before calling
-    this routine (in "SYS_Initialize").
-
-  Parameters:
-    None.
-
-  Returns:
-    None.
-
-  Example:
-    <code>
-    APP_Initialize();
-    </code>
-
-  Remarks:
-    This routine must be called from the SYS_Initialize function.
-*/
-
-void APP_Initialize ( void );
 
 
-/*******************************************************************************
-  Function:
-    void APP_Tasks ( void )
-
-  Summary:
-    MPLAB Harmony Demo application tasks function
-
-  Description:
-    This routine is the Harmony Demo application's tasks function.  It
-    defines the application's state machine and core logic.
-
-  Precondition:
-    The system and application initialization ("SYS_Initialize") should be
-    called before calling this.
-
-  Parameters:
-    None.
-
-  Returns:
-    None.
-
-  Example:
-    <code>
-    APP_Tasks();
-    </code>
-
-  Remarks:
-    This routine must be called from SYS_Tasks() routine.
- */
-
-extern APP_DATA appData;
-extern struct inv_imu_device myImuDevice;
-extern struct inv_imu_serif myImuSertif;
 
 
+
+
+
+
+// Extern variables and structures
+extern APP_DATA     appData;
+extern SENS_DATA    sensData;
+extern bool         isBluetoothConnected;
+
+extern struct inv_imu_device   myImuDevice;
+extern struct inv_imu_serif    myImuSertif;
+
+// Basic functions prototypes
+void APP_Initialize (void);
 void APP_Tasks( void );
+void APP_UpdateState(APP_STATES NewState);
+void clearArray(size_t arraySize, char *pArrayToClear);
+
+// Callback functions prototypes
 void TIMER1_Callback_Function(void);
 void TIMER2_Callback_Function(void);
 void TIMER5_Callback_Function(void);
-
-
+void USART1_Callback_Function(void);
 void imu_callback(inv_imu_sensor_event_t *event);
-uint64_t inv_imu_get_time_us(void);
+
+
+// IMU useful functions prototypes
+int         initImuInterface(struct inv_imu_serif *icm_serif);
+uint64_t    inv_imu_get_time_us(void);
+
+
+
+
 #endif /* _APP_H */
 
 //DOM-IGNORE-BEGIN

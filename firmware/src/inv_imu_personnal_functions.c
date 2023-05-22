@@ -1,5 +1,6 @@
-#include "I2C_ICM42670P_Functions.h"
+
 #include "app.h"
+#include "I2C_ICM42670P_Functions.h"
 #include "ICM42670P_driver.h"
 #include "imu/inv_imu_driver.h"
 #include "imu/inv_imu_transport.h"
@@ -155,3 +156,6 @@ uint64_t inv_imu_get_time_us(void){
     
     return DRV_TMR2_CounterValueGet() + appData.usCounter64;
 }
+
+
+
