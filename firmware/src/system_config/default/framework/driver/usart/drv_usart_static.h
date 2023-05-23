@@ -103,6 +103,9 @@ unsigned int DRV_USART0_ReceiverBufferSizeGet(void);
 unsigned int DRV_USART0_TransmitBufferSizeGet(void);
 bool DRV_USART0_ReceiverBufferIsEmpty( void );
 bool DRV_USART0_TransmitBufferIsFull(void);
+void DRV_USART0_ByteTransmitCallbackSet(const DRV_USART_BYTE_EVENT_HANDLER eventHandler);
+void DRV_USART0_ByteReceiveCallbackSet(const DRV_USART_BYTE_EVENT_HANDLER eventHandler);
+void DRV_USART0_ByteErrorCallbackSet(const DRV_USART_BYTE_EVENT_HANDLER eventHandler);
 
 // *********************************************************************************************
 // *********************************************************************************************

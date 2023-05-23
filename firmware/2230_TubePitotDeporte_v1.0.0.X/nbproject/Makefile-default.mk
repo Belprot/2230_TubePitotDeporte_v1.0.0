@@ -57,17 +57,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=../src/imu/inv_imu_apex.c ../src/imu/inv_imu_driver.c ../src/imu/inv_imu_selftest.c ../src/imu/inv_imu_transport.c ../src/inv_imu_personnal_functions.c ../src/Invn/EmbUtils/RingByteBuffer.c ../src/app.c ../src/main.c ../src/RN4678_driver.c ../src/HSCMRRN001PD2A3_driver.c ../src/Mc32_I2cUtilCCS.c ../src/ICM42670P_driver.c ../src/I2C_ICM42670P_Functions.c ../../../../../framework/system/int/src/sys_int_pic32.c ../src/system_config/default/framework/driver/tmr/src/drv_tmr_static.c ../src/system_config/default/framework/driver/tmr/src/drv_tmr_mapping.c ../src/system_config/default/framework/driver/usart/src/drv_usart_mapping.c ../src/system_config/default/framework/driver/usart/src/drv_usart_static.c ../src/system_config/default/framework/driver/usart/src/drv_usart_static_byte_model.c ../src/system_config/default/framework/system/clk/src/sys_clk_pic32mx.c ../src/system_config/default/framework/system/devcon/src/sys_devcon.c ../src/system_config/default/framework/system/devcon/src/sys_devcon_pic32mx.c ../src/system_config/default/framework/system/ports/src/sys_ports_static.c ../src/system_config/default/system_init.c ../src/system_config/default/system_interrupt.c ../src/system_config/default/system_exceptions.c ../src/system_config/default/system_tasks.c
+SOURCEFILES_QUOTED_IF_SPACED=../src/imu/inv_imu_apex.c ../src/imu/inv_imu_driver.c ../src/imu/inv_imu_selftest.c ../src/imu/inv_imu_transport.c ../src/inv_imu_personnal_functions.c ../src/Invn/EmbUtils/RingByteBuffer.c ../src/system_config/default/framework/driver/tmr/src/drv_tmr_static.c ../src/system_config/default/framework/driver/tmr/src/drv_tmr_mapping.c ../src/system_config/default/framework/driver/usart/src/drv_usart_mapping.c ../src/system_config/default/framework/driver/usart/src/drv_usart_static.c ../src/system_config/default/framework/driver/usart/src/drv_usart_static_byte_model.c ../src/system_config/default/framework/system/clk/src/sys_clk_pic32mx.c ../src/system_config/default/framework/system/devcon/src/sys_devcon.c ../src/system_config/default/framework/system/devcon/src/sys_devcon_pic32mx.c ../src/system_config/default/framework/system/ports/src/sys_ports_static.c ../src/system_config/default/system_init.c ../src/system_config/default/system_interrupt.c ../src/system_config/default/system_exceptions.c ../src/system_config/default/system_tasks.c ../src/app.c ../src/main.c ../src/RN4678_driver.c ../src/HSCMRRN001PD2A3_driver.c ../src/Mc32_I2cUtilCCS.c ../src/I2C_ICM42670P_Functions.c ../../../../../framework/system/int/src/sys_int_pic32.c ../src/usart_FIFO.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/659858391/inv_imu_apex.o ${OBJECTDIR}/_ext/659858391/inv_imu_driver.o ${OBJECTDIR}/_ext/659858391/inv_imu_selftest.o ${OBJECTDIR}/_ext/659858391/inv_imu_transport.o ${OBJECTDIR}/_ext/1360937237/inv_imu_personnal_functions.o ${OBJECTDIR}/_ext/429725745/RingByteBuffer.o ${OBJECTDIR}/_ext/1360937237/app.o ${OBJECTDIR}/_ext/1360937237/main.o ${OBJECTDIR}/_ext/1360937237/RN4678_driver.o ${OBJECTDIR}/_ext/1360937237/HSCMRRN001PD2A3_driver.o ${OBJECTDIR}/_ext/1360937237/Mc32_I2cUtilCCS.o ${OBJECTDIR}/_ext/1360937237/ICM42670P_driver.o ${OBJECTDIR}/_ext/1360937237/I2C_ICM42670P_Functions.o ${OBJECTDIR}/_ext/1042686532/sys_int_pic32.o ${OBJECTDIR}/_ext/1407244131/drv_tmr_static.o ${OBJECTDIR}/_ext/1407244131/drv_tmr_mapping.o ${OBJECTDIR}/_ext/327000265/drv_usart_mapping.o ${OBJECTDIR}/_ext/327000265/drv_usart_static.o ${OBJECTDIR}/_ext/327000265/drv_usart_static_byte_model.o ${OBJECTDIR}/_ext/639803181/sys_clk_pic32mx.o ${OBJECTDIR}/_ext/340578644/sys_devcon.o ${OBJECTDIR}/_ext/340578644/sys_devcon_pic32mx.o ${OBJECTDIR}/_ext/822048611/sys_ports_static.o ${OBJECTDIR}/_ext/1688732426/system_init.o ${OBJECTDIR}/_ext/1688732426/system_interrupt.o ${OBJECTDIR}/_ext/1688732426/system_exceptions.o ${OBJECTDIR}/_ext/1688732426/system_tasks.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/659858391/inv_imu_apex.o.d ${OBJECTDIR}/_ext/659858391/inv_imu_driver.o.d ${OBJECTDIR}/_ext/659858391/inv_imu_selftest.o.d ${OBJECTDIR}/_ext/659858391/inv_imu_transport.o.d ${OBJECTDIR}/_ext/1360937237/inv_imu_personnal_functions.o.d ${OBJECTDIR}/_ext/429725745/RingByteBuffer.o.d ${OBJECTDIR}/_ext/1360937237/app.o.d ${OBJECTDIR}/_ext/1360937237/main.o.d ${OBJECTDIR}/_ext/1360937237/RN4678_driver.o.d ${OBJECTDIR}/_ext/1360937237/HSCMRRN001PD2A3_driver.o.d ${OBJECTDIR}/_ext/1360937237/Mc32_I2cUtilCCS.o.d ${OBJECTDIR}/_ext/1360937237/ICM42670P_driver.o.d ${OBJECTDIR}/_ext/1360937237/I2C_ICM42670P_Functions.o.d ${OBJECTDIR}/_ext/1042686532/sys_int_pic32.o.d ${OBJECTDIR}/_ext/1407244131/drv_tmr_static.o.d ${OBJECTDIR}/_ext/1407244131/drv_tmr_mapping.o.d ${OBJECTDIR}/_ext/327000265/drv_usart_mapping.o.d ${OBJECTDIR}/_ext/327000265/drv_usart_static.o.d ${OBJECTDIR}/_ext/327000265/drv_usart_static_byte_model.o.d ${OBJECTDIR}/_ext/639803181/sys_clk_pic32mx.o.d ${OBJECTDIR}/_ext/340578644/sys_devcon.o.d ${OBJECTDIR}/_ext/340578644/sys_devcon_pic32mx.o.d ${OBJECTDIR}/_ext/822048611/sys_ports_static.o.d ${OBJECTDIR}/_ext/1688732426/system_init.o.d ${OBJECTDIR}/_ext/1688732426/system_interrupt.o.d ${OBJECTDIR}/_ext/1688732426/system_exceptions.o.d ${OBJECTDIR}/_ext/1688732426/system_tasks.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/659858391/inv_imu_apex.o ${OBJECTDIR}/_ext/659858391/inv_imu_driver.o ${OBJECTDIR}/_ext/659858391/inv_imu_selftest.o ${OBJECTDIR}/_ext/659858391/inv_imu_transport.o ${OBJECTDIR}/_ext/1360937237/inv_imu_personnal_functions.o ${OBJECTDIR}/_ext/429725745/RingByteBuffer.o ${OBJECTDIR}/_ext/1407244131/drv_tmr_static.o ${OBJECTDIR}/_ext/1407244131/drv_tmr_mapping.o ${OBJECTDIR}/_ext/327000265/drv_usart_mapping.o ${OBJECTDIR}/_ext/327000265/drv_usart_static.o ${OBJECTDIR}/_ext/327000265/drv_usart_static_byte_model.o ${OBJECTDIR}/_ext/639803181/sys_clk_pic32mx.o ${OBJECTDIR}/_ext/340578644/sys_devcon.o ${OBJECTDIR}/_ext/340578644/sys_devcon_pic32mx.o ${OBJECTDIR}/_ext/822048611/sys_ports_static.o ${OBJECTDIR}/_ext/1688732426/system_init.o ${OBJECTDIR}/_ext/1688732426/system_interrupt.o ${OBJECTDIR}/_ext/1688732426/system_exceptions.o ${OBJECTDIR}/_ext/1688732426/system_tasks.o ${OBJECTDIR}/_ext/1360937237/app.o ${OBJECTDIR}/_ext/1360937237/main.o ${OBJECTDIR}/_ext/1360937237/RN4678_driver.o ${OBJECTDIR}/_ext/1360937237/HSCMRRN001PD2A3_driver.o ${OBJECTDIR}/_ext/1360937237/Mc32_I2cUtilCCS.o ${OBJECTDIR}/_ext/1360937237/I2C_ICM42670P_Functions.o ${OBJECTDIR}/_ext/1042686532/sys_int_pic32.o ${OBJECTDIR}/_ext/1360937237/usart_FIFO.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/659858391/inv_imu_apex.o.d ${OBJECTDIR}/_ext/659858391/inv_imu_driver.o.d ${OBJECTDIR}/_ext/659858391/inv_imu_selftest.o.d ${OBJECTDIR}/_ext/659858391/inv_imu_transport.o.d ${OBJECTDIR}/_ext/1360937237/inv_imu_personnal_functions.o.d ${OBJECTDIR}/_ext/429725745/RingByteBuffer.o.d ${OBJECTDIR}/_ext/1407244131/drv_tmr_static.o.d ${OBJECTDIR}/_ext/1407244131/drv_tmr_mapping.o.d ${OBJECTDIR}/_ext/327000265/drv_usart_mapping.o.d ${OBJECTDIR}/_ext/327000265/drv_usart_static.o.d ${OBJECTDIR}/_ext/327000265/drv_usart_static_byte_model.o.d ${OBJECTDIR}/_ext/639803181/sys_clk_pic32mx.o.d ${OBJECTDIR}/_ext/340578644/sys_devcon.o.d ${OBJECTDIR}/_ext/340578644/sys_devcon_pic32mx.o.d ${OBJECTDIR}/_ext/822048611/sys_ports_static.o.d ${OBJECTDIR}/_ext/1688732426/system_init.o.d ${OBJECTDIR}/_ext/1688732426/system_interrupt.o.d ${OBJECTDIR}/_ext/1688732426/system_exceptions.o.d ${OBJECTDIR}/_ext/1688732426/system_tasks.o.d ${OBJECTDIR}/_ext/1360937237/app.o.d ${OBJECTDIR}/_ext/1360937237/main.o.d ${OBJECTDIR}/_ext/1360937237/RN4678_driver.o.d ${OBJECTDIR}/_ext/1360937237/HSCMRRN001PD2A3_driver.o.d ${OBJECTDIR}/_ext/1360937237/Mc32_I2cUtilCCS.o.d ${OBJECTDIR}/_ext/1360937237/I2C_ICM42670P_Functions.o.d ${OBJECTDIR}/_ext/1042686532/sys_int_pic32.o.d ${OBJECTDIR}/_ext/1360937237/usart_FIFO.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/_ext/659858391/inv_imu_apex.o ${OBJECTDIR}/_ext/659858391/inv_imu_driver.o ${OBJECTDIR}/_ext/659858391/inv_imu_selftest.o ${OBJECTDIR}/_ext/659858391/inv_imu_transport.o ${OBJECTDIR}/_ext/1360937237/inv_imu_personnal_functions.o ${OBJECTDIR}/_ext/429725745/RingByteBuffer.o ${OBJECTDIR}/_ext/1360937237/app.o ${OBJECTDIR}/_ext/1360937237/main.o ${OBJECTDIR}/_ext/1360937237/RN4678_driver.o ${OBJECTDIR}/_ext/1360937237/HSCMRRN001PD2A3_driver.o ${OBJECTDIR}/_ext/1360937237/Mc32_I2cUtilCCS.o ${OBJECTDIR}/_ext/1360937237/ICM42670P_driver.o ${OBJECTDIR}/_ext/1360937237/I2C_ICM42670P_Functions.o ${OBJECTDIR}/_ext/1042686532/sys_int_pic32.o ${OBJECTDIR}/_ext/1407244131/drv_tmr_static.o ${OBJECTDIR}/_ext/1407244131/drv_tmr_mapping.o ${OBJECTDIR}/_ext/327000265/drv_usart_mapping.o ${OBJECTDIR}/_ext/327000265/drv_usart_static.o ${OBJECTDIR}/_ext/327000265/drv_usart_static_byte_model.o ${OBJECTDIR}/_ext/639803181/sys_clk_pic32mx.o ${OBJECTDIR}/_ext/340578644/sys_devcon.o ${OBJECTDIR}/_ext/340578644/sys_devcon_pic32mx.o ${OBJECTDIR}/_ext/822048611/sys_ports_static.o ${OBJECTDIR}/_ext/1688732426/system_init.o ${OBJECTDIR}/_ext/1688732426/system_interrupt.o ${OBJECTDIR}/_ext/1688732426/system_exceptions.o ${OBJECTDIR}/_ext/1688732426/system_tasks.o
+OBJECTFILES=${OBJECTDIR}/_ext/659858391/inv_imu_apex.o ${OBJECTDIR}/_ext/659858391/inv_imu_driver.o ${OBJECTDIR}/_ext/659858391/inv_imu_selftest.o ${OBJECTDIR}/_ext/659858391/inv_imu_transport.o ${OBJECTDIR}/_ext/1360937237/inv_imu_personnal_functions.o ${OBJECTDIR}/_ext/429725745/RingByteBuffer.o ${OBJECTDIR}/_ext/1407244131/drv_tmr_static.o ${OBJECTDIR}/_ext/1407244131/drv_tmr_mapping.o ${OBJECTDIR}/_ext/327000265/drv_usart_mapping.o ${OBJECTDIR}/_ext/327000265/drv_usart_static.o ${OBJECTDIR}/_ext/327000265/drv_usart_static_byte_model.o ${OBJECTDIR}/_ext/639803181/sys_clk_pic32mx.o ${OBJECTDIR}/_ext/340578644/sys_devcon.o ${OBJECTDIR}/_ext/340578644/sys_devcon_pic32mx.o ${OBJECTDIR}/_ext/822048611/sys_ports_static.o ${OBJECTDIR}/_ext/1688732426/system_init.o ${OBJECTDIR}/_ext/1688732426/system_interrupt.o ${OBJECTDIR}/_ext/1688732426/system_exceptions.o ${OBJECTDIR}/_ext/1688732426/system_tasks.o ${OBJECTDIR}/_ext/1360937237/app.o ${OBJECTDIR}/_ext/1360937237/main.o ${OBJECTDIR}/_ext/1360937237/RN4678_driver.o ${OBJECTDIR}/_ext/1360937237/HSCMRRN001PD2A3_driver.o ${OBJECTDIR}/_ext/1360937237/Mc32_I2cUtilCCS.o ${OBJECTDIR}/_ext/1360937237/I2C_ICM42670P_Functions.o ${OBJECTDIR}/_ext/1042686532/sys_int_pic32.o ${OBJECTDIR}/_ext/1360937237/usart_FIFO.o
 
 # Source Files
-SOURCEFILES=../src/imu/inv_imu_apex.c ../src/imu/inv_imu_driver.c ../src/imu/inv_imu_selftest.c ../src/imu/inv_imu_transport.c ../src/inv_imu_personnal_functions.c ../src/Invn/EmbUtils/RingByteBuffer.c ../src/app.c ../src/main.c ../src/RN4678_driver.c ../src/HSCMRRN001PD2A3_driver.c ../src/Mc32_I2cUtilCCS.c ../src/ICM42670P_driver.c ../src/I2C_ICM42670P_Functions.c ../../../../../framework/system/int/src/sys_int_pic32.c ../src/system_config/default/framework/driver/tmr/src/drv_tmr_static.c ../src/system_config/default/framework/driver/tmr/src/drv_tmr_mapping.c ../src/system_config/default/framework/driver/usart/src/drv_usart_mapping.c ../src/system_config/default/framework/driver/usart/src/drv_usart_static.c ../src/system_config/default/framework/driver/usart/src/drv_usart_static_byte_model.c ../src/system_config/default/framework/system/clk/src/sys_clk_pic32mx.c ../src/system_config/default/framework/system/devcon/src/sys_devcon.c ../src/system_config/default/framework/system/devcon/src/sys_devcon_pic32mx.c ../src/system_config/default/framework/system/ports/src/sys_ports_static.c ../src/system_config/default/system_init.c ../src/system_config/default/system_interrupt.c ../src/system_config/default/system_exceptions.c ../src/system_config/default/system_tasks.c
+SOURCEFILES=../src/imu/inv_imu_apex.c ../src/imu/inv_imu_driver.c ../src/imu/inv_imu_selftest.c ../src/imu/inv_imu_transport.c ../src/inv_imu_personnal_functions.c ../src/Invn/EmbUtils/RingByteBuffer.c ../src/system_config/default/framework/driver/tmr/src/drv_tmr_static.c ../src/system_config/default/framework/driver/tmr/src/drv_tmr_mapping.c ../src/system_config/default/framework/driver/usart/src/drv_usart_mapping.c ../src/system_config/default/framework/driver/usart/src/drv_usart_static.c ../src/system_config/default/framework/driver/usart/src/drv_usart_static_byte_model.c ../src/system_config/default/framework/system/clk/src/sys_clk_pic32mx.c ../src/system_config/default/framework/system/devcon/src/sys_devcon.c ../src/system_config/default/framework/system/devcon/src/sys_devcon_pic32mx.c ../src/system_config/default/framework/system/ports/src/sys_ports_static.c ../src/system_config/default/system_init.c ../src/system_config/default/system_interrupt.c ../src/system_config/default/system_exceptions.c ../src/system_config/default/system_tasks.c ../src/app.c ../src/main.c ../src/RN4678_driver.c ../src/HSCMRRN001PD2A3_driver.c ../src/Mc32_I2cUtilCCS.c ../src/I2C_ICM42670P_Functions.c ../../../../../framework/system/int/src/sys_int_pic32.c ../src/usart_FIFO.c
 
 
 
@@ -142,54 +142,6 @@ ${OBJECTDIR}/_ext/429725745/RingByteBuffer.o: ../src/Invn/EmbUtils/RingByteBuffe
 	@${RM} ${OBJECTDIR}/_ext/429725745/RingByteBuffer.o.d 
 	@${RM} ${OBJECTDIR}/_ext/429725745/RingByteBuffer.o 
 	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -I"../src" -I"../src/system_config/default" -I"../src/default" -I"../../../../../framework" -I"../src/system_config/default/framework" -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/429725745/RingByteBuffer.o.d" -o ${OBJECTDIR}/_ext/429725745/RingByteBuffer.o ../src/Invn/EmbUtils/RingByteBuffer.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)    
-	
-${OBJECTDIR}/_ext/1360937237/app.o: ../src/app.c  .generated_files/ca3973f5d2aae12836159e70e4e848be32b7159c.flag .generated_files/bd7dd0b3a044e969994f431b44562e0fbe889da2.flag
-	@${MKDIR} "${OBJECTDIR}/_ext/1360937237" 
-	@${RM} ${OBJECTDIR}/_ext/1360937237/app.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1360937237/app.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -I"../src" -I"../src/system_config/default" -I"../src/default" -I"../../../../../framework" -I"../src/system_config/default/framework" -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360937237/app.o.d" -o ${OBJECTDIR}/_ext/1360937237/app.o ../src/app.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)    
-	
-${OBJECTDIR}/_ext/1360937237/main.o: ../src/main.c  .generated_files/eaa968862a1e4a4f0168ad6bac1c43af928d2d77.flag .generated_files/bd7dd0b3a044e969994f431b44562e0fbe889da2.flag
-	@${MKDIR} "${OBJECTDIR}/_ext/1360937237" 
-	@${RM} ${OBJECTDIR}/_ext/1360937237/main.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1360937237/main.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -I"../src" -I"../src/system_config/default" -I"../src/default" -I"../../../../../framework" -I"../src/system_config/default/framework" -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360937237/main.o.d" -o ${OBJECTDIR}/_ext/1360937237/main.o ../src/main.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)    
-	
-${OBJECTDIR}/_ext/1360937237/RN4678_driver.o: ../src/RN4678_driver.c  .generated_files/4d553ba18764e3785c6b380ed32476f65a508bdf.flag .generated_files/bd7dd0b3a044e969994f431b44562e0fbe889da2.flag
-	@${MKDIR} "${OBJECTDIR}/_ext/1360937237" 
-	@${RM} ${OBJECTDIR}/_ext/1360937237/RN4678_driver.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1360937237/RN4678_driver.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -I"../src" -I"../src/system_config/default" -I"../src/default" -I"../../../../../framework" -I"../src/system_config/default/framework" -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360937237/RN4678_driver.o.d" -o ${OBJECTDIR}/_ext/1360937237/RN4678_driver.o ../src/RN4678_driver.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)    
-	
-${OBJECTDIR}/_ext/1360937237/HSCMRRN001PD2A3_driver.o: ../src/HSCMRRN001PD2A3_driver.c  .generated_files/26732186ce9b296f4a944c6da8585f91edb3126d.flag .generated_files/bd7dd0b3a044e969994f431b44562e0fbe889da2.flag
-	@${MKDIR} "${OBJECTDIR}/_ext/1360937237" 
-	@${RM} ${OBJECTDIR}/_ext/1360937237/HSCMRRN001PD2A3_driver.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1360937237/HSCMRRN001PD2A3_driver.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -I"../src" -I"../src/system_config/default" -I"../src/default" -I"../../../../../framework" -I"../src/system_config/default/framework" -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360937237/HSCMRRN001PD2A3_driver.o.d" -o ${OBJECTDIR}/_ext/1360937237/HSCMRRN001PD2A3_driver.o ../src/HSCMRRN001PD2A3_driver.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)    
-	
-${OBJECTDIR}/_ext/1360937237/Mc32_I2cUtilCCS.o: ../src/Mc32_I2cUtilCCS.c  .generated_files/5065111ffd51f8cc909f0f9ee973c2edf586ed90.flag .generated_files/bd7dd0b3a044e969994f431b44562e0fbe889da2.flag
-	@${MKDIR} "${OBJECTDIR}/_ext/1360937237" 
-	@${RM} ${OBJECTDIR}/_ext/1360937237/Mc32_I2cUtilCCS.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1360937237/Mc32_I2cUtilCCS.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -I"../src" -I"../src/system_config/default" -I"../src/default" -I"../../../../../framework" -I"../src/system_config/default/framework" -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360937237/Mc32_I2cUtilCCS.o.d" -o ${OBJECTDIR}/_ext/1360937237/Mc32_I2cUtilCCS.o ../src/Mc32_I2cUtilCCS.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)    
-	
-${OBJECTDIR}/_ext/1360937237/ICM42670P_driver.o: ../src/ICM42670P_driver.c  .generated_files/7d0ceffbc38e0fd5e45ace43db45d88659a5d863.flag .generated_files/bd7dd0b3a044e969994f431b44562e0fbe889da2.flag
-	@${MKDIR} "${OBJECTDIR}/_ext/1360937237" 
-	@${RM} ${OBJECTDIR}/_ext/1360937237/ICM42670P_driver.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1360937237/ICM42670P_driver.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -I"../src" -I"../src/system_config/default" -I"../src/default" -I"../../../../../framework" -I"../src/system_config/default/framework" -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360937237/ICM42670P_driver.o.d" -o ${OBJECTDIR}/_ext/1360937237/ICM42670P_driver.o ../src/ICM42670P_driver.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)    
-	
-${OBJECTDIR}/_ext/1360937237/I2C_ICM42670P_Functions.o: ../src/I2C_ICM42670P_Functions.c  .generated_files/96f0475b1eb913379f32995cabcaf793b7f3908c.flag .generated_files/bd7dd0b3a044e969994f431b44562e0fbe889da2.flag
-	@${MKDIR} "${OBJECTDIR}/_ext/1360937237" 
-	@${RM} ${OBJECTDIR}/_ext/1360937237/I2C_ICM42670P_Functions.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1360937237/I2C_ICM42670P_Functions.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -I"../src" -I"../src/system_config/default" -I"../src/default" -I"../../../../../framework" -I"../src/system_config/default/framework" -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360937237/I2C_ICM42670P_Functions.o.d" -o ${OBJECTDIR}/_ext/1360937237/I2C_ICM42670P_Functions.o ../src/I2C_ICM42670P_Functions.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)    
-	
-${OBJECTDIR}/_ext/1042686532/sys_int_pic32.o: ../../../../../framework/system/int/src/sys_int_pic32.c  .generated_files/8212f6218e763fffe5871e42603315b34297acc0.flag .generated_files/bd7dd0b3a044e969994f431b44562e0fbe889da2.flag
-	@${MKDIR} "${OBJECTDIR}/_ext/1042686532" 
-	@${RM} ${OBJECTDIR}/_ext/1042686532/sys_int_pic32.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1042686532/sys_int_pic32.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -I"../src" -I"../src/system_config/default" -I"../src/default" -I"../../../../../framework" -I"../src/system_config/default/framework" -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1042686532/sys_int_pic32.o.d" -o ${OBJECTDIR}/_ext/1042686532/sys_int_pic32.o ../../../../../framework/system/int/src/sys_int_pic32.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)    
 	
 ${OBJECTDIR}/_ext/1407244131/drv_tmr_static.o: ../src/system_config/default/framework/driver/tmr/src/drv_tmr_static.c  .generated_files/62efffa046c1676e4c5a13360930dc59873a3952.flag .generated_files/bd7dd0b3a044e969994f431b44562e0fbe889da2.flag
 	@${MKDIR} "${OBJECTDIR}/_ext/1407244131" 
@@ -269,6 +221,54 @@ ${OBJECTDIR}/_ext/1688732426/system_tasks.o: ../src/system_config/default/system
 	@${RM} ${OBJECTDIR}/_ext/1688732426/system_tasks.o 
 	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -I"../src" -I"../src/system_config/default" -I"../src/default" -I"../../../../../framework" -I"../src/system_config/default/framework" -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1688732426/system_tasks.o.d" -o ${OBJECTDIR}/_ext/1688732426/system_tasks.o ../src/system_config/default/system_tasks.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)    
 	
+${OBJECTDIR}/_ext/1360937237/app.o: ../src/app.c  .generated_files/ca3973f5d2aae12836159e70e4e848be32b7159c.flag .generated_files/bd7dd0b3a044e969994f431b44562e0fbe889da2.flag
+	@${MKDIR} "${OBJECTDIR}/_ext/1360937237" 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/app.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/app.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -I"../src" -I"../src/system_config/default" -I"../src/default" -I"../../../../../framework" -I"../src/system_config/default/framework" -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360937237/app.o.d" -o ${OBJECTDIR}/_ext/1360937237/app.o ../src/app.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)    
+	
+${OBJECTDIR}/_ext/1360937237/main.o: ../src/main.c  .generated_files/eaa968862a1e4a4f0168ad6bac1c43af928d2d77.flag .generated_files/bd7dd0b3a044e969994f431b44562e0fbe889da2.flag
+	@${MKDIR} "${OBJECTDIR}/_ext/1360937237" 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/main.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/main.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -I"../src" -I"../src/system_config/default" -I"../src/default" -I"../../../../../framework" -I"../src/system_config/default/framework" -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360937237/main.o.d" -o ${OBJECTDIR}/_ext/1360937237/main.o ../src/main.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)    
+	
+${OBJECTDIR}/_ext/1360937237/RN4678_driver.o: ../src/RN4678_driver.c  .generated_files/4d553ba18764e3785c6b380ed32476f65a508bdf.flag .generated_files/bd7dd0b3a044e969994f431b44562e0fbe889da2.flag
+	@${MKDIR} "${OBJECTDIR}/_ext/1360937237" 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/RN4678_driver.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/RN4678_driver.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -I"../src" -I"../src/system_config/default" -I"../src/default" -I"../../../../../framework" -I"../src/system_config/default/framework" -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360937237/RN4678_driver.o.d" -o ${OBJECTDIR}/_ext/1360937237/RN4678_driver.o ../src/RN4678_driver.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)    
+	
+${OBJECTDIR}/_ext/1360937237/HSCMRRN001PD2A3_driver.o: ../src/HSCMRRN001PD2A3_driver.c  .generated_files/26732186ce9b296f4a944c6da8585f91edb3126d.flag .generated_files/bd7dd0b3a044e969994f431b44562e0fbe889da2.flag
+	@${MKDIR} "${OBJECTDIR}/_ext/1360937237" 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/HSCMRRN001PD2A3_driver.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/HSCMRRN001PD2A3_driver.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -I"../src" -I"../src/system_config/default" -I"../src/default" -I"../../../../../framework" -I"../src/system_config/default/framework" -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360937237/HSCMRRN001PD2A3_driver.o.d" -o ${OBJECTDIR}/_ext/1360937237/HSCMRRN001PD2A3_driver.o ../src/HSCMRRN001PD2A3_driver.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)    
+	
+${OBJECTDIR}/_ext/1360937237/Mc32_I2cUtilCCS.o: ../src/Mc32_I2cUtilCCS.c  .generated_files/5065111ffd51f8cc909f0f9ee973c2edf586ed90.flag .generated_files/bd7dd0b3a044e969994f431b44562e0fbe889da2.flag
+	@${MKDIR} "${OBJECTDIR}/_ext/1360937237" 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/Mc32_I2cUtilCCS.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/Mc32_I2cUtilCCS.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -I"../src" -I"../src/system_config/default" -I"../src/default" -I"../../../../../framework" -I"../src/system_config/default/framework" -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360937237/Mc32_I2cUtilCCS.o.d" -o ${OBJECTDIR}/_ext/1360937237/Mc32_I2cUtilCCS.o ../src/Mc32_I2cUtilCCS.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)    
+	
+${OBJECTDIR}/_ext/1360937237/I2C_ICM42670P_Functions.o: ../src/I2C_ICM42670P_Functions.c  .generated_files/96f0475b1eb913379f32995cabcaf793b7f3908c.flag .generated_files/bd7dd0b3a044e969994f431b44562e0fbe889da2.flag
+	@${MKDIR} "${OBJECTDIR}/_ext/1360937237" 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/I2C_ICM42670P_Functions.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/I2C_ICM42670P_Functions.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -I"../src" -I"../src/system_config/default" -I"../src/default" -I"../../../../../framework" -I"../src/system_config/default/framework" -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360937237/I2C_ICM42670P_Functions.o.d" -o ${OBJECTDIR}/_ext/1360937237/I2C_ICM42670P_Functions.o ../src/I2C_ICM42670P_Functions.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)    
+	
+${OBJECTDIR}/_ext/1042686532/sys_int_pic32.o: ../../../../../framework/system/int/src/sys_int_pic32.c  .generated_files/8212f6218e763fffe5871e42603315b34297acc0.flag .generated_files/bd7dd0b3a044e969994f431b44562e0fbe889da2.flag
+	@${MKDIR} "${OBJECTDIR}/_ext/1042686532" 
+	@${RM} ${OBJECTDIR}/_ext/1042686532/sys_int_pic32.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1042686532/sys_int_pic32.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -I"../src" -I"../src/system_config/default" -I"../src/default" -I"../../../../../framework" -I"../src/system_config/default/framework" -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1042686532/sys_int_pic32.o.d" -o ${OBJECTDIR}/_ext/1042686532/sys_int_pic32.o ../../../../../framework/system/int/src/sys_int_pic32.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)    
+	
+${OBJECTDIR}/_ext/1360937237/usart_FIFO.o: ../src/usart_FIFO.c  .generated_files/a2bb631aaf37b36327c0a48e037f3101c7fdf275.flag .generated_files/bd7dd0b3a044e969994f431b44562e0fbe889da2.flag
+	@${MKDIR} "${OBJECTDIR}/_ext/1360937237" 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/usart_FIFO.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/usart_FIFO.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -I"../src" -I"../src/system_config/default" -I"../src/default" -I"../../../../../framework" -I"../src/system_config/default/framework" -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360937237/usart_FIFO.o.d" -o ${OBJECTDIR}/_ext/1360937237/usart_FIFO.o ../src/usart_FIFO.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)    
+	
 else
 ${OBJECTDIR}/_ext/659858391/inv_imu_apex.o: ../src/imu/inv_imu_apex.c  .generated_files/2c4e9d7b05c02963897d7acb24ff9864d67fc1c3.flag .generated_files/bd7dd0b3a044e969994f431b44562e0fbe889da2.flag
 	@${MKDIR} "${OBJECTDIR}/_ext/659858391" 
@@ -305,54 +305,6 @@ ${OBJECTDIR}/_ext/429725745/RingByteBuffer.o: ../src/Invn/EmbUtils/RingByteBuffe
 	@${RM} ${OBJECTDIR}/_ext/429725745/RingByteBuffer.o.d 
 	@${RM} ${OBJECTDIR}/_ext/429725745/RingByteBuffer.o 
 	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -I"../src" -I"../src/system_config/default" -I"../src/default" -I"../../../../../framework" -I"../src/system_config/default/framework" -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/429725745/RingByteBuffer.o.d" -o ${OBJECTDIR}/_ext/429725745/RingByteBuffer.o ../src/Invn/EmbUtils/RingByteBuffer.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)    
-	
-${OBJECTDIR}/_ext/1360937237/app.o: ../src/app.c  .generated_files/c3ccc231975ffa8dc5c03ce1ecbd5ca301453592.flag .generated_files/bd7dd0b3a044e969994f431b44562e0fbe889da2.flag
-	@${MKDIR} "${OBJECTDIR}/_ext/1360937237" 
-	@${RM} ${OBJECTDIR}/_ext/1360937237/app.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1360937237/app.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -I"../src" -I"../src/system_config/default" -I"../src/default" -I"../../../../../framework" -I"../src/system_config/default/framework" -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360937237/app.o.d" -o ${OBJECTDIR}/_ext/1360937237/app.o ../src/app.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)    
-	
-${OBJECTDIR}/_ext/1360937237/main.o: ../src/main.c  .generated_files/5beafe90f1f5c683734e02d5cb2b80c597128a3.flag .generated_files/bd7dd0b3a044e969994f431b44562e0fbe889da2.flag
-	@${MKDIR} "${OBJECTDIR}/_ext/1360937237" 
-	@${RM} ${OBJECTDIR}/_ext/1360937237/main.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1360937237/main.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -I"../src" -I"../src/system_config/default" -I"../src/default" -I"../../../../../framework" -I"../src/system_config/default/framework" -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360937237/main.o.d" -o ${OBJECTDIR}/_ext/1360937237/main.o ../src/main.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)    
-	
-${OBJECTDIR}/_ext/1360937237/RN4678_driver.o: ../src/RN4678_driver.c  .generated_files/f8c1053923f9dd4a7e99f433160fb296faacb2ae.flag .generated_files/bd7dd0b3a044e969994f431b44562e0fbe889da2.flag
-	@${MKDIR} "${OBJECTDIR}/_ext/1360937237" 
-	@${RM} ${OBJECTDIR}/_ext/1360937237/RN4678_driver.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1360937237/RN4678_driver.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -I"../src" -I"../src/system_config/default" -I"../src/default" -I"../../../../../framework" -I"../src/system_config/default/framework" -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360937237/RN4678_driver.o.d" -o ${OBJECTDIR}/_ext/1360937237/RN4678_driver.o ../src/RN4678_driver.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)    
-	
-${OBJECTDIR}/_ext/1360937237/HSCMRRN001PD2A3_driver.o: ../src/HSCMRRN001PD2A3_driver.c  .generated_files/129dd4a11cc25ae4a56ece31a056618fdb033a.flag .generated_files/bd7dd0b3a044e969994f431b44562e0fbe889da2.flag
-	@${MKDIR} "${OBJECTDIR}/_ext/1360937237" 
-	@${RM} ${OBJECTDIR}/_ext/1360937237/HSCMRRN001PD2A3_driver.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1360937237/HSCMRRN001PD2A3_driver.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -I"../src" -I"../src/system_config/default" -I"../src/default" -I"../../../../../framework" -I"../src/system_config/default/framework" -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360937237/HSCMRRN001PD2A3_driver.o.d" -o ${OBJECTDIR}/_ext/1360937237/HSCMRRN001PD2A3_driver.o ../src/HSCMRRN001PD2A3_driver.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)    
-	
-${OBJECTDIR}/_ext/1360937237/Mc32_I2cUtilCCS.o: ../src/Mc32_I2cUtilCCS.c  .generated_files/cab0d1372b96abe57dbdf2e26adae813303d4c0b.flag .generated_files/bd7dd0b3a044e969994f431b44562e0fbe889da2.flag
-	@${MKDIR} "${OBJECTDIR}/_ext/1360937237" 
-	@${RM} ${OBJECTDIR}/_ext/1360937237/Mc32_I2cUtilCCS.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1360937237/Mc32_I2cUtilCCS.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -I"../src" -I"../src/system_config/default" -I"../src/default" -I"../../../../../framework" -I"../src/system_config/default/framework" -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360937237/Mc32_I2cUtilCCS.o.d" -o ${OBJECTDIR}/_ext/1360937237/Mc32_I2cUtilCCS.o ../src/Mc32_I2cUtilCCS.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)    
-	
-${OBJECTDIR}/_ext/1360937237/ICM42670P_driver.o: ../src/ICM42670P_driver.c  .generated_files/3b7c695779724275cc94a591a1db772c7f565b18.flag .generated_files/bd7dd0b3a044e969994f431b44562e0fbe889da2.flag
-	@${MKDIR} "${OBJECTDIR}/_ext/1360937237" 
-	@${RM} ${OBJECTDIR}/_ext/1360937237/ICM42670P_driver.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1360937237/ICM42670P_driver.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -I"../src" -I"../src/system_config/default" -I"../src/default" -I"../../../../../framework" -I"../src/system_config/default/framework" -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360937237/ICM42670P_driver.o.d" -o ${OBJECTDIR}/_ext/1360937237/ICM42670P_driver.o ../src/ICM42670P_driver.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)    
-	
-${OBJECTDIR}/_ext/1360937237/I2C_ICM42670P_Functions.o: ../src/I2C_ICM42670P_Functions.c  .generated_files/c9137eab3c4a0f04b096a9d6fdbb6364908d85fc.flag .generated_files/bd7dd0b3a044e969994f431b44562e0fbe889da2.flag
-	@${MKDIR} "${OBJECTDIR}/_ext/1360937237" 
-	@${RM} ${OBJECTDIR}/_ext/1360937237/I2C_ICM42670P_Functions.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1360937237/I2C_ICM42670P_Functions.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -I"../src" -I"../src/system_config/default" -I"../src/default" -I"../../../../../framework" -I"../src/system_config/default/framework" -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360937237/I2C_ICM42670P_Functions.o.d" -o ${OBJECTDIR}/_ext/1360937237/I2C_ICM42670P_Functions.o ../src/I2C_ICM42670P_Functions.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)    
-	
-${OBJECTDIR}/_ext/1042686532/sys_int_pic32.o: ../../../../../framework/system/int/src/sys_int_pic32.c  .generated_files/ffcb014968ef9f20b82487401ef8248bbb2fc33d.flag .generated_files/bd7dd0b3a044e969994f431b44562e0fbe889da2.flag
-	@${MKDIR} "${OBJECTDIR}/_ext/1042686532" 
-	@${RM} ${OBJECTDIR}/_ext/1042686532/sys_int_pic32.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1042686532/sys_int_pic32.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -I"../src" -I"../src/system_config/default" -I"../src/default" -I"../../../../../framework" -I"../src/system_config/default/framework" -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1042686532/sys_int_pic32.o.d" -o ${OBJECTDIR}/_ext/1042686532/sys_int_pic32.o ../../../../../framework/system/int/src/sys_int_pic32.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)    
 	
 ${OBJECTDIR}/_ext/1407244131/drv_tmr_static.o: ../src/system_config/default/framework/driver/tmr/src/drv_tmr_static.c  .generated_files/d492622e1d440a1dd4ad3fa8365954b0b1395916.flag .generated_files/bd7dd0b3a044e969994f431b44562e0fbe889da2.flag
 	@${MKDIR} "${OBJECTDIR}/_ext/1407244131" 
@@ -431,6 +383,54 @@ ${OBJECTDIR}/_ext/1688732426/system_tasks.o: ../src/system_config/default/system
 	@${RM} ${OBJECTDIR}/_ext/1688732426/system_tasks.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1688732426/system_tasks.o 
 	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -I"../src" -I"../src/system_config/default" -I"../src/default" -I"../../../../../framework" -I"../src/system_config/default/framework" -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1688732426/system_tasks.o.d" -o ${OBJECTDIR}/_ext/1688732426/system_tasks.o ../src/system_config/default/system_tasks.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)    
+	
+${OBJECTDIR}/_ext/1360937237/app.o: ../src/app.c  .generated_files/c3ccc231975ffa8dc5c03ce1ecbd5ca301453592.flag .generated_files/bd7dd0b3a044e969994f431b44562e0fbe889da2.flag
+	@${MKDIR} "${OBJECTDIR}/_ext/1360937237" 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/app.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/app.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -I"../src" -I"../src/system_config/default" -I"../src/default" -I"../../../../../framework" -I"../src/system_config/default/framework" -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360937237/app.o.d" -o ${OBJECTDIR}/_ext/1360937237/app.o ../src/app.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)    
+	
+${OBJECTDIR}/_ext/1360937237/main.o: ../src/main.c  .generated_files/5beafe90f1f5c683734e02d5cb2b80c597128a3.flag .generated_files/bd7dd0b3a044e969994f431b44562e0fbe889da2.flag
+	@${MKDIR} "${OBJECTDIR}/_ext/1360937237" 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/main.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/main.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -I"../src" -I"../src/system_config/default" -I"../src/default" -I"../../../../../framework" -I"../src/system_config/default/framework" -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360937237/main.o.d" -o ${OBJECTDIR}/_ext/1360937237/main.o ../src/main.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)    
+	
+${OBJECTDIR}/_ext/1360937237/RN4678_driver.o: ../src/RN4678_driver.c  .generated_files/f8c1053923f9dd4a7e99f433160fb296faacb2ae.flag .generated_files/bd7dd0b3a044e969994f431b44562e0fbe889da2.flag
+	@${MKDIR} "${OBJECTDIR}/_ext/1360937237" 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/RN4678_driver.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/RN4678_driver.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -I"../src" -I"../src/system_config/default" -I"../src/default" -I"../../../../../framework" -I"../src/system_config/default/framework" -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360937237/RN4678_driver.o.d" -o ${OBJECTDIR}/_ext/1360937237/RN4678_driver.o ../src/RN4678_driver.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)    
+	
+${OBJECTDIR}/_ext/1360937237/HSCMRRN001PD2A3_driver.o: ../src/HSCMRRN001PD2A3_driver.c  .generated_files/129dd4a11cc25ae4a56ece31a056618fdb033a.flag .generated_files/bd7dd0b3a044e969994f431b44562e0fbe889da2.flag
+	@${MKDIR} "${OBJECTDIR}/_ext/1360937237" 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/HSCMRRN001PD2A3_driver.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/HSCMRRN001PD2A3_driver.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -I"../src" -I"../src/system_config/default" -I"../src/default" -I"../../../../../framework" -I"../src/system_config/default/framework" -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360937237/HSCMRRN001PD2A3_driver.o.d" -o ${OBJECTDIR}/_ext/1360937237/HSCMRRN001PD2A3_driver.o ../src/HSCMRRN001PD2A3_driver.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)    
+	
+${OBJECTDIR}/_ext/1360937237/Mc32_I2cUtilCCS.o: ../src/Mc32_I2cUtilCCS.c  .generated_files/cab0d1372b96abe57dbdf2e26adae813303d4c0b.flag .generated_files/bd7dd0b3a044e969994f431b44562e0fbe889da2.flag
+	@${MKDIR} "${OBJECTDIR}/_ext/1360937237" 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/Mc32_I2cUtilCCS.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/Mc32_I2cUtilCCS.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -I"../src" -I"../src/system_config/default" -I"../src/default" -I"../../../../../framework" -I"../src/system_config/default/framework" -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360937237/Mc32_I2cUtilCCS.o.d" -o ${OBJECTDIR}/_ext/1360937237/Mc32_I2cUtilCCS.o ../src/Mc32_I2cUtilCCS.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)    
+	
+${OBJECTDIR}/_ext/1360937237/I2C_ICM42670P_Functions.o: ../src/I2C_ICM42670P_Functions.c  .generated_files/c9137eab3c4a0f04b096a9d6fdbb6364908d85fc.flag .generated_files/bd7dd0b3a044e969994f431b44562e0fbe889da2.flag
+	@${MKDIR} "${OBJECTDIR}/_ext/1360937237" 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/I2C_ICM42670P_Functions.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/I2C_ICM42670P_Functions.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -I"../src" -I"../src/system_config/default" -I"../src/default" -I"../../../../../framework" -I"../src/system_config/default/framework" -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360937237/I2C_ICM42670P_Functions.o.d" -o ${OBJECTDIR}/_ext/1360937237/I2C_ICM42670P_Functions.o ../src/I2C_ICM42670P_Functions.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)    
+	
+${OBJECTDIR}/_ext/1042686532/sys_int_pic32.o: ../../../../../framework/system/int/src/sys_int_pic32.c  .generated_files/ffcb014968ef9f20b82487401ef8248bbb2fc33d.flag .generated_files/bd7dd0b3a044e969994f431b44562e0fbe889da2.flag
+	@${MKDIR} "${OBJECTDIR}/_ext/1042686532" 
+	@${RM} ${OBJECTDIR}/_ext/1042686532/sys_int_pic32.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1042686532/sys_int_pic32.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -I"../src" -I"../src/system_config/default" -I"../src/default" -I"../../../../../framework" -I"../src/system_config/default/framework" -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1042686532/sys_int_pic32.o.d" -o ${OBJECTDIR}/_ext/1042686532/sys_int_pic32.o ../../../../../framework/system/int/src/sys_int_pic32.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)    
+	
+${OBJECTDIR}/_ext/1360937237/usart_FIFO.o: ../src/usart_FIFO.c  .generated_files/312065d4a2792ba4cb186762b4f7a0b214859b59.flag .generated_files/bd7dd0b3a044e969994f431b44562e0fbe889da2.flag
+	@${MKDIR} "${OBJECTDIR}/_ext/1360937237" 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/usart_FIFO.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/usart_FIFO.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -I"../src" -I"../src/system_config/default" -I"../src/default" -I"../../../../../framework" -I"../src/system_config/default/framework" -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360937237/usart_FIFO.o.d" -o ${OBJECTDIR}/_ext/1360937237/usart_FIFO.o ../src/usart_FIFO.c    -DXPRJ_default=$(CND_CONF)  -no-legacy-libc  $(COMPARISON_BUILD)    
 	
 endif
 

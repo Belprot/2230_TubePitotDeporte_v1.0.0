@@ -67,6 +67,8 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "I2C_ICM42670P_Functions.h"
 #include "inv_imu_personnal_functions.h"
 
+#include "usart_FIFO.h"
+
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
 
@@ -115,22 +117,10 @@ extern "C" {
 #define SCALED_DATA_G_DPS 1
 
     
+#define FAST        1
+#define SLOW        0
     
-#define FAST 1
-#define SLOW 0
-    
-// *****************************************************************************
-/* Application states
 
-  Summary:
-    Application states enumeration
-
-  Description:
-    This enumeration defines the valid application states.  These states
-    determine the behavior of the application at various times.
-*/
-    
-    
 
 typedef enum
 {
@@ -144,19 +134,6 @@ typedef enum
 } APP_STATES;
 
 
-// *****************************************************************************
-/* Application Data
-
-  Summary:
-    Holds application data
-
-  Description:
-    This structure holds the application's data.
-
-  Remarks:
-    Application strings and buffers are be defined outside this structure.
- */
-
 typedef struct{
     
     /* The application's current state */
@@ -167,6 +144,7 @@ typedef struct{
 
 } APP_DATA;
 
+
 typedef struct{
     
     uint16_t velocity;
@@ -175,6 +153,8 @@ typedef struct{
     float batVoltage, genVoltage;
     
 } SENS_DATA;
+
+
 
 // *****************************************************************************
 // *****************************************************************************
@@ -206,11 +186,13 @@ extern bool         isBluetoothConnected;
 extern struct inv_imu_device   myImuDevice;
 extern struct inv_imu_serif    myImuSertif;
 
+
 // Basic functions prototypes
 void APP_Initialize (void);
 void APP_Tasks( void );
 void APP_UpdateState(APP_STATES NewState);
 void clearArray(size_t arraySize, char *pArrayToClear);
+
 
 // Callback functions prototypes
 void TIMER1_Callback_Function(void);
@@ -223,6 +205,9 @@ void imu_callback(inv_imu_sensor_event_t *event);
 // IMU useful functions prototypes
 int         initImuInterface(struct inv_imu_serif *icm_serif);
 uint64_t    inv_imu_get_time_us(void);
+
+
+
 
 
 

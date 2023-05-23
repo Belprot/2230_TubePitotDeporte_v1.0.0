@@ -1,12 +1,12 @@
 build/default/debug/_ext/1688732426/system_interrupt.o: \
  ../src/system_config/default/system_interrupt.c \
- ../../../../../framework/system/common/sys_common.h ../src/app.h \
- ../src/system_config/default/system_config.h \
+ ../../../../../framework/system/common/sys_common.h \
  ../src/system_config/default/system_definitions.h \
  ../../../../../framework/system/common/sys_module.h \
  ../../../../../framework/system/devcon/sys_devcon.h \
  ../../../../../framework/system/system.h \
  ../../../../../framework/system/clk/sys_clk.h \
+ ../src/system_config/default/system_config.h \
  ../../../../../framework/peripheral/osc/plib_osc.h \
  ../../../../../framework/peripheral/osc/processor/osc_processor.h \
  ../../../../../framework/peripheral/osc/processor/osc_p32xxxx.h \
@@ -241,19 +241,16 @@ build/default/debug/_ext/1688732426/system_interrupt.o: \
  ../../../../../framework/peripheral/ports/processor/../templates/ports_ChangeNoticeEdgeControl_Unsupported.h \
  ../../../../../framework/peripheral/ports/processor/../templates/ports_ChangeNoticeEdgeStatus_Unsupported.h \
  ../../../../../framework/peripheral/ports/plib_ports_compatibility.h \
+ ../src/app.h ../src/system_config/default/system_definitions.h \
  ../src/ICM42670P_driver.h ../src/imu/inv_imu_driver.h \
  ../src/imu/inv_imu_defs.h ../src/imu/inv_imu_regmap_rev_a.h \
  ../src/imu/inv_imu_transport.h ../src/Invn/InvError.h \
  ../src/imu/inv_imu_transport.h ../src/Invn/EmbUtils/RingBuffer.h \
  ../src/I2C_ICM42670P_Functions.h ../src/app.h \
- ../src/inv_imu_personnal_functions.h \
- ../src/system_config/default/system_definitions.h ../src/RN4678_driver.h
+ ../src/inv_imu_personnal_functions.h ../src/usart_FIFO.h \
+ ../src/RN4678_driver.h
 
 ../../../../../framework/system/common/sys_common.h:
-
-../src/app.h:
-
-../src/system_config/default/system_config.h:
 
 ../src/system_config/default/system_definitions.h:
 
@@ -264,6 +261,8 @@ build/default/debug/_ext/1688732426/system_interrupt.o: \
 ../../../../../framework/system/system.h:
 
 ../../../../../framework/system/clk/sys_clk.h:
+
+../src/system_config/default/system_config.h:
 
 ../../../../../framework/peripheral/osc/plib_osc.h:
 
@@ -733,6 +732,10 @@ build/default/debug/_ext/1688732426/system_interrupt.o: \
 
 ../../../../../framework/peripheral/ports/plib_ports_compatibility.h:
 
+../src/app.h:
+
+../src/system_config/default/system_definitions.h:
+
 ../src/ICM42670P_driver.h:
 
 ../src/imu/inv_imu_driver.h:
@@ -755,6 +758,6 @@ build/default/debug/_ext/1688732426/system_interrupt.o: \
 
 ../src/inv_imu_personnal_functions.h:
 
-../src/system_config/default/system_definitions.h:
+../src/usart_FIFO.h:
 
 ../src/RN4678_driver.h:

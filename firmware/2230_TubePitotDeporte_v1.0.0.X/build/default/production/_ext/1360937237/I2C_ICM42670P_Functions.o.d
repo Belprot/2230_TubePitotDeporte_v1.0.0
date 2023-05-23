@@ -246,7 +246,7 @@ build/default/production/_ext/1360937237/I2C_ICM42670P_Functions.o: \
  ../../../../../framework/peripheral/ports/processor/../templates/ports_ChangeNoticeEdgeStatus_Unsupported.h \
  ../../../../../framework/peripheral/ports/plib_ports_compatibility.h \
  ../src/app.h ../src/ICM42670P_driver.h ../src/Invn/EmbUtils/RingBuffer.h \
- ../src/inv_imu_personnal_functions.h
+ ../src/inv_imu_personnal_functions.h ../src/usart_FIFO.h
 
 ../src/Mc32_I2cUtilCCS.h:
 
@@ -755,3 +755,5 @@ build/default/production/_ext/1360937237/I2C_ICM42670P_Functions.o: \
 ../src/Invn/EmbUtils/RingBuffer.h:
 
 ../src/inv_imu_personnal_functions.h:
+
+../src/usart_FIFO.h:

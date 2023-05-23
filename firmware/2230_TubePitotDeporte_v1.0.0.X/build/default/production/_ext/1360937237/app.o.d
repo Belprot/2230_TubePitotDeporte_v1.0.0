@@ -245,8 +245,8 @@ build/default/production/_ext/1360937237/app.o: ../src/app.c ../src/app.h \
  ../src/imu/inv_imu_transport.h ../src/Invn/InvError.h \
  ../src/imu/inv_imu_transport.h ../src/Invn/EmbUtils/RingBuffer.h \
  ../src/I2C_ICM42670P_Functions.h ../src/inv_imu_personnal_functions.h \
- ../src/Mc32_I2cUtilCCS.h ../src/HSCMRRN001PD2A3_driver.h \
- ../src/RN4678_driver.h
+ ../src/usart_FIFO.h ../src/Mc32_I2cUtilCCS.h \
+ ../src/HSCMRRN001PD2A3_driver.h ../src/RN4678_driver.h
 
 ../src/app.h:
 
@@ -753,6 +753,8 @@ build/default/production/_ext/1360937237/app.o: ../src/app.c ../src/app.h \
 ../src/I2C_ICM42670P_Functions.h:
 
 ../src/inv_imu_personnal_functions.h:
+
+../src/usart_FIFO.h:
 
 ../src/Mc32_I2cUtilCCS.h:
 

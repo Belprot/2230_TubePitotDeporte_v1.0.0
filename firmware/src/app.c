@@ -61,9 +61,6 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "RN4678_driver.h"
 
 
-
-
-
 // *****************************************************************************
 // *****************************************************************************
 // Section: Global Data Definitions
@@ -73,6 +70,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 //----------------------------------------------------------------------------// Global data
 APP_DATA        appData;
 SENS_DATA       sensData;
+//USART_FIFO      usartFifo;
 
 bool isBluethoothModuleInit     = false;
 bool isBluetoothConnected       = false;
@@ -91,64 +89,22 @@ struct inv_imu_serif    myImuSertif;
 //----------------------------------------------------------------------------// TIMER1 callback function
 void TIMER1_Callback_Function(){ //156Hz
     
-//    if(bluethoothModuleIsInit == false){
-//        bluethoothModuleIsInit = init_RN4678();
-//    }
-//    else{
-//        
-//    }
-    
-    char a_status[100];
-    int cursor = 0;
-    bool result = 0;
-
-    const char* word =  "<RFCOMM_OPEN>";
-    const char* word2 = "<RFCOMM_CLOSE>";
-
-
-    clearArray(sizeof(a_status), &a_status[0]);
-    
-    // Wait for the Transmit buffer to be empty.
-    if(PLIB_USART_ReceiverDataIsAvailable(USART_ID_1)){
-        
-        do{
-            while(PLIB_USART_ReceiverDataIsAvailable(USART_ID_1)){
-                // Reads and saves the characters received in an array
-                a_status[cursor] = PLIB_USART_ReceiverByteReceive(USART_ID_1);
-                // Increments the cursor value
-                cursor++;
-            }
-        }while(a_status[cursor - 1] != '>');
-        
-        cursor = 0;
-    }
-        
-//    if(strcmp(&a_status[0], word) == 0) isBluetoothConnected = 1;
-//    if(strcmp(&a_status[0], word2) == 0) isBluetoothConnected = 0;
-    
-    
-//    do{
-//        // While data are available in the buffer
-//        while(PLIB_USART_ReceiverDataIsAvailable(USART_ID_1)){
-//            // Reads and saves the characters received in an array
-//            a_status[cursor] = PLIB_USART_ReceiverByteReceive(USART_ID_1);
+//    int8_t c;
+//    int i = 0;
+//    uint16_t readSize = 0;
+//    
+//    
+//    readSize = getReadSize(&usartFifoRx);
+//    getCharFromFifo(&usartFifoRx, &c);
+//    
+//    if(c == '<'){
+//    
+//        for(i=0; i<(5); i++){
 //            
-//            if(a_status[cursor] == '>') result = 1;
-//            // Increments the cursor value
-//            cursor++;
-//            
+//            getCharFromFifo(&usartFifoRx, &a_fifoRx[i]);
 //        }
-//        // If data read are the same as expected
-//    }while(!result);
-    
-//    if(isNewData){
-//        
-//        if(strcmp(&a_status[0], word) == 0) isBluetoothConnected = 1;
-//        if(strcmp(&a_status[0], word2) == 0) isBluetoothConnected = 0;
 //    }
-    //searchWord(a_status, word);
 }
-
 
 //----------------------------------------------------------------------------// TIMER2 callback function
 void TIMER2_Callback_Function(){ // 20Hz
@@ -179,7 +135,7 @@ void TIMER2_Callback_Function(){ // 20Hz
             sensData.accelX,    sensData.accelY,    sensData.accelZ);
     
         // Send data through USART
-        sendData_RN4678(&a_dataToSend[0]);
+        //sendData_RN4678(&a_dataToSend[0]);
         
         SIGN_LEDToggle();
     }
@@ -247,7 +203,6 @@ void APP_Initialize ( void )
 
 
 
-
 // Initialize serial interface between MCU and IMU 
 int initImuInterface(struct inv_imu_serif *icm_serif){
     
@@ -279,6 +234,17 @@ void APP_Tasks ( void ){
             // Initialization of the I2C communication
             i2c_init(SLOW);
             
+            // Initialization of the ICM42670 interface
+            rc |= initImuInterface(&myImuSertif);
+            // Resets and prepares the chip for the configuration
+            rc |= setupImuDevice(&myImuSertif);
+            // Configures ICM42670 parameters
+            rc |= configureImuDevice();
+            
+            // Initilization of the USART FIFOs
+            initFifo(&usartFifoRx, FIFO_RX_SIZE, a_fifoRx, 0 );
+            initFifo(&usartFifoTx, FIFO_TX_SIZE, a_fifoTx, 0 );
+            
             // Initialization of the Bluetooth module
             isBluethoothModuleInit = init_RN4678();
             
@@ -286,13 +252,6 @@ void APP_Tasks ( void ){
             DRV_TMR0_Start();
             DRV_TMR1_Start();
             DRV_TMR2_Start();
-            
-            // Initialization of the ICM42670 interface
-            rc |= initImuInterface(&myImuSertif);
-            // Resets and prepares the chip for the configuration
-            rc |= setupImuDevice(&myImuSertif);
-            // Configures ICM42670 parameters
-            rc |= configureImuDevice();
             
             // State machine update
             APP_UpdateState(APP_STATE_SERVICE_TASKS);
@@ -326,6 +285,10 @@ void clearArray(size_t arraySize, char *pArrayToClear){
         pArrayToClear[i] = NULL;
     }
 }
+
+
+
+
 
 /*******************************************************************************
  End of File

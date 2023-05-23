@@ -60,63 +60,102 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 // *****************************************************************************
 
 #include "system/common/sys_common.h"
-#include "app.h"
 #include "system_definitions.h"
+#include "app.h"
 #include "RN4678_driver.h"
 
-extern APP_DATA appData;
 
 // *****************************************************************************
 // *****************************************************************************
 // Section: System Interrupt Vector Functions
 // *****************************************************************************
 // *****************************************************************************
-void __ISR(_UART_1_VECTOR, ipl0AUTO) _IntHandlerDrvUsartInstance0(void)
-{
-//    DRV_USART_TasksTransmit(sysObj.drvUsart0);
-//    DRV_USART_TasksError(sysObj.drvUsart0);
-//    DRV_USART_TasksReceive(sysObj.drvUsart0);
+void __ISR(_UART_1_VECTOR, ipl5AUTO) _IntHandlerDrvUsartInstance0(void){
+    
+    USART_ERROR usartStatus;
+    bool  TxBuffFull;
+    int8_t c;
+    int8_t TXsize;
+            
+    // Is this an RX interrupt ?
+    if(PLIB_INT_SourceFlagGet(INT_ID_0, INT_SOURCE_USART_1_RECEIVE) &&
+                PLIB_INT_SourceIsEnabled(INT_ID_0, INT_SOURCE_USART_1_RECEIVE)){
+
+        // Oui Test si erreur parité ou overrun
+        usartStatus = PLIB_USART_ErrorsGet(USART_ID_1);
+
+        if ((usartStatus & (USART_ERROR_PARITY | USART_ERROR_FRAMING | 
+                USART_ERROR_RECEIVER_OVERRUN)) == 0){
+
+            // Traitement RX à faire ICI
+            // Lecture des caractères depuis le buffer HW -> fifo SW
+			//  (pour savoir s'il y a une data dans le buffer HW RX : PLIB_USART_ReceiverDataIsAvailable())
+			//  (Lecture via fonction PLIB_USART_ReceiverByteReceive())
+
+            // Transfert dans le FIFO de tous les chars reçus
+            // 1 Si ONE_CHAR, 4 si HALF_FULL et 6 3B4FULL
+            while(PLIB_USART_ReceiverDataIsAvailable(USART_ID_1)){
+                
+                c = PLIB_USART_ReceiverByteReceive(USART_ID_1);
+                putCharInFifo(&usartFifoRx, c);
+            }
+            // buffer is empty, clear interrupt flag
+            PLIB_INT_SourceFlagClear(INT_ID_0, INT_SOURCE_USART_1_RECEIVE);
+       
+            // buffer is empty, clear interrupt flag
+            PLIB_INT_SourceFlagClear(INT_ID_0, INT_SOURCE_USART_1_RECEIVE);
+        }else{
+            // Suppression des erreurs
+            // La lecture des erreurs les efface sauf pour overrun
+            if((usartStatus & USART_ERROR_RECEIVER_OVERRUN) == 
+                    USART_ERROR_RECEIVER_OVERRUN){
+                
+                PLIB_USART_ReceiverOverrunErrorClear(USART_ID_1);
+            }
+        }
+
+        
+        // Traitement controle de flux reception à faire ICI
+        // Gerer sortie RS232_RTS en fonction de place dispo dans fifo reception
+        // ... 
+    }
+    
+    
+    // Is this an TX interrupt ?
+    if (PLIB_INT_SourceFlagGet(INT_ID_0, INT_SOURCE_USART_1_TRANSMIT) &&
+                 PLIB_INT_SourceIsEnabled(INT_ID_0, INT_SOURCE_USART_1_TRANSMIT) ) {
+        // Traitement TX à faire ICI
+        
+        TXsize = getReadSize(&usartFifoTx);
+       // i_cts = input(RS232_CTS);
+       // On vérifie 3 conditions :
+       // Si CTS = 0 (autorisation d'émettre)
+       // Si il y a un caractèreà émettre
+       // Si le txreg est bien disponible
+        
+       // Il est possible de déposer un caractère
+       // tant que le tampon n'est pas plein
+       TxBuffFull = PLIB_USART_TransmitterBufferIsFull(USART_ID_1);
+       
+        if (/*(i_cts == 0) && */(TXsize > 0) && (TxBuffFull == false)){
+            do {
+                getCharFromFifo(&usartFifoTx, &c);
+                PLIB_USART_TransmitterByteSend(USART_ID_1, c);
+                /*i_cts = RS232_CTS;*/
+                TXsize = getReadSize (&usartFifoTx);
+                TxBuffFull = PLIB_USART_TransmitterBufferIsFull(USART_ID_1);
+            } while (/*(i_cts == 0) && */( TXsize > 0 ) &&TxBuffFull == false);
+        }
+		
+        // disable TX interrupt (pour éviter une interrupt. inutile si plus rien à transmettre)
+        PLIB_INT_SourceDisable(INT_ID_0, INT_SOURCE_USART_1_TRANSMIT);
+        
+        // Clear the TX interrupt Flag (Seulement apres TX) 
+        PLIB_INT_SourceFlagClear(INT_ID_0, INT_SOURCE_USART_1_TRANSMIT);
+    }
 }
 
 
-
-//void __ISR(_UART_1_VECTOR, ipl1AUTO) _IntHandlerDrvUsartInstance0(void){
-//    char charReceived;
-//    
-//    USART_ERROR usartStatus;
-//    if(PLIB_INT_SourceFlagGet(INT_ID_0, INT_SOURCE_USART_1_RECEIVE) && 
-//            PLIB_INT_SourceIsEnabled(INT_ID_0, INT_SOURCE_USART_1_RECEIVE)){
-//        
-//        usartStatus = PLIB_USART_ErrorsGet(USART_ID_1);
-//        if((usartStatus & (USART_ERROR_PARITY | USART_ERROR_FRAMING | USART_ERROR_RECEIVER_OVERRUN)) == 0){
-//            
-//            
-//            while(PLIB_USART_ReceiverDataIsAvailable(USART_ID_1)){
-//                
-//                
-//                charReceived = PLIB_USART_ReceiverByteReceive(USART_ID_1);
-//                
-//                
-//                if (charReceived == '%'){
-//                    
-//                   
-//                } else{
-//                    // Put char in FIFO
-//                }
-//                
-//                
-//            }
-//            PLIB_INT_SourceFlagClear(INT_ID_0,INT_SOURCE_USART_1_RECEIVE);  
-//        }
-//        else{
-//            
-//            if((usartStatus & USART_ERROR_RECEIVER_OVERRUN) == USART_ERROR_RECEIVER_OVERRUN){
-//                
-//                PLIB_USART_ReceiverOverrunErrorClear(USART_ID_1);
-//            }
-//        }
-//    }
-//}
 
  
 

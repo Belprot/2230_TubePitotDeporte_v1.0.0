@@ -248,7 +248,7 @@ build/default/production/_ext/1688732426/system_init.o: \
  ../src/imu/inv_imu_transport.h ../src/Invn/InvError.h \
  ../src/imu/inv_imu_transport.h ../src/Invn/EmbUtils/RingBuffer.h \
  ../src/I2C_ICM42670P_Functions.h ../src/app.h \
- ../src/inv_imu_personnal_functions.h
+ ../src/inv_imu_personnal_functions.h ../src/usart_FIFO.h
 
 ../src/system_config/default/system_config.h:
 
@@ -759,3 +759,5 @@ build/default/production/_ext/1688732426/system_init.o: \
 ../src/app.h:
 
 ../src/inv_imu_personnal_functions.h:
+
+../src/usart_FIFO.h:

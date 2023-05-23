@@ -246,7 +246,7 @@ build/default/debug/_ext/639803181/sys_clk_pic32mx.o: \
  ../src/imu/inv_imu_transport.h ../src/Invn/InvError.h \
  ../src/imu/inv_imu_transport.h ../src/Invn/EmbUtils/RingBuffer.h \
  ../src/I2C_ICM42670P_Functions.h ../src/app.h \
- ../src/inv_imu_personnal_functions.h
+ ../src/inv_imu_personnal_functions.h ../src/usart_FIFO.h
 
 ../src/system_config/default/system_config.h:
 
@@ -753,3 +753,5 @@ build/default/debug/_ext/639803181/sys_clk_pic32mx.o: \
 ../src/app.h:
 
 ../src/inv_imu_personnal_functions.h:
+
+../src/usart_FIFO.h:
