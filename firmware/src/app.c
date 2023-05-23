@@ -98,14 +98,33 @@ void TIMER1_Callback_Function(){ //156Hz
 //        
 //    }
     
-    
-    char        a_status[100];
+    char a_status[100];
     int cursor = 0;
     bool result = 0;
 
     const char* word =  "<RFCOMM_OPEN>";
     const char* word2 = "<RFCOMM_CLOSE>";
+
+
     clearArray(sizeof(a_status), &a_status[0]);
+    
+    // Wait for the Transmit buffer to be empty.
+    if(PLIB_USART_ReceiverDataIsAvailable(USART_ID_1)){
+        
+        do{
+            while(PLIB_USART_ReceiverDataIsAvailable(USART_ID_1)){
+                // Reads and saves the characters received in an array
+                a_status[cursor] = PLIB_USART_ReceiverByteReceive(USART_ID_1);
+                // Increments the cursor value
+                cursor++;
+            }
+        }while(a_status[cursor - 1] != '>');
+        
+        cursor = 0;
+    }
+        
+//    if(strcmp(&a_status[0], word) == 0) isBluetoothConnected = 1;
+//    if(strcmp(&a_status[0], word2) == 0) isBluetoothConnected = 0;
     
     
 //    do{
@@ -122,8 +141,11 @@ void TIMER1_Callback_Function(){ //156Hz
 //        // If data read are the same as expected
 //    }while(!result);
     
-        if(strcmp(&a_status[0], word) == 0) isBluetoothConnected = 1;
-        if(strcmp(&a_status[0], word2) == 0) isBluetoothConnected = 0;
+//    if(isNewData){
+//        
+//        if(strcmp(&a_status[0], word) == 0) isBluetoothConnected = 1;
+//        if(strcmp(&a_status[0], word2) == 0) isBluetoothConnected = 0;
+//    }
     //searchWord(a_status, word);
 }
 
@@ -278,7 +300,7 @@ void APP_Tasks ( void ){
         }
 
         case APP_STATE_SERVICE_TASKS:
-        {
+        {            
             
             break;
         }

@@ -74,6 +74,9 @@ void SYS_Tasks ( void )
     /* Maintain system services */
 
     /* Maintain Device Drivers */
+    DRV_USART_TasksTransmit(sysObj.drvUsart0);
+    DRV_USART_TasksError (sysObj.drvUsart0);
+    DRV_USART_TasksReceive(sysObj.drvUsart0);
 
     /* Maintain Middleware & Other Libraries */
 
