@@ -4,6 +4,8 @@
  * Author: ricch
  * Inspired by the code of S. Giuseppe
  * Created on 12. avril 2023, 16:38
+ * 
+ * This code uses USART with FIFO
  */
 
 //----------------------------------------------------------------------------// Includes
@@ -27,7 +29,8 @@
 #define CMD_MODE_ANSWER     "CMD> "
 #define CMD_POS_ANSWER      "AOK\r\nCMD> "
 #define CMD_NEG_ANSWER      "ERR\r\nCMD> "
-#define CMD_REBOOT_ANSWER   "<REBOOT>"
+//#define CMD_REBOOT_ANSWER   "<REBOOT>"
+#define CMD_REBOOT_ANSWER   "Rebooting\r\n"
 
 // Device name
 #define DEVICE_NAME         "SN,TubePitotDeporte_v1.0.0\r"
@@ -36,131 +39,93 @@
 char a_answerCMD[20];
 bool isANewAnswer;
 
-//----------------------------------------------------------------------------// Functions
 
-//.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:// Initialization function
+
+
+
+//----------------------------------------------------------------------------// Initialization function
 bool init_RN4678(void){
     
-    int8_t c;
-    int i = 0;
-    uint16_t readSize = 0;
-    char* pArrayExpected = CMD_MODE_ANSWER;
-    bool initIsDone = 0;
+    bool initIsDone = 1;
     
-    
-    //Reset the module
+    //Resets the module for a reboot
     RESET_BLEOff();
-
-    inv_imu_sleep_us(200000);
+    inv_imu_sleep_us(100000);
     RESET_BLEOn();
-
+    
     inv_imu_sleep_us(200000);
+    // Enters in command mode
+    sendCMD_RN4678(CMD_MODE_ENTER, sizeof(CMD_MODE_ENTER), CMD_MODE_ANSWER,
+            sizeof(CMD_MODE_ANSWER));
+    // Sets the name of the device
+    sendCMD_RN4678(DEVICE_NAME, sizeof(DEVICE_NAME), CMD_POS_ANSWER, 
+            sizeof(CMD_POS_ANSWER));
+    // Sets the Bluetooth mode (Classic or BLE)
+    sendCMD_RN4678(CMD_BT_CLASSIC_ONLY, sizeof(CMD_BT_CLASSIC_ONLY), CMD_POS_ANSWER,
+            sizeof(CMD_POS_ANSWER));
+    // Sets the prefix dans the sufix of status
+    sendCMD_RN4678(CMD_PREFIX_SUFIX, sizeof(CMD_PREFIX_SUFIX), CMD_POS_ANSWER, 
+            sizeof(CMD_POS_ANSWER));
+    // Lauches a reboot command
+    sendCMD_RN4678(CMD_REBOOT_DEVICE, sizeof(CMD_REBOOT_DEVICE), CMD_REBOOT_ANSWER,
+            sizeof(CMD_REBOOT_ANSWER));
     
-    putCharInFifo(&usartFifoTx, '$');
-    putCharInFifo(&usartFifoTx, '$');
-    putCharInFifo(&usartFifoTx, '$');
-    putCharInFifo(&usartFifoTx, '\r');
-    // autorise l'emission déclenche INTERRUPT
-    PLIB_INT_SourceEnable(INT_ID_0, INT_SOURCE_USART_1_TRANSMIT);
-    
-    
-    
-    
-    readSize = getReadSize(&usartFifoRx);
-    getCharFromFifo(&usartFifoRx, &c);
-    
-    
-    for(i=0; i < (readSize); i++){
-
-        getCharFromFifo(&usartFifoRx, &a_fifoRx[i]);
-    }
-    
-    if(strstr((char*)a_fifoRx, (char*)CMD_MODE_ANSWER) != NULL){
-     
-        initIsDone = 1;
-    }
-    else initIsDone = 0;
-    
-     // 0 <<<<------
-    
-//        // Reset the module
-//        RESET_BLEOff();
-//
-//        inv_imu_sleep_us(200000);
-//        RESET_BLEOn();
-//
-//        inv_imu_sleep_us(200000);
-//        
-//        // Initilialization process
-//        initIsDone =  sendCMD_RN4678(CMD_MODE_ENTER, CMD_MODE_ANSWER);
-//        initIsDone *= sendCMD_RN4678(DEVICE_NAME, CMD_POS_ANSWER);
-//        initIsDone *= sendCMD_RN4678(CMD_BT_CLASSIC_ONLY, CMD_POS_ANSWER);
-//        initIsDone *= sendCMD_RN4678(CMD_PREFIX_SUFIX, CMD_POS_ANSWER);
-//        initIsDone *= sendCMD_RN4678(CMD_REBOOT_DEVICE, CMD_REBOOT_ANSWER);
-//        
-//        inv_imu_sleep_us(200000);
+    inv_imu_sleep_us(200000);
     
     return initIsDone;
 }
 
-//.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:// Sending command function (USART))
-bool sendCMD_RN4678(char* pArrayToSend, char* pArrayExpected){
+//----------------------------------------------------------------------------// Sending command function (USART))
+bool sendCMD_RN4678(char* pArrayToSend, size_t arraySize, char* pArrayExpected, 
+        size_t answerSize){
     
-    uint8_t cursor = 0;
-    bool result = 0;
-    int i = 0;
+    int8_t a_answer[20];
     
-    // Does until character '\r' is sent
+    // Save data in TX FIFO
+    putStringInFifo(&usartFifoTx, arraySize, pArrayToSend);
+    // Enable USART TX interrupt
+    PLIB_INT_SourceEnable(INT_ID_0, INT_SOURCE_USART_1_TRANSMIT);
+    
     do{
-        // Wait for the Transmit buffer to be empty.
-        if(!PLIB_USART_TransmitterBufferIsFull(USART_ID_1)){
+        // If the number of new char in FIFO is the same as the answer size
+        if(getReadSize(&usartFifoRx) >= answerSize - 1){ 
             
-            // Sends all data of the array
-            PLIB_USART_TransmitterByteSend(USART_ID_1, pArrayToSend[i]);
-            i++;
+            // Reads the answere received
+            getStringFromFifo(&usartFifoRx, &a_answer[0]);
         }
-    }while(pArrayToSend[i-1] != '\r');
+    }while((strstr((char*)a_answer, pArrayExpected) == NULL));
+        //if(strstr((char*)a_answer, pArrayExpected) != NULL) isInitDone = 1;
+
+    //}while(isInitDone != 1);
     
-    // Clear USART buffer before reading expected data
-    while(PLIB_USART_ReceiverDataIsAvailable(USART_ID_1)) 
-        PLIB_USART_ReceiverByteReceive(USART_ID_1);
-    // Clear the answer array
-    clearAnswerArray_RN4678();
+    clearInt8Array(sizeof(a_answer), &a_answer[0]);
     
-    // Sets the cursor on case 0 of the array
-    cursor = 0;
+    return 1;
+}
+
+void getUsartData(int8_t* pArrayToModify){
+    
     do{
-        // While data are available in the buffer
-        while(PLIB_USART_ReceiverDataIsAvailable(USART_ID_1)){
-            // Reads and saves the characters received in an array
-            a_answerCMD[cursor] = PLIB_USART_ReceiverByteReceive(USART_ID_1);
-            // Increments the cursor value
-            cursor++;
-        }
-        // If data read are the same as expected
-        if (strstr(a_answerCMD, pArrayExpected) != NULL) result = true;
-        else result = false;
-    }while(!result);
-    
-    return result;
-}
-
-
-//.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.://
-void clearAnswerArray_RN4678(){
-    
-    int cursor;
-    for (cursor = 0; cursor < sizeof(a_answerCMD); cursor++) {
         
-        a_answerCMD[cursor] = NULL;
-    }
+        // Reads the answere received
+        getStringFromFifo(&usartFifoRx, &pArrayToModify[0]);
+        
+    }while(getReadSize(&usartFifoRx));
+    
 }
 
 
 
 
-//.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.://
-void sendData_RN4678(char* pArrayToSend){
+
+
+
+
+
+
+
+//----------------------------------------------------------------------------//
+void sendData_RN4678(int8_t* pArrayToSend){
     
     int cursor = 0;
     
@@ -176,7 +141,7 @@ void sendData_RN4678(char* pArrayToSend){
     }while(pArrayToSend[cursor-1] != '\r');
 }
 
-//.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.://
+//----------------------------------------------------------------------------//
 void readStatus(char *pArrayStatus){
     
     int cursor = 0;
@@ -189,7 +154,9 @@ void readStatus(char *pArrayStatus){
     }
 }
 
-//.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.://
+
+
+//----------------------------------------------------------------------------//
 void performAction(const char* word){
     if (strcmp(word, "CONNECT") == 0){
         
@@ -205,7 +172,7 @@ void performAction(const char* word){
 }
 
 
-//.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.://
+//----------------------------------------------------------------------------//
 bool searchWord(char* message, const char* word){
     
     const char* pch = strstr(message, word);
@@ -215,3 +182,31 @@ bool searchWord(char* message, const char* word){
     }
     return false;
 }
+
+
+
+void getStatus_RN4678(char* a_status){
+    
+    int i;
+    uint16_t readSize = 0;
+    
+    // Trows away buffer data
+    for(i = 1; i < (readSize); i++){
+        
+        getCharFromFifo(&usartFifoRx, &a_fifoRx[i]);
+    }
+}
+
+
+
+//----------------------------------------------------------------------------//
+void clearInt8Array(size_t arraySize, int8_t* arrayToClear){
+    
+    int i;
+    
+    for (i = 0; i < arraySize; i++){
+        
+        arrayToClear[i] = NULL;
+    }
+}
+

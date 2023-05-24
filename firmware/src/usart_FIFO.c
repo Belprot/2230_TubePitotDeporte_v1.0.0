@@ -5,7 +5,6 @@
 #include "usart_FIFO.h"
 
 
-
 USART_FIFO usartFifoRx;
 USART_FIFO usartFifoTx;
 
@@ -141,3 +140,40 @@ uint8_t getCharFromFifo(USART_FIFO *pFifo, int8_t *charRead){
     }
     return readStatus;
 } 
+
+
+
+//----------------------------------------------------------------------------// putStringInFifo
+// Puts a string in the FIFO buffer
+
+void putStringInFifo(USART_FIFO *pFifo, size_t arraySize, char* pArrayToSave){
+    
+    int i;
+    
+    for (i = 0; i < arraySize; i++) {
+        
+        putCharInFifo(pFifo, pArrayToSave[i]);
+    }
+}
+
+
+
+//----------------------------------------------------------------------------//
+//
+
+int32_t getStringFromFifo(USART_FIFO *pFifo, int8_t* pArrayToModify){
+    
+    int32_t arraySize;
+    int i = 0;
+    
+    arraySize = getReadSize(pFifo);
+    
+    getCharFromFifo(pFifo, &pArrayToModify[i]);
+    
+    for(i = 1; i < (arraySize); i++){
+        
+        getCharFromFifo(pFifo, &pArrayToModify[i]);
+    }
+    
+    return arraySize;
+}

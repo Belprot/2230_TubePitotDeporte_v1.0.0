@@ -135,7 +135,7 @@ void TIMER2_Callback_Function(){ // 20Hz
             sensData.accelX,    sensData.accelY,    sensData.accelZ);
     
         // Send data through USART
-        //sendData_RN4678(&a_dataToSend[0]);
+        sendData_RN4678(&a_dataToSend[0]);
         
         SIGN_LEDToggle();
     }
@@ -150,6 +150,22 @@ void TIMER5_Callback_Function(void){
     appData.usCounter64 += 4294967296;
 }
 
+
+void USART1_Callback_Function(void){
+    
+    int8_t a_array[50];
+    
+    getUsartData(&a_array[0]);
+    //if(strstr((char*)a_array, (char*)a_connect) == NULL){
+    if(strcmp((char*)a_array, "<CONNECT") != NULL){    
+    
+        isBluetoothConnected = true;
+    }
+    if(strcmp((char*)a_array, "<DISCONN") != NULL){    
+    
+        isBluetoothConnected = false;
+    }
+}
 
 //----------------------------------------------------------------------------// IMU callback function
 void imu_callback(inv_imu_sensor_event_t *event){

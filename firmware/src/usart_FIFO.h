@@ -19,8 +19,8 @@ extern "C" {
     
     
     
-#define FIFO_RX_SIZE 30
-#define FIFO_TX_SIZE 30
+#define FIFO_RX_SIZE 40
+#define FIFO_TX_SIZE 40
 
     
 //----------------------------------------------------------------------------// Structure
@@ -45,7 +45,8 @@ int32_t getReadSize(USART_FIFO *pFifo);
 uint8_t putCharInFifo(USART_FIFO *pFifo, int8_t charToPut);
 uint8_t getCharFromFifo(USART_FIFO *pFifo, int8_t *charRead);
 
-
+void putStringInFifo(USART_FIFO *pFifo, size_t arraySize, char* pArrayToSave);
+int32_t getStringFromFifo(USART_FIFO *pFifo, int8_t* pArrayToModify);
 
 extern USART_FIFO usartFifoRx;
 extern USART_FIFO usartFifoTx;

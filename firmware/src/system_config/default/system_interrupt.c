@@ -98,7 +98,14 @@ void __ISR(_UART_1_VECTOR, ipl5AUTO) _IntHandlerDrvUsartInstance0(void){
                 
                 c = PLIB_USART_ReceiverByteReceive(USART_ID_1);
                 putCharInFifo(&usartFifoRx, c);
+                
+                // Calls the USART callback function
+                if(isBluethoothModuleInit && c == '>'){
+
+                    USART1_Callback_Function();
+                }
             }
+            
             // buffer is empty, clear interrupt flag
             PLIB_INT_SourceFlagClear(INT_ID_0, INT_SOURCE_USART_1_RECEIVE);
        
@@ -123,7 +130,7 @@ void __ISR(_UART_1_VECTOR, ipl5AUTO) _IntHandlerDrvUsartInstance0(void){
     
     // Is this an TX interrupt ?
     if (PLIB_INT_SourceFlagGet(INT_ID_0, INT_SOURCE_USART_1_TRANSMIT) &&
-                 PLIB_INT_SourceIsEnabled(INT_ID_0, INT_SOURCE_USART_1_TRANSMIT) ) {
+                 PLIB_INT_SourceIsEnabled(INT_ID_0, INT_SOURCE_USART_1_TRANSMIT)){
         // Traitement TX à faire ICI
         
         TXsize = getReadSize(&usartFifoTx);
@@ -138,18 +145,20 @@ void __ISR(_UART_1_VECTOR, ipl5AUTO) _IntHandlerDrvUsartInstance0(void){
        TxBuffFull = PLIB_USART_TransmitterBufferIsFull(USART_ID_1);
        
         if (/*(i_cts == 0) && */(TXsize > 0) && (TxBuffFull == false)){
-            do {
+            do{
                 getCharFromFifo(&usartFifoTx, &c);
-                PLIB_USART_TransmitterByteSend(USART_ID_1, c);
+                if(c != '\0') PLIB_USART_TransmitterByteSend(USART_ID_1, c);
                 /*i_cts = RS232_CTS;*/
                 TXsize = getReadSize (&usartFifoTx);
                 TxBuffFull = PLIB_USART_TransmitterBufferIsFull(USART_ID_1);
-            } while (/*(i_cts == 0) && */( TXsize > 0 ) &&TxBuffFull == false);
+            }while(/*(i_cts == 0) && */( TXsize > 0 ) && TxBuffFull == false);
         }
 		
         // disable TX interrupt (pour éviter une interrupt. inutile si plus rien à transmettre)
-        PLIB_INT_SourceDisable(INT_ID_0, INT_SOURCE_USART_1_TRANSMIT);
-        
+        if(TXsize == 0){
+            
+            PLIB_INT_SourceDisable(INT_ID_0, INT_SOURCE_USART_1_TRANSMIT);
+        }
         // Clear the TX interrupt Flag (Seulement apres TX) 
         PLIB_INT_SourceFlagClear(INT_ID_0, INT_SOURCE_USART_1_TRANSMIT);
     }

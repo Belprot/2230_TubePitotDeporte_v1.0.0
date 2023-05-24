@@ -182,6 +182,7 @@ typedef struct{
 extern APP_DATA     appData;
 extern SENS_DATA    sensData;
 extern bool         isBluetoothConnected;
+extern bool         isBluethoothModuleInit;
 
 extern struct inv_imu_device   myImuDevice;
 extern struct inv_imu_serif    myImuSertif;

@@ -221,7 +221,7 @@
       <Template dnOrder="17">
         <Name dnOrder="0">system_config.h</Name>
         <Path dnOrder="1">Header&amp;#160;Files/app/system_config/default</Path>
-        <Checksum dnOrder="2">4690B53CAB7D752800E3EA71B7DF9983</Checksum>
+        <Checksum dnOrder="2">7F1DC98D748962D4E6D406C71209BD64</Checksum>
       </Template>
       <Template dnOrder="18">
         <Name dnOrder="0">app.h</Name>
