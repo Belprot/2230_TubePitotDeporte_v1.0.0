@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?> 
 <project>                                  
-  <executable name="dist/default/production/2230_TubePitotDeporte_v1.0.0.X.production.elf">                 
+  <executable name="dist/default/debug/2230_TubePitotDeporte_v1.0.0.X.debug.elf">                 
     <memory name="program">                 
       <units>bytes</units>                 
       <length>66704</length>                 
-      <used>46824</used>                     
-      <free>19880</free>                     
+      <used>46844</used>                     
+      <free>19860</free>                     
     </memory>                              
     <memory name="data">              
       <units>bytes</units>                 
-      <length>16384</length>                 
-      <used>5140</used>                     
-      <free>11244</free>                     
+      <length>16896</length>                 
+      <used>6164</used>                     
+      <free>10732</free>                     
     </memory>                              
   </executable>                            
 </project>                                 

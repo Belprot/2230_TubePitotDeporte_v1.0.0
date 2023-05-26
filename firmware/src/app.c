@@ -89,27 +89,17 @@ struct inv_imu_serif    myImuSertif;
 //----------------------------------------------------------------------------// TIMER1 callback function
 void TIMER1_Callback_Function(){ //156Hz
     
-//    int8_t c;
-//    int i = 0;
-//    uint16_t readSize = 0;
-//    
-//    
-//    readSize = getReadSize(&usartFifoRx);
-//    getCharFromFifo(&usartFifoRx, &c);
-//    
-//    if(c == '<'){
-//    
-//        for(i=0; i<(5); i++){
-//            
-//            getCharFromFifo(&usartFifoRx, &a_fifoRx[i]);
-//        }
-//    }
+
+    
+    
+    
+    
 }
 
 //----------------------------------------------------------------------------// TIMER2 callback function
 void TIMER2_Callback_Function(){ // 20Hz
     
-    char    a_dataToSend[100];
+    int8_t a_dataToSend[100];
     
     if(isBluetoothConnected == true){
         
@@ -120,16 +110,15 @@ void TIMER2_Callback_Function(){ // 20Hz
         // Blocks values under 15km/h to avoid wrong values
         if(sensData.velocity <= 15) sensData.velocity = 0;
         
-        
         // Gets new IMU data
         get_imu_data();
         
         // Clears the array before saving new values
-        clearArray(sizeof(a_dataToSend), &a_dataToSend[0]);
+        //clearArray(sizeof(a_dataToSend), &a_dataToSend[0]);
         // Converts float values in a char array
-        sprintf(a_dataToSend, "S=%03dkm/h " 
-                              "GX=%+3.02f GY=%+3.02f GZ=%+3.02f "
-                              "AX=%+1.02f AY=%+1.02f AZ=%+1.02f\r",
+        sprintf((char*)a_dataToSend, "S=%dkm/h " 
+                              "GX=%+.02f GY=%+.02f GZ=%+.02f "
+                              "AX=%+.02f AY=%+.02f AZ=%+.02f\n\r",
             sensData.velocity,
             sensData.gyroX,     sensData.gyroY,     sensData.gyroZ,
             sensData.accelX,    sensData.accelY,    sensData.accelZ);
@@ -142,6 +131,7 @@ void TIMER2_Callback_Function(){ // 20Hz
     else SIGN_LEDOn();
 }
 
+
 //----------------------------------------------------------------------------// TIMER5 callback function
 void TIMER5_Callback_Function(void){
     
@@ -151,21 +141,27 @@ void TIMER5_Callback_Function(void){
 }
 
 
+//----------------------------------------------------------------------------// USART1_Callback_Function
 void USART1_Callback_Function(void){
     
-    int8_t a_array[50];
+    char a_array[50];
+    char* result;
     
     getUsartData(&a_array[0]);
-    //if(strstr((char*)a_array, (char*)a_connect) == NULL){
-    if(strcmp((char*)a_array, "<CONNECT") != NULL){    
+    
+    result = strstr(a_array, "<RFCOMM_OPEN>");
+    if(result != NULL){    
     
         isBluetoothConnected = true;
     }
-    if(strcmp((char*)a_array, "<DISCONN") != NULL){    
     
+    result = strstr(a_array, "<RFCOMM_CLOSE>");
+    if(result != NULL){
+        
         isBluetoothConnected = false;
     }
 }
+
 
 //----------------------------------------------------------------------------// IMU callback function
 void imu_callback(inv_imu_sensor_event_t *event){
@@ -178,10 +174,10 @@ void imu_callback(inv_imu_sensor_event_t *event){
     
     // Reads and transforms 16bits values into 
     // Transforms 16bits values into g acceleration and saves them in the sensor 
-    // data structure
-    sensData.accelX = (float)(event->accel[0])/8192.0; // 8192 bits per g
-    sensData.accelY = (float)(event->accel[1])/8192.0; // 8192 bits per g
-    sensData.accelZ = (float)(event->accel[2])/8192.0 + 0.075; // 8192 bits per g + offset
+    // data structure (8192 bits per g)
+    sensData.accelX = (float)(event->accel[0])/8192.0; 
+    sensData.accelY = (float)(event->accel[1])/8192.0;
+    sensData.accelZ = (float)(event->accel[2])/8192.0 + 0.075; // + offset
 }
 
 // *****************************************************************************
@@ -190,10 +186,23 @@ void imu_callback(inv_imu_sensor_event_t *event){
 // *****************************************************************************
 // *****************************************************************************
 
+//----------------------------------------------------------------------------// APP_UpdateState
 void APP_UpdateState(APP_STATES NewState){
     
     appData.state = NewState;
 }
+
+
+//----------------------------------------------------------------------------// clearArray
+void clearArray(size_t arraySize, char *pArrayToClear){
+    
+    int i;
+    for (i = 0; i < arraySize; i++){
+
+        pArrayToClear[i] = NULL;
+    }
+}
+
 
 // *****************************************************************************
 // *****************************************************************************
@@ -201,24 +210,16 @@ void APP_UpdateState(APP_STATES NewState){
 // *****************************************************************************
 // *****************************************************************************
 
-/*******************************************************************************
-  Function:
-    void APP_Initialize ( void )
-
-  Remarks:
-    See prototype in app.h.
- */
-
-void APP_Initialize ( void )
-{
+//----------------------------------------------------------------------------// APP_Initialize
+void APP_Initialize(void){
+    
     /* Place the App state machine in its initial state. */
     appData.state = APP_STATE_INIT;
 
     RESET_BLEOff();
 }
 
-
-
+//----------------------------------------------------------------------------// initImuInterface
 // Initialize serial interface between MCU and IMU 
 int initImuInterface(struct inv_imu_serif *icm_serif){
     
@@ -236,8 +237,9 @@ int initImuInterface(struct inv_imu_serif *icm_serif){
 	return 1;
 }
 
+
 //----------------------------------------------------------------------------// APP_Tasks
-void APP_Tasks ( void ){
+void APP_Tasks(void){
     
     int rc = 0;
     
@@ -291,19 +293,6 @@ void APP_Tasks ( void ){
         }
     }
 }
-
-//----------------------------------------------------------------------------// clearArray
-void clearArray(size_t arraySize, char *pArrayToClear){
-    
-    int i;
-    for (i = 0; i < arraySize; i++){
-
-        pArrayToClear[i] = NULL;
-    }
-}
-
-
-
 
 
 /*******************************************************************************
