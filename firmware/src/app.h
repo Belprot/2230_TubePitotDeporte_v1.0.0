@@ -115,7 +115,7 @@ extern "C" {
  * 1 : print scaled accel, gyro and temp data in g, dps and degree Celsius
  */
 #define SCALED_DATA_G_DPS 1
-
+#define CONFIGSCAN  0x0600       // SCAN AN9 AN10
     
 #define FAST        1
 #define SLOW        0

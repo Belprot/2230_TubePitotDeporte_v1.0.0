@@ -159,7 +159,7 @@ void putStringInFifo(USART_FIFO *pFifo, size_t arraySize, char* pArrayToSave){
 
 
 //----------------------------------------------------------------------------//
-//
+// Reads a complete string from FIFO
 
 int32_t getStringFromFifo(USART_FIFO *pFifo, int8_t* pArrayToModify){
     

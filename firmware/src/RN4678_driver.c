@@ -75,6 +75,7 @@ bool init_RN4678(void){
     return initIsDone;
 }
 
+
 //----------------------------------------------------------------------------// Sending command function (USART))
 bool sendCMD_RN4678(char* pArrayToSend, size_t arraySize, char* pArrayExpected, 
         size_t answerSize){
@@ -115,15 +116,6 @@ void getUsartData(int8_t* pArrayToModify){
 }
 
 
-
-
-
-
-
-
-
-
-
 //----------------------------------------------------------------------------//
 void sendData_RN4678(int8_t* pArrayToSend){
     
@@ -141,6 +133,7 @@ void sendData_RN4678(int8_t* pArrayToSend){
     }while(pArrayToSend[cursor-1] != '\r');
 }
 
+
 //----------------------------------------------------------------------------//
 void readStatus(char *pArrayStatus){
     
@@ -153,50 +146,6 @@ void readStatus(char *pArrayStatus){
         cursor++;
     }
 }
-
-
-
-//----------------------------------------------------------------------------//
-void performAction(const char* word){
-    if (strcmp(word, "CONNECT") == 0){
-        
-        isBluetoothConnected = true;
-        
-    } else if (strcmp(word, "DISCONN") == 0){
-        
-        isBluetoothConnected = false;
-        
-    } else {
-        // Ajoutez ici le code pour les autres actions ou traitements
-    }
-}
-
-
-//----------------------------------------------------------------------------//
-bool searchWord(char* message, const char* word){
-    
-    const char* pch = strstr(message, word);
-    if (pch != NULL) {
-        performAction(word);
-        return true;
-    }
-    return false;
-}
-
-
-
-void getStatus_RN4678(char* a_status){
-    
-    int i;
-    uint16_t readSize = 0;
-    
-    // Trows away buffer data
-    for(i = 1; i < (readSize); i++){
-        
-        getCharFromFifo(&usartFifoRx, &a_fifoRx[i]);
-    }
-}
-
 
 
 //----------------------------------------------------------------------------//

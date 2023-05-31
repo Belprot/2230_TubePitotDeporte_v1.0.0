@@ -70,7 +70,6 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 //----------------------------------------------------------------------------// Global data
 APP_DATA        appData;
 SENS_DATA       sensData;
-//USART_FIFO      usartFifo;
 
 bool isBluethoothModuleInit     = false;
 bool isBluetoothConnected       = false;
@@ -90,16 +89,38 @@ struct inv_imu_serif    myImuSertif;
 void TIMER1_Callback_Function(){ //156Hz
     
 
-    
-    
-    
-    
 }
 
 //----------------------------------------------------------------------------// TIMER2 callback function
 void TIMER2_Callback_Function(){ // 20Hz
     
     int8_t a_dataToSend[100];
+    int16_t result;
+    ADC_RESULT_BUF_STATUS BufStatus;
+
+    // Auto start sampling
+    // PLIB_ADC_SampleAutoStartEnable(ADC_ID_1);
+
+    // Attente fin de conversion
+    //    while (!PLIB_ADC_ConversionHasCompleted(ADC_ID_1))
+
+    // Stop sample/convert
+    PLIB_ADC_SampleAutoStartDisable(ADC_ID_1);
+
+    // traitement avec buffer alterné
+    BufStatus = PLIB_ADC_ResultBufferStatusGet(ADC_ID_1);
+    if (BufStatus == ADC_FILLING_BUF_0TO7) {
+        result = PLIB_ADC_ResultGetByIndex(ADC_ID_1, 0);
+    } else {
+        result = PLIB_ADC_ResultGetByIndex(ADC_ID_1, 8);
+    }
+
+    // Auto start sampling
+    PLIB_ADC_SampleAutoStartEnable(ADC_ID_1);
+    
+    
+    
+
     
     if(isBluetoothConnected == true){
         
@@ -147,6 +168,7 @@ void USART1_Callback_Function(void){
     char a_array[50];
     char* result;
     
+    // Gets new data from FIFO
     getUsartData(&a_array[0]);
     
     result = strstr(a_array, "<RFCOMM_OPEN>");
@@ -265,6 +287,30 @@ void APP_Tasks(void){
             
             // Initialization of the Bluetooth module
             isBluethoothModuleInit = init_RN4678();
+            
+            
+            
+            
+    PLIB_ADC_InputScanMaskAdd(ADC_ID_1, CONFIGSCAN) ;   // liste des AN à scanner
+    PLIB_ADC_ResultFormatSelect(ADC_ID_1, ADC_RESULT_FORMAT_INTEGER_16BIT);
+    PLIB_ADC_ResultBufferModeSelect(ADC_ID_1, ADC_BUFFER_MODE_TWO_8WORD_BUFFERS);
+    PLIB_ADC_SamplingModeSelect(ADC_ID_1, ADC_SAMPLING_MODE_MUXA);
+
+    PLIB_ADC_ConversionTriggerSourceSelect(ADC_ID_1, ADC_CONVERSION_TRIGGER_INTERNAL_COUNT);
+    PLIB_ADC_VoltageReferenceSelect(ADC_ID_1, ADC_REFERENCE_VDD_TO_AVSS );
+    PLIB_ADC_SampleAcquisitionTimeSet(ADC_ID_1, 0x1F);
+    PLIB_ADC_ConversionClockSet(ADC_ID_1, SYS_CLK_FREQ, 32);
+
+    // Rem CHR le nb d'échantillon par interruption doit correspondre au nb d'entrées
+    // de la liste de scan
+    PLIB_ADC_SamplesPerInterruptSelect(ADC_ID_1, ADC_2SAMPLES_PER_INTERRUPT);
+    PLIB_ADC_MuxAInputScanEnable(ADC_ID_1);
+
+    // Enable the ADC module
+    PLIB_ADC_Enable(ADC_ID_1);
+            
+            
+            
             
             // Starts TIMERs
             DRV_TMR0_Start();
