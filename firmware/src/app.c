@@ -47,6 +47,9 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 // DOM-IGNORE-END
 
 
+// Author M.Ricchieri
+
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Included Files 
@@ -56,9 +59,11 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "app.h"
 #include "Mc32_I2cUtilCCS.h"
 
-#include "HSCMRRN001PD2A3_driver.h"
+#include "diffPressSens_driver.h"
 
 #include "RN4678_driver.h"
+#include "voltageADC_driver.h"
+
 
 
 // *****************************************************************************
@@ -70,9 +75,10 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 //----------------------------------------------------------------------------// Global data
 APP_DATA        appData;
 SENS_DATA       sensData;
+RAW_ADC         rawAdc;
 
-bool isBluethoothModuleInit     = false;
-bool isBluetoothConnected       = false;
+bool isBluethoothModuleInit    = false;
+bool isBluetoothConnected      = false;
 
 struct inv_imu_device   myImuDevice;
 struct inv_imu_serif    myImuSertif;
@@ -88,68 +94,14 @@ struct inv_imu_serif    myImuSertif;
 //----------------------------------------------------------------------------// TIMER1 callback function
 void TIMER1_Callback_Function(){ //156Hz
     
-
+    
 }
+
 
 //----------------------------------------------------------------------------// TIMER2 callback function
 void TIMER2_Callback_Function(){ // 20Hz
     
-    int8_t a_dataToSend[100];
-    int16_t result;
-    ADC_RESULT_BUF_STATUS BufStatus;
-
-    // Auto start sampling
-    // PLIB_ADC_SampleAutoStartEnable(ADC_ID_1);
-
-    // Attente fin de conversion
-    //    while (!PLIB_ADC_ConversionHasCompleted(ADC_ID_1))
-
-    // Stop sample/convert
-    PLIB_ADC_SampleAutoStartDisable(ADC_ID_1);
-
-    // traitement avec buffer alterné
-    BufStatus = PLIB_ADC_ResultBufferStatusGet(ADC_ID_1);
-    if (BufStatus == ADC_FILLING_BUF_0TO7) {
-        result = PLIB_ADC_ResultGetByIndex(ADC_ID_1, 0);
-    } else {
-        result = PLIB_ADC_ResultGetByIndex(ADC_ID_1, 8);
-    }
-
-    // Auto start sampling
-    PLIB_ADC_SampleAutoStartEnable(ADC_ID_1);
-    
-    
-    
-
-    
-    if(isBluetoothConnected == true){
-        
-        // Reads the differential pressures sensor
-        sensData.velocity = getVelocity_HSCMRRN001PD2A3();
-        // Converts the velocity in m/s in km/h
-        sensData.velocity = (float)sensData.velocity * 3.6;
-        // Blocks values under 15km/h to avoid wrong values
-        if(sensData.velocity <= 15) sensData.velocity = 0;
-        
-        // Gets new IMU data
-        get_imu_data();
-        
-        // Clears the array before saving new values
-        //clearArray(sizeof(a_dataToSend), &a_dataToSend[0]);
-        // Converts float values in a char array
-        sprintf((char*)a_dataToSend, "S=%dkm/h " 
-                              "GX=%+.02f GY=%+.02f GZ=%+.02f "
-                              "AX=%+.02f AY=%+.02f AZ=%+.02f\n\r",
-            sensData.velocity,
-            sensData.gyroX,     sensData.gyroY,     sensData.gyroZ,
-            sensData.accelX,    sensData.accelY,    sensData.accelZ);
-    
-        // Send data through USART
-        sendData_RN4678(&a_dataToSend[0]);
-        
-        SIGN_LEDToggle();
-    }
-    else SIGN_LEDOn();
+    APP_UpdateAppState(APP_STATE_SERVICE_TASKS);
 }
 
 
@@ -202,16 +154,24 @@ void imu_callback(inv_imu_sensor_event_t *event){
     sensData.accelZ = (float)(event->accel[2])/8192.0 + 0.075; // + offset
 }
 
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Application Local Functions
 // *****************************************************************************
 // *****************************************************************************
 
-//----------------------------------------------------------------------------// APP_UpdateState
-void APP_UpdateState(APP_STATES NewState){
+//----------------------------------------------------------------------------// APP_UpdateAppState
+void APP_UpdateAppState(APP_STATES newState){
     
-    appData.state = NewState;
+    appData.appState = newState;
+}
+
+
+//----------------------------------------------------------------------------// APP_UpdateServiceState
+void APP_UpdateServiceState(SERVICE_STATES newState){
+    
+    appData.serviceState = newState;
 }
 
 
@@ -236,10 +196,11 @@ void clearArray(size_t arraySize, char *pArrayToClear){
 void APP_Initialize(void){
     
     /* Place the App state machine in its initial state. */
-    appData.state = APP_STATE_INIT;
+    appData.appState = APP_STATE_INIT;
 
     RESET_BLEOff();
 }
+
 
 //----------------------------------------------------------------------------// initImuInterface
 // Initialize serial interface between MCU and IMU 
@@ -264,11 +225,12 @@ int initImuInterface(struct inv_imu_serif *icm_serif){
 void APP_Tasks(void){
     
     int rc = 0;
+    int8_t a_dataToSend[110];
     
-    /* Check the application's current state. */
-    switch(appData.state){
+    // Check the application's current state
+    switch(appData.appState){
         
-        /* Application's initial state. */
+        // Application's initial state
         case APP_STATE_INIT:
         {
             // Initialization of the I2C communication
@@ -288,49 +250,77 @@ void APP_Tasks(void){
             // Initialization of the Bluetooth module
             isBluethoothModuleInit = init_RN4678();
             
-            
-            
-            
-    PLIB_ADC_InputScanMaskAdd(ADC_ID_1, CONFIGSCAN) ;   // liste des AN à scanner
-    PLIB_ADC_ResultFormatSelect(ADC_ID_1, ADC_RESULT_FORMAT_INTEGER_16BIT);
-    PLIB_ADC_ResultBufferModeSelect(ADC_ID_1, ADC_BUFFER_MODE_TWO_8WORD_BUFFERS);
-    PLIB_ADC_SamplingModeSelect(ADC_ID_1, ADC_SAMPLING_MODE_MUXA);
-
-    PLIB_ADC_ConversionTriggerSourceSelect(ADC_ID_1, ADC_CONVERSION_TRIGGER_INTERNAL_COUNT);
-    PLIB_ADC_VoltageReferenceSelect(ADC_ID_1, ADC_REFERENCE_VDD_TO_AVSS );
-    PLIB_ADC_SampleAcquisitionTimeSet(ADC_ID_1, 0x1F);
-    PLIB_ADC_ConversionClockSet(ADC_ID_1, SYS_CLK_FREQ, 32);
-
-    // Rem CHR le nb d'échantillon par interruption doit correspondre au nb d'entrées
-    // de la liste de scan
-    PLIB_ADC_SamplesPerInterruptSelect(ADC_ID_1, ADC_2SAMPLES_PER_INTERRUPT);
-    PLIB_ADC_MuxAInputScanEnable(ADC_ID_1);
-
-    // Enable the ADC module
-    PLIB_ADC_Enable(ADC_ID_1);
-            
-            
-            
+            // Initialization of the ADC module
+            initAdc();
             
             // Starts TIMERs
             DRV_TMR0_Start();
             DRV_TMR1_Start();
             DRV_TMR2_Start();
             
-            // State machine update
-            APP_UpdateState(APP_STATE_SERVICE_TASKS);
+            // States machines update
+            APP_UpdateAppState(APP_STATE_WAIT);
+            APP_UpdateServiceState(SERVICE_STATE_READ_SENSORS);
             break;
         }
 
         case APP_STATE_SERVICE_TASKS:
         {            
+            switch(appData.serviceState){
+                
+                case SERVICE_STATE_READ_SENSORS:
+                    
+                    // Reads voltages values
+                    readRawAdc(&rawAdc);
+                    convertRawToVoltage(&rawAdc, &sensData);
+                    // Reads velocity value
+                    convertRawToVelocity(readRawDiffPress(), &sensData);
+                    // Gets new IMU data
+                    get_imu_data();
+                    
+                    APP_UpdateServiceState(SERVICE_STATE_PROCESS);
+                    break;
+                
+                    
+                case SERVICE_STATE_PROCESS:
+                    
+                    // Clears the array before saving new values
+                    clearArray(sizeof(a_dataToSend), &a_dataToSend[0]);
+                    //Converts float values in a char array
+                    sprintf((char*)a_dataToSend, "S=%03dkm/h "
+                              "GX=%+.02f GY=%+.02f GZ=%+.02f "
+                              "AX=%+.02f AY=%+.02f AZ=%+.02f "
+                              "VB=%.02f VG=%.02f\n\r",
+                    sensData.velocity,
+                    sensData.gyroX,         sensData.gyroY,         sensData.gyroZ,
+                    sensData.accelX,        sensData.accelY,        sensData.accelZ,
+                    sensData.batVoltage,    sensData.genVoltage);
+                    
+                    APP_UpdateServiceState(SERVICE_STATE_SEND_DATA_BT);
+                    break;
+                    
+                    
+                case SERVICE_STATE_SEND_DATA_BT:
+                    
+                    if(isBluetoothConnected == true){
+                        // Send data through USART
+                        sendData_RN4678(&a_dataToSend[0]);
+                        // Toggle signalisation LED
+                        SIGN_LEDToggle();
+                    }
+                    else SIGN_LEDOn();
+                    
+                    APP_UpdateAppState(APP_STATE_WAIT);
+                    APP_UpdateServiceState(SERVICE_STATE_READ_SENSORS);
+                    break;
+            }
             
             break;
         }
         
         case APP_STATE_WAIT:
         {
-            
+            // Does nothing here
             break;
         }
         default:

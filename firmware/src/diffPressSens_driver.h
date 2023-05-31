@@ -8,6 +8,7 @@
 #ifndef HSCMRRN001PD2A3_DRIVER
 #define	HSCMRRN001PD2A3_DRIVER
 
+#include "app.h"
 #include <stdbool.h>
 #include <stdint.h>
 
@@ -17,14 +18,14 @@ extern "C" {
 #endif
 
     
-    
-    
 
 // Functions
-int16_t getCompDiffPress_HSCMRRN001PD2A3();
-float getVelocity_HSCMRRN001PD2A3();
+int16_t readRawDiffPress();
+void convertRawToVelocity(int16_t rawDiffPress, SENS_DATA *pSensData);
 
 
+//int16_t getCompDiffPress();
+//void getVelocity(SENS_DATA *pSensData);
 
 
 #ifdef	__cplusplus

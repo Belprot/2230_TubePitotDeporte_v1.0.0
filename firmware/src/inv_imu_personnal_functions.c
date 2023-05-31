@@ -1,7 +1,6 @@
 
 #include "app.h"
 #include "I2C_ICM42670P_Functions.h"
-#include "ICM42670P_driver.h"
 #include "imu/inv_imu_driver.h"
 #include "imu/inv_imu_transport.h"
 #include "Invn/EmbUtils/RingBuffer.h"

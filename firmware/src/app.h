@@ -43,6 +43,10 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
  *******************************************************************************/
 //DOM-IGNORE-END
 
+
+// Author M.Ricchieri
+
+
 #ifndef _APP_H
 #define _APP_H
 
@@ -60,7 +64,6 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "system_config.h"
 #include "system_definitions.h"
 
-#include "ICM42670P_driver.h"
 #include "imu/inv_imu_driver.h"
 #include "imu/inv_imu_transport.h"
 #include "Invn/EmbUtils/RingBuffer.h"
@@ -115,32 +118,38 @@ extern "C" {
  * 1 : print scaled accel, gyro and temp data in g, dps and degree Celsius
  */
 #define SCALED_DATA_G_DPS 1
-#define CONFIGSCAN  0x0600       // SCAN AN9 AN10
+
     
 #define FAST        1
 #define SLOW        0
-    
+
 
 
 typedef enum
 {
-	/* Application's state machine's initial state. */
 	APP_STATE_INIT=0,
 	APP_STATE_SERVICE_TASKS,
     APP_STATE_WAIT,
-
-	/* TODO: Define states used by the application state machine. */
-
+            
 } APP_STATES;
+
+
+typedef enum
+{
+	SERVICE_STATE_READ_SENSORS=0,
+    SERVICE_STATE_PROCESS,
+	SERVICE_STATE_SEND_DATA_BT,
+            
+} SERVICE_STATES;
+
 
 
 typedef struct{
     
-    /* The application's current state */
-    APP_STATES state;
+    APP_STATES appState;
+    SERVICE_STATES serviceState;
     uint32_t usCounter32;
     uint64_t usCounter64;
-    /* TODO: Define any additional data used by the application. */
 
 } APP_DATA;
 
@@ -148,11 +157,23 @@ typedef struct{
 typedef struct{
     
     uint16_t velocity;
-    float gyroX, gyroY, gyroZ;
-    float accelX, accelY, accelZ;
-    float batVoltage, genVoltage;
+    float gyroX;
+    float gyroY;
+    float gyroZ;
+    float accelX;
+    float accelY;
+    float accelZ;
+    float batVoltage;
+    float genVoltage;
     
 } SENS_DATA;
+
+typedef struct{
+    
+    uint16_t AN9_V_GEN;
+    uint16_t AN10_V_BAT;
+    
+}RAW_ADC;
 
 
 
@@ -191,7 +212,7 @@ extern struct inv_imu_serif    myImuSertif;
 // Basic functions prototypes
 void APP_Initialize (void);
 void APP_Tasks( void );
-void APP_UpdateState(APP_STATES NewState);
+void APP_UpdateAppState(APP_STATES NewState);
 void clearArray(size_t arraySize, char *pArrayToClear);
 
 

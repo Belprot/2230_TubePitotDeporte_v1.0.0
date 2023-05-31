@@ -86,37 +86,6 @@ build/default/production/_ext/1360937237/Mc32_I2cUtilCCS.o: \
  ../../../../../framework/peripheral/int/processor/../templates/int_VariableOffset_Unsupported.h \
  ../../../../../framework/peripheral/int/processor/../templates/int_SoftwareNMI_Unsupported.h \
  ../../../../../framework/system/int/sys_int_mapping.h \
- ../src/system_config/default/framework/driver/adc/drv_adc_static.h \
- ../../../../../framework/peripheral/adc/plib_adc.h \
- ../../../../../framework/peripheral/adc/processor/adc_processor.h \
- ../../../../../framework/peripheral/adc/processor/adc_p32xxxx.h \
- ../../../../../framework/peripheral/adc/processor/adc_p32mx130f064b.h \
- ../../../../../framework/peripheral/adc/processor/../templates/adc_EnableControl_Default.h \
- ../../../../../framework/peripheral/adc/processor/../templates/adc_registers.h \
- ../../../../../framework/peripheral/adc/processor/../templates/adc_StopInIdle_Default.h \
- ../../../../../framework/peripheral/adc/processor/../templates/adc_CalibrationControl_Default.h \
- ../../../../../framework/peripheral/adc/processor/../templates/adc_MuxInputScanSelect_Default.h \
- ../../../../../framework/peripheral/adc/processor/../templates/adc_MuxInputScanSelectExtended_Unsupported.h \
- ../../../../../framework/peripheral/adc/processor/../templates/adc_VoltageReference_Default.h \
- ../../../../../framework/peripheral/adc/processor/../templates/adc_MuxChannel0PositiveInput_Default.h \
- ../../../../../framework/peripheral/adc/processor/../templates/adc_MuxChannel0NegativeInput_Default.h \
- ../../../../../framework/peripheral/adc/processor/../templates/adc_MuxInputScanControl_Default.h \
- ../../../../../framework/peripheral/adc/processor/../templates/adc_SamplingModeControl_Default.h \
- ../../../../../framework/peripheral/adc/processor/../templates/adc_SamplesPerInterruptSelect_Default.h \
- ../../../../../framework/peripheral/adc/processor/../templates/adc_SamplingAutoStart_Default.h \
- ../../../../../framework/peripheral/adc/processor/../templates/adc_SamplingControl_Default.h \
- ../../../../../framework/peripheral/adc/processor/../templates/adc_SamplingAcquisitionTime_Default.h \
- ../../../../../framework/peripheral/adc/processor/../templates/adc_SamplingStatus_Default.h \
- ../../../../../framework/peripheral/adc/processor/../templates/adc_ConversionControl_Default.h \
- ../../../../../framework/peripheral/adc/processor/../templates/adc_ConversionClock_Default.h \
- ../../../../../framework/peripheral/adc/processor/../templates/adc_ConversionClockSource_Default.h \
- ../../../../../framework/peripheral/adc/processor/../templates/adc_ConversionTriggerSource_Default.h \
- ../../../../../framework/peripheral/adc/processor/../templates/adc_ConversionStopSequenceControl_Default.h \
- ../../../../../framework/peripheral/adc/processor/../templates/adc_ConversionStatus_Default.h \
- ../../../../../framework/peripheral/adc/processor/../templates/adc_ResultFormat_Default.h \
- ../../../../../framework/peripheral/adc/processor/../templates/adc_ResultBufferMode_Default.h \
- ../../../../../framework/peripheral/adc/processor/../templates/adc_ResultBufferFillStatus_Default.h \
- ../../../../../framework/peripheral/adc/processor/../templates/adc_ResultGetByIndex_Default.h \
  ../src/system_config/default/framework/driver/tmr/drv_tmr_static.h \
  ../../../../../framework/driver/tmr/drv_tmr.h \
  ../../../../../framework/driver/driver_common.h \
@@ -272,12 +241,12 @@ build/default/production/_ext/1360937237/Mc32_I2cUtilCCS.o: \
  ../../../../../framework/peripheral/ports/processor/../templates/ports_ChangeNoticeEdgeControl_Unsupported.h \
  ../../../../../framework/peripheral/ports/processor/../templates/ports_ChangeNoticeEdgeStatus_Unsupported.h \
  ../../../../../framework/peripheral/ports/plib_ports_compatibility.h \
- ../src/app.h ../src/ICM42670P_driver.h ../src/imu/inv_imu_driver.h \
- ../src/imu/inv_imu_defs.h ../src/imu/inv_imu_regmap_rev_a.h \
- ../src/imu/inv_imu_transport.h ../src/Invn/InvError.h \
- ../src/imu/inv_imu_transport.h ../src/Invn/EmbUtils/RingBuffer.h \
- ../src/I2C_ICM42670P_Functions.h ../src/inv_imu_personnal_functions.h \
- ../src/usart_FIFO.h ../src/Mc32_I2cUtilCCS.h \
+ ../src/app.h ../src/imu/inv_imu_driver.h ../src/imu/inv_imu_defs.h \
+ ../src/imu/inv_imu_regmap_rev_a.h ../src/imu/inv_imu_transport.h \
+ ../src/Invn/InvError.h ../src/imu/inv_imu_transport.h \
+ ../src/Invn/EmbUtils/RingBuffer.h ../src/I2C_ICM42670P_Functions.h \
+ ../src/inv_imu_personnal_functions.h ../src/usart_FIFO.h \
+ ../src/Mc32_I2cUtilCCS.h \
  ../../../../../framework/peripheral\i2c\plib_i2c.h \
  ../../../../../framework/peripheral/i2c/plib_i2c_helper_macros.h \
  ../../../../../framework/peripheral/i2c/processor/i2c_processor.h \
@@ -501,68 +470,6 @@ build/default/production/_ext/1360937237/Mc32_I2cUtilCCS.o: \
 ../../../../../framework/peripheral/int/processor/../templates/int_SoftwareNMI_Unsupported.h:
 
 ../../../../../framework/system/int/sys_int_mapping.h:
-
-../src/system_config/default/framework/driver/adc/drv_adc_static.h:
-
-../../../../../framework/peripheral/adc/plib_adc.h:
-
-../../../../../framework/peripheral/adc/processor/adc_processor.h:
-
-../../../../../framework/peripheral/adc/processor/adc_p32xxxx.h:
-
-../../../../../framework/peripheral/adc/processor/adc_p32mx130f064b.h:
-
-../../../../../framework/peripheral/adc/processor/../templates/adc_EnableControl_Default.h:
-
-../../../../../framework/peripheral/adc/processor/../templates/adc_registers.h:
-
-../../../../../framework/peripheral/adc/processor/../templates/adc_StopInIdle_Default.h:
-
-../../../../../framework/peripheral/adc/processor/../templates/adc_CalibrationControl_Default.h:
-
-../../../../../framework/peripheral/adc/processor/../templates/adc_MuxInputScanSelect_Default.h:
-
-../../../../../framework/peripheral/adc/processor/../templates/adc_MuxInputScanSelectExtended_Unsupported.h:
-
-../../../../../framework/peripheral/adc/processor/../templates/adc_VoltageReference_Default.h:
-
-../../../../../framework/peripheral/adc/processor/../templates/adc_MuxChannel0PositiveInput_Default.h:
-
-../../../../../framework/peripheral/adc/processor/../templates/adc_MuxChannel0NegativeInput_Default.h:
-
-../../../../../framework/peripheral/adc/processor/../templates/adc_MuxInputScanControl_Default.h:
-
-../../../../../framework/peripheral/adc/processor/../templates/adc_SamplingModeControl_Default.h:
-
-../../../../../framework/peripheral/adc/processor/../templates/adc_SamplesPerInterruptSelect_Default.h:
-
-../../../../../framework/peripheral/adc/processor/../templates/adc_SamplingAutoStart_Default.h:
-
-../../../../../framework/peripheral/adc/processor/../templates/adc_SamplingControl_Default.h:
-
-../../../../../framework/peripheral/adc/processor/../templates/adc_SamplingAcquisitionTime_Default.h:
-
-../../../../../framework/peripheral/adc/processor/../templates/adc_SamplingStatus_Default.h:
-
-../../../../../framework/peripheral/adc/processor/../templates/adc_ConversionControl_Default.h:
-
-../../../../../framework/peripheral/adc/processor/../templates/adc_ConversionClock_Default.h:
-
-../../../../../framework/peripheral/adc/processor/../templates/adc_ConversionClockSource_Default.h:
-
-../../../../../framework/peripheral/adc/processor/../templates/adc_ConversionTriggerSource_Default.h:
-
-../../../../../framework/peripheral/adc/processor/../templates/adc_ConversionStopSequenceControl_Default.h:
-
-../../../../../framework/peripheral/adc/processor/../templates/adc_ConversionStatus_Default.h:
-
-../../../../../framework/peripheral/adc/processor/../templates/adc_ResultFormat_Default.h:
-
-../../../../../framework/peripheral/adc/processor/../templates/adc_ResultBufferMode_Default.h:
-
-../../../../../framework/peripheral/adc/processor/../templates/adc_ResultBufferFillStatus_Default.h:
-
-../../../../../framework/peripheral/adc/processor/../templates/adc_ResultGetByIndex_Default.h:
 
 ../src/system_config/default/framework/driver/tmr/drv_tmr_static.h:
 
@@ -875,8 +782,6 @@ build/default/production/_ext/1360937237/Mc32_I2cUtilCCS.o: \
 ../../../../../framework/peripheral/ports/plib_ports_compatibility.h:
 
 ../src/app.h:
-
-../src/ICM42670P_driver.h:
 
 ../src/imu/inv_imu_driver.h:
 
