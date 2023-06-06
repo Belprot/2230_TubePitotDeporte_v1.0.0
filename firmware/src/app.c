@@ -109,8 +109,8 @@ void TIMER2_Callback_Function(){ // 20Hz
 void TIMER5_Callback_Function(void){
     
     // 64 bits counter
-    // 2^32 = 4294967296
-    appData.usCounter64 += 4294967296;
+    // 2^32 = 4294967295
+    appData.usCounter64 += 4294967295;
 }
 
 

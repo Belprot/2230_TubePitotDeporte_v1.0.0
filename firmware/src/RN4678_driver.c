@@ -19,7 +19,7 @@
 // Commands
 #define CMD_MODE_ENTER      "$$$\r"
 #define CMD_MODE_EXIT       "---\r"
-#define CMD_BLE_DISCOV_EN   "Q,0\r"
+#define CMD_BLE_DISCOV_EN   "Q,0\r" // <---- regarder pour mettren en discov tant de temps
 #define CMD_BLE_ONLY        "SG,1\r"
 #define CMD_BT_CLASSIC_ONLY "SG,2\r"
 #define CMD_PREFIX_SUFIX    "SO,<,>\r"
