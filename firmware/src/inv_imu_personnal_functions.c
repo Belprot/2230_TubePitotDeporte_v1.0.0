@@ -1,4 +1,14 @@
 
+/* 
+ * File:   adc_driver.c
+ * Author: M.Ricchieri
+ *
+ * Created on 31. mai 2023, 08:55
+ * 
+ * Inspired by the "Mc32DriverAdc.c" file
+ */
+
+//----------------------------------------------------------------------------// Includes
 #include "app.h"
 #include "I2C_ICM42670P_Functions.h"
 #include "imu/inv_imu_driver.h"
@@ -6,17 +16,26 @@
 #include "Invn/EmbUtils/RingBuffer.h"
 
 
-
+//----------------------------------------------------------------------------// Constants
 #if !USE_FIFO
 /* 
 	 * Buffer to keep track of the timestamp when IMU data ready interrupt fires.
-	 * The buffer can contain up to 64 items in order to store one timestamp for each packet in FIFO.
+	 * The buffer can contain up to 64 items in order to store one timestamp 
+     * for each packet in FIFO.
 	 */
 RINGBUFFER(timestamp_buffer, 64, uint64_t);
 #endif
 
 
-
+//----------------------------------------------------------------------------// get_imu_data
+ /** @brief this function provides a way to retrieve IMU data either from a FIFO 
+ *          buffer if USE_FIFO is defined, or directly from the registers if 
+ *          USE_FIFO is not defined. 
+ *          
+ *   @param[in]     -               -
+ *   @return        data from "inv_imu_get_data_from_registers" function or 
+ *                  data from "inv_imu_get_data_from_fifo"
+ */
 int get_imu_data(void)
 {
 #if USE_FIFO
@@ -25,10 +44,6 @@ int get_imu_data(void)
 	return inv_imu_get_data_from_registers(&myImuDevice);
 #endif
 }
-
-
-
-
 
 
 //----------------------------------------------------------------------------// configureImuDevice
@@ -111,14 +126,6 @@ int setupImuDevice(struct inv_imu_serif *icm_serif){
 }
 
 
-
-
-
-
-
-
-
-
 //----------------------------------------------------------------------------// inv_imu_sleep_us
  /** @brief This function is in charge of delaying the program for a certain 
  *          time.
@@ -128,32 +135,52 @@ int setupImuDevice(struct inv_imu_serif *icm_serif){
  */
 void inv_imu_sleep_us(uint32_t us){
     
+    uint16_t finalValue;
+    
     // Prepares the Timer3 and the counting variable
-	DRV_TMR3_Stop();
     DRV_TMR3_CounterClear();
-    appData.usCounter32 = 0;
+//    appData.usCounter32 = 0;
     // Starts Timer3
     DRV_TMR3_Start();
-    while (appData.usCounter32 < us)
-    {
-        // For debug
-//        us = us + 1;
-//        us = us -1 ;
-    }
+    
+//    finalValue = (us * 14.745600) + 8;  //+8 pour arrondir à la 1/2 us supérieure lors du passage float -> int
+    finalValue = us * 15;
+    
+    // Wait until the while loop is not true anymore
+//    while(appData.usCounter32 < us){}
+    while (DRV_TMR3_CounterValueGet() < finalValue);
+    // Stops Timer3
     DRV_TMR3_Stop();
 }
 
 
+//----------------------------------------------------------------------------// inv_imu_sleep_ms
+ /** @brief This function is in charge of delaying the program for a certain 
+ *          time.
+ *
+ *   @param[in]     ms              time in millisecond
+ *   @return        -               -
+ */
+void inv_imu_sleep_ms(uint32_t ms){
+    
+    uint32_t i;
+    for (i = 0; i < ms; i++) {
+        
+        inv_imu_sleep_us(1000);
+    }
+}
+
+
 //----------------------------------------------------------------------------// inv_imu_get_time_us
- /** @brief This function is in charge of .... NEEDS TO BE COMPLETED AND TESTED
+ /** @brief This function is in charge of TIMOUT uses
  *
  *   @param[in]     -               -
- *   @return        xx              xx
+ *   @return        xxx
  */
-// Timeout useful function // IMU
 uint64_t inv_imu_get_time_us(void){
     
-    return DRV_TMR2_CounterValueGet() + appData.usCounter64;
+    // Not in int64 but normal
+    return DRV_TMR2_CounterValueGet() / 15; // + appData.usCounter64;
 }
 
 

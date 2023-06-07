@@ -74,53 +74,6 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVOCES, OR ANY CLAIMS BY THIRD PARTIES
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: Interface Headers for Instance 0 for the static driver
-// *****************************************************************************
-// *****************************************************************************
-
-void DRV_TMR0_Initialize(void);
-bool DRV_TMR0_Start(void);
-void DRV_TMR0_Stop(void);
-static inline void DRV_TMR0_DeInitialize(void)
-{
-	DRV_TMR0_Stop();
-}
-static inline SYS_STATUS DRV_TMR0_Status(void)
-{
-	/* Return the status as ready always */
-    return SYS_STATUS_READY; 
-}
-static inline void DRV_TMR0_Open(void) {}
-DRV_TMR_CLIENT_STATUS DRV_TMR0_ClientStatus ( void );
-static inline DRV_TMR_OPERATION_MODE DRV_TMR0_OperationModeGet(void)
-{
-    return DRV_TMR_OPERATION_MODE_16_BIT;
-}
-static inline void DRV_TMR0_Close(void) 
-{
-    DRV_TMR0_Stop();
-}
-bool DRV_TMR0_ClockSet
-(
-    DRV_TMR_CLK_SOURCES clockSource, 
-    TMR_PRESCALE  prescale 
-);
-void DRV_TMR0_CounterValueSet(uint32_t value);
-uint32_t DRV_TMR0_CounterValueGet(void);
-void DRV_TMR0_CounterClear(void);
-TMR_PRESCALE DRV_TMR0_PrescalerGet(void);
-void DRV_TMR0_PeriodValueSet(uint32_t value);
-uint32_t DRV_TMR0_PeriodValueGet(void);
-void DRV_TMR0_StopInIdleDisable(void);
-void DRV_TMR0_StopInIdleEnable(void);
-static inline void DRV_TMR0_Tasks(void) {}
-uint32_t DRV_TMR0_CounterFrequencyGet(void);
-DRV_TMR_OPERATION_MODE DRV_TMR0_DividerRangeGet
-(
-    DRV_TMR_DIVIDER_RANGE * pDivRange
-);
-// *****************************************************************************
-// *****************************************************************************
 // Section: Interface Headers for Instance 1 for the static driver
 // *****************************************************************************
 // *****************************************************************************

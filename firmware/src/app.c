@@ -59,7 +59,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "app.h"
 #include "Mc32_I2cUtilCCS.h"
 
-#include "diffPressSens_driver.h"
+#include "HSCMRRN001PD2A3_driver.h"
 
 #include "RN4678_driver.h"
 #include "voltageADC_driver.h"
@@ -75,10 +75,6 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 //----------------------------------------------------------------------------// Global data
 APP_DATA        appData;
 SENS_DATA       sensData;
-RAW_ADC         rawAdc;
-
-bool isBluethoothModuleInit    = false;
-bool isBluetoothConnected      = false;
 
 struct inv_imu_device   myImuDevice;
 struct inv_imu_serif    myImuSertif;
@@ -91,49 +87,61 @@ struct inv_imu_serif    myImuSertif;
 // *****************************************************************************
 // *****************************************************************************
 
+////----------------------------------------------------------------------------// TIMER0 callback function <--- Disabled
+//void TIMER0_Callback_Function(){ //156Hz
+//    
+//    // xxxx
+//}
+
+
 //----------------------------------------------------------------------------// TIMER1 callback function
-void TIMER1_Callback_Function(){ //156Hz
+void TIMER1_Callback_Function(){ // 20Hz
     
-    
-}
-
-
-//----------------------------------------------------------------------------// TIMER2 callback function
-void TIMER2_Callback_Function(){ // 20Hz
-    
+    if(appData.isBluetoothDiscoverable){
+        
+        if(inv_imu_get_time_us() >= 120000000){ // 120 000 000 = 120 seconds
+            
+            turnOffDiscoverBT();
+            appData.isBluetoothDiscoverable = false;
+        }
+    }
+    // Update the main state machine
     APP_UpdateAppState(APP_STATE_SERVICE_TASKS);
-}
-
-
-//----------------------------------------------------------------------------// TIMER5 callback function
-void TIMER5_Callback_Function(void){
-    
-    // 64 bits counter
-    // 2^32 = 4294967295
-    appData.usCounter64 += 4294967295;
 }
 
 
 //----------------------------------------------------------------------------// USART1_Callback_Function
 void USART1_Callback_Function(void){
     
-    char a_array[50];
+    char a_received[50];
     char* result;
     
     // Gets new data from FIFO
-    getUsartData(&a_array[0]);
+    getUsartData(&a_received[0]);
     
-    result = strstr(a_array, "<RFCOMM_OPEN>");
-    if(result != NULL){    
-    
-        isBluetoothConnected = true;
-    }
-    
-    result = strstr(a_array, "<RFCOMM_CLOSE>");
+    // If "<RFCOMM_OPEN>" is present in the array received 
+    result = strstr(a_received, "<RFCOMM_OPEN>");
     if(result != NULL){
         
-        isBluetoothConnected = false;
+        
+        appData.isBluetoothDiscoverable = false;
+        appData.isBluetoothConnected = true;
     }
+    
+    // If "<RFCOMM_CLOSE>" is present in the array received 
+    result = strstr(a_received, "<RFCOMM_CLOSE>");
+    if(result != NULL){
+        
+        // turnOnDiscoverBT();
+        appData.isBluetoothConnected = false;
+    }
+    
+//    // If "<xxxxxx>" is present in the array received
+//    result = strstr(a_received, "<xxxxxx>");
+//    if(result != NULL){
+//        
+//        // Does something
+//    }
 }
 
 
@@ -179,12 +187,25 @@ void APP_UpdateServiceState(SERVICE_STATES newState){
 void clearArray(size_t arraySize, char *pArrayToClear){
     
     int i;
+    
     for (i = 0; i < arraySize; i++){
 
         pArrayToClear[i] = NULL;
     }
 }
 
+
+//----------------------------------------------------------------------------// frameFormatting
+inline void frameFormatting(char* a_dataToSend, const SENS_DATA* sensData){
+    
+    // Saves all data into a simple frame
+    sprintf(a_dataToSend, "S=%03dkm/h GX=%+.02f GY=%+.02f GZ=%+.02f AX=%+.02f "
+            "AY=%+.02f AZ=%+.02f VB=%.02f VG=%.02f\n\r",
+            sensData->velocity,
+            sensData->gyroX, sensData->gyroY, sensData->gyroZ,
+            sensData->accelX, sensData->accelY, sensData->accelZ,
+            sensData->batVoltage, sensData->genVoltage);
+}
 
 // *****************************************************************************
 // *****************************************************************************
@@ -195,10 +216,12 @@ void clearArray(size_t arraySize, char *pArrayToClear){
 //----------------------------------------------------------------------------// APP_Initialize
 void APP_Initialize(void){
     
-    /* Place the App state machine in its initial state. */
-    appData.appState = APP_STATE_INIT;
-
-    RESET_BLEOff();
+    // Initializes the appData structure
+    
+    appData.appState                = APP_STATE_INIT;
+    appData.isBluethoothModuleInit  = false;
+    appData.isBluetoothConnected    = false;
+    appData.isBluetoothDiscoverable = false;
 }
 
 
@@ -208,53 +231,63 @@ int initImuInterface(struct inv_imu_serif *icm_serif){
     
     // No need
 	icm_serif->context    = 0;
-    // Points to the function
+    // Points to the reading function dedicated
 	icm_serif->read_reg   = ICM42670P_I2C_bus_read;
-    // Points to the function
+    // Points to the writing function dedicated
 	icm_serif->write_reg  = ICM42670P_I2C_bus_write;
 	icm_serif->max_read   = 255; /* maximum number of bytes allowed per serial read */
 	icm_serif->max_write  = 255; /* maximum number of bytes allowed per serial write */
     // Set the communication interface
 	icm_serif->serif_type = SERIF_TYPE;
     
-	return 1;
+	return 0;
 }
 
 
 //----------------------------------------------------------------------------// APP_Tasks
 void APP_Tasks(void){
     
-    int rc = 0;
-    int8_t a_dataToSend[110];
+    int         rc = 0;
+    int8_t      a_frameToSend[110];
+    RAW_ADC     rawAdc;
+    
     
     // Check the application's current state
     switch(appData.appState){
         
         // Application's initial state
         case APP_STATE_INIT:
-        {
+        { 
             // Initialization of the I2C communication
             i2c_init(SLOW);
             
-            // Initialization of the ICM42670 interface
-            rc |= initImuInterface(&myImuSertif);
-            // Resets and prepares the chip for the configuration
-            rc |= setupImuDevice(&myImuSertif);
-            // Configures ICM42670 parameters
-            rc |= configureImuDevice();
+            do{
+                // Initialization of the ICM42670 interface
+                rc |= initImuInterface(&myImuSertif);
+                // Resets and prepares the chip for the configuration
+                rc |= setupImuDevice(&myImuSertif);
+                // Configures ICM42670 parameters
+                rc |= configureImuDevice();
+                
+            }while(rc != INV_ERROR_SUCCESS);
             
             // Initilization of the USART FIFOs
-            initFifo(&usartFifoRx, FIFO_RX_SIZE, a_fifoRx, 0 );
-            initFifo(&usartFifoTx, FIFO_TX_SIZE, a_fifoTx, 0 );
+            initFifo(&usartFifoRx, FIFO_RX_SIZE, a_fifoRx, 0);
+            initFifo(&usartFifoTx, FIFO_TX_SIZE, a_fifoTx, 0);
             
-            // Initialization of the Bluetooth module
-            isBluethoothModuleInit = init_RN4678();
+            do{
+                // Initialization of the Bluetooth module
+                appData.isBluethoothModuleInit = init_RN4678();
+                
+            }while(appData.isBluethoothModuleInit == false);
             
+            //turnOffDiscoverBT();
+                    
             // Initialization of the ADC module
             initAdc();
             
             // Starts TIMERs
-            DRV_TMR0_Start();
+//            DRV_TMR0_Start(); <--- Disabled
             DRV_TMR1_Start();
             DRV_TMR2_Start();
             
@@ -265,7 +298,7 @@ void APP_Tasks(void){
         }
 
         case APP_STATE_SERVICE_TASKS:
-        {            
+        {
             switch(appData.serviceState){
                 
                 case SERVICE_STATE_READ_SENSORS:
@@ -285,26 +318,19 @@ void APP_Tasks(void){
                 case SERVICE_STATE_PROCESS:
                     
                     // Clears the array before saving new values
-                    clearArray(sizeof(a_dataToSend), &a_dataToSend[0]);
-                    //Converts float values in a char array
-                    sprintf((char*)a_dataToSend, "S=%03dkm/h "
-                              "GX=%+.02f GY=%+.02f GZ=%+.02f "
-                              "AX=%+.02f AY=%+.02f AZ=%+.02f "
-                              "VB=%.02f VG=%.02f\n\r",
-                    sensData.velocity,
-                    sensData.gyroX,         sensData.gyroY,         sensData.gyroZ,
-                    sensData.accelX,        sensData.accelY,        sensData.accelZ,
-                    sensData.batVoltage,    sensData.genVoltage);
+                    clearArray(sizeof(a_frameToSend), (char*)&a_frameToSend[0]);
+                    // Converts float values in a char array (frame)
+                    frameFormatting((char*)&a_frameToSend[0], &sensData);
                     
                     APP_UpdateServiceState(SERVICE_STATE_SEND_DATA_BT);
                     break;
                     
-                    
                 case SERVICE_STATE_SEND_DATA_BT:
                     
-                    if(isBluetoothConnected == true){
-                        // Send data through USART
-                        sendData_RN4678(&a_dataToSend[0]);
+                    // Bluetooth is connected to a device
+                    if(appData.isBluetoothConnected == true){
+                        // Sends frame through USART
+                        sendData_RN4678(&a_frameToSend[0]);
                         // Toggle signalisation LED
                         SIGN_LEDToggle();
                     }
@@ -314,7 +340,6 @@ void APP_Tasks(void){
                     APP_UpdateServiceState(SERVICE_STATE_READ_SENSORS);
                     break;
             }
-            
             break;
         }
         
@@ -325,6 +350,7 @@ void APP_Tasks(void){
         }
         default:
         {
+            // Does nothing here
             break;
         }
     }

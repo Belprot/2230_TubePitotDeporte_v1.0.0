@@ -60,10 +60,8 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 // *****************************************************************************
 
 #include "system/common/sys_common.h"
-#include "system_definitions.h"
 #include "app.h"
-#include "RN4678_driver.h"
-
+#include "system_definitions.h"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -77,72 +75,54 @@ void __ISR(_UART_1_VECTOR, ipl5AUTO) _IntHandlerDrvUsartInstance0(void){
     int8_t c;
     int8_t TXsize;
             
-    // Is this an RX interrupt ?
+    //------------------------------------------------------------------------// RX interrupt
     if(PLIB_INT_SourceFlagGet(INT_ID_0, INT_SOURCE_USART_1_RECEIVE) &&
                 PLIB_INT_SourceIsEnabled(INT_ID_0, INT_SOURCE_USART_1_RECEIVE)){
 
-        // Oui Test si erreur parité ou overrun
+        // Parity error or overrun
         usartStatus = PLIB_USART_ErrorsGet(USART_ID_1);
 
         if ((usartStatus & (USART_ERROR_PARITY | USART_ERROR_FRAMING | 
                 USART_ERROR_RECEIVER_OVERRUN)) == 0){
 
-            // Traitement RX à faire ICI
-            // Lecture des caractères depuis le buffer HW -> fifo SW
-			//  (pour savoir s'il y a une data dans le buffer HW RX : PLIB_USART_ReceiverDataIsAvailable())
-			//  (Lecture via fonction PLIB_USART_ReceiverByteReceive())
-
-            // Transfert dans le FIFO de tous les chars reçus
-            // 1 Si ONE_CHAR, 4 si HALF_FULL et 6 3B4FULL
+            // All char received are transferred to the FIFO
+            // 1 if ONE_CHAR, 4 if HALF_FULL and 6 3B4FULL
             while(PLIB_USART_ReceiverDataIsAvailable(USART_ID_1)){
                 
                 c = PLIB_USART_ReceiverByteReceive(USART_ID_1);
                 putCharInFifo(&usartFifoRx, c);
                 
-                // Calls the USART callback function
-                if(isBluethoothModuleInit && c == '>'){
+                // Calls the USART callback function when the module is already
+                // initialized and a ">" char is received (end of a command)
+                if(appData.isBluethoothModuleInit && 
+                        /*appData.isBluetoothInOperation &&*/ c == '>'){
 
                     USART1_Callback_Function();
                 }
             }
-            
-            // buffer is empty, clear interrupt flag
+            // Buffer is empty, clear interrupt flag
             PLIB_INT_SourceFlagClear(INT_ID_0, INT_SOURCE_USART_1_RECEIVE);
        
-            // buffer is empty, clear interrupt flag
-            PLIB_INT_SourceFlagClear(INT_ID_0, INT_SOURCE_USART_1_RECEIVE);
         }else{
-            // Suppression des erreurs
-            // La lecture des erreurs les efface sauf pour overrun
+            // Deleting errors
+            // Reading errors clears them except for overrun
             if((usartStatus & USART_ERROR_RECEIVER_OVERRUN) == 
                     USART_ERROR_RECEIVER_OVERRUN){
                 
                 PLIB_USART_ReceiverOverrunErrorClear(USART_ID_1);
             }
         }
-
-        
-        // Traitement controle de flux reception à faire ICI
-        // Gerer sortie RS232_RTS en fonction de place dispo dans fifo reception
-        // ... 
     }
     
     
-    // Is this an TX interrupt ?
+    //------------------------------------------------------------------------// TX interrupt
     if (PLIB_INT_SourceFlagGet(INT_ID_0, INT_SOURCE_USART_1_TRANSMIT) &&
                  PLIB_INT_SourceIsEnabled(INT_ID_0, INT_SOURCE_USART_1_TRANSMIT)){
-        // Traitement TX à faire ICI
         
         TXsize = getReadSize(&usartFifoTx);
-       // i_cts = input(RS232_CTS);
-       // On vérifie 3 conditions :
-       // Si CTS = 0 (autorisation d'émettre)
-       // Si il y a un caractèreà émettre
-       // Si le txreg est bien disponible
-        
-       // Il est possible de déposer un caractère
-       // tant que le tampon n'est pas plein
-       TxBuffFull = PLIB_USART_TransmitterBufferIsFull(USART_ID_1);
+        // i_cts = input(RS232_CTS);
+       
+        TxBuffFull = PLIB_USART_TransmitterBufferIsFull(USART_ID_1);
        
         if (/*(i_cts == 0) && */(TXsize > 0) && (TxBuffFull == false)){
             do{
@@ -154,42 +134,48 @@ void __ISR(_UART_1_VECTOR, ipl5AUTO) _IntHandlerDrvUsartInstance0(void){
             }while(/*(i_cts == 0) && */( TXsize > 0 ) && TxBuffFull == false);
         }
 		
-        // disable TX interrupt (pour éviter une interrupt. inutile si plus rien à transmettre)
+        // Disables TX interrupt (to avoid unnecessary interruptions if there's 
+        // nothing left to transmit)
         if(TXsize == 0){
             
             PLIB_INT_SourceDisable(INT_ID_0, INT_SOURCE_USART_1_TRANSMIT);
         }
-        // Clear the TX interrupt Flag (Seulement apres TX) 
+        // Clears the TX interrupt Flag
         PLIB_INT_SourceFlagClear(INT_ID_0, INT_SOURCE_USART_1_TRANSMIT);
     }
 }
 
 
+////----------------------------------------------------------------------------// TIMER0 ID1 <--- Disabled
+//void __ISR(_TIMER_1_VECTOR, ipl1AUTO) IntHandlerDrvTmrInstance0(void){ 
+//    
+//    PLIB_INT_SourceFlagClear(INT_ID_0,INT_SOURCE_TIMER_1);
+//    TIMER0_Callback_Function();
+//}
 
- 
 
-
-
-void __ISR(_TIMER_1_VECTOR, ipl1AUTO) IntHandlerDrvTmrInstance0(void){
-    
-    PLIB_INT_SourceFlagClear(INT_ID_0,INT_SOURCE_TIMER_1);
-    TIMER1_Callback_Function();
-}
+//----------------------------------------------------------------------------// TIMER1 ID2
 void __ISR(_TIMER_2_VECTOR, ipl2AUTO) IntHandlerDrvTmrInstance1(void)
 {
     PLIB_INT_SourceFlagClear(INT_ID_0,INT_SOURCE_TIMER_2);
-    TIMER2_Callback_Function();
+    TIMER1_Callback_Function();
 }
-void __ISR(_TIMER_5_VECTOR, ipl1AUTO) IntHandlerDrvTmrInstance2(void)
+
+
+//----------------------------------------------------------------------------// TIMER2 ID5
+void __ISR(_TIMER_5_VECTOR, ipl0AUTO) IntHandlerDrvTmrInstance2(void)
 {
     PLIB_INT_SourceFlagClear(INT_ID_0,INT_SOURCE_TIMER_5);
-    TIMER5_Callback_Function();
 }
-void __ISR(_TIMER_3_VECTOR, ipl1AUTO) IntHandlerDrvTmrInstance3(void)
+
+
+//----------------------------------------------------------------------------// TIMER3 ID3
+void __ISR(_TIMER_3_VECTOR, ipl0AUTO) IntHandlerDrvTmrInstance3(void)
 {
     PLIB_INT_SourceFlagClear(INT_ID_0,INT_SOURCE_TIMER_3);
-    appData.usCounter32++;
 }
+
+
  /*******************************************************************************
  End of File
 */

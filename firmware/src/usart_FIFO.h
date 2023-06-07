@@ -12,15 +12,12 @@
 extern "C" {
 #endif
 
-
+//----------------------------------------------------------------------------// Includes
 #include "app.h"
 
     
-    
-    
-    
-#define FIFO_RX_SIZE 40
-#define FIFO_TX_SIZE 40
+#define FIFO_RX_SIZE 50
+#define FIFO_TX_SIZE 50
 
     
 //----------------------------------------------------------------------------// Structure
@@ -35,7 +32,7 @@ typedef struct {
 } USART_FIFO;
 
 
-//----------------------------------------------------------------------------// Function
+//----------------------------------------------------------------------------// Functions
 void initFifo(USART_FIFO *pFifo, int32_t fifoSize, int8_t *pHead, 
         int8_t initVal);
 
@@ -48,6 +45,7 @@ uint8_t getCharFromFifo(USART_FIFO *pFifo, int8_t *charRead);
 void putStringInFifo(USART_FIFO *pFifo, size_t arraySize, char* pArrayToSave);
 int32_t getStringFromFifo(USART_FIFO *pFifo, int8_t* pArrayToModify);
 
+//----------------------------------------------------------------------------// Variables and structures delarations
 extern USART_FIFO usartFifoRx;
 extern USART_FIFO usartFifoTx;
     

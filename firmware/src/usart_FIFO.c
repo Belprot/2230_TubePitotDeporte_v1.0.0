@@ -1,5 +1,13 @@
 
-// Inspired by the GesFifoTh32.c from C. Huber
+/*
+ * File:    usart_FIFO.c
+ * Author:  M.Ricchieri
+ * 
+ * Inspired by the GesFifoTh32.c from C. Huber
+ * Created on 23. may 2023
+ * 
+ * This code uses USART with FIFO
+ */
 
 
 #include "usart_FIFO.h"

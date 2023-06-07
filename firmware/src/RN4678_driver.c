@@ -1,12 +1,14 @@
-//----------------------------------------------------------------------------// RN4678_driver.c
+
 /*
- * File:   RN4678_driver.c
- * Author: ricch
+ * File:    RN4678_driver.c
+ * Author:  M.Ricchieri
+ * 
  * Inspired by the code of S. Giuseppe
- * Created on 12. avril 2023, 16:38
+ * Created on 12. avril 2023
  * 
  * This code uses USART with FIFO
  */
+
 
 //----------------------------------------------------------------------------// Includes
 #include <stdbool.h>
@@ -19,7 +21,8 @@
 // Commands
 #define CMD_MODE_ENTER      "$$$\r"
 #define CMD_MODE_EXIT       "---\r"
-#define CMD_BLE_DISCOV_EN   "Q,0\r" // <---- regarder pour mettren en discov tant de temps
+#define CMD_BLE_DISCOV_EN   "Q,0\r"
+#define CMD_BT_DISCOV_DIS   "Q\r"
 #define CMD_BLE_ONLY        "SG,1\r"
 #define CMD_BT_CLASSIC_ONLY "SG,2\r"
 #define CMD_PREFIX_SUFIX    "SO,<,>\r"
@@ -27,56 +30,73 @@
 
 // Answers
 #define CMD_MODE_ANSWER     "CMD> "
+#define CMD_EXIT_ANSWER     "END\r"
 #define CMD_POS_ANSWER      "AOK\r\nCMD> "
 #define CMD_NEG_ANSWER      "ERR\r\nCMD> "
-//#define CMD_REBOOT_ANSWER   "<REBOOT>"
-#define CMD_REBOOT_ANSWER   "Rebooting\r\n"
+#define CMD_REBOOT_ANSWER   "<REBOOT>"
+//#define CMD_REBOOT_ANSWER   "Rebooting\r\n"
 
 // Device name
 #define DEVICE_NAME         "SN,TubePitotDeporte_v1.0.0\r"
 
-//----------------------------------------------------------------------------// Global variables / arrays
-char a_answerCMD[20];
-bool isANewAnswer;
 
-
-
-
-
-//----------------------------------------------------------------------------// Initialization function
+//----------------------------------------------------------------------------// init_RN4678
 bool init_RN4678(void){
     
     bool initIsDone = 1;
     
     //Resets the module for a reboot
     RESET_BLEOff();
-    inv_imu_sleep_us(100000);
+    inv_imu_sleep_ms(1000);
     RESET_BLEOn();
+    inv_imu_sleep_ms(2000);
     
-    inv_imu_sleep_us(200000);
     // Enters in command mode
-    sendCMD_RN4678(CMD_MODE_ENTER, sizeof(CMD_MODE_ENTER), CMD_MODE_ANSWER,
+    initIsDone = sendCMD_RN4678(CMD_MODE_ENTER, sizeof(CMD_MODE_ENTER), CMD_MODE_ANSWER,
             sizeof(CMD_MODE_ANSWER));
     // Sets the name of the device
-    sendCMD_RN4678(DEVICE_NAME, sizeof(DEVICE_NAME), CMD_POS_ANSWER, 
+    initIsDone &= sendCMD_RN4678(DEVICE_NAME, sizeof(DEVICE_NAME), CMD_POS_ANSWER, 
             sizeof(CMD_POS_ANSWER));
     // Sets the Bluetooth mode (Classic or BLE)
-    sendCMD_RN4678(CMD_BT_CLASSIC_ONLY, sizeof(CMD_BT_CLASSIC_ONLY), CMD_POS_ANSWER,
+    initIsDone &= sendCMD_RN4678(CMD_BT_CLASSIC_ONLY, sizeof(CMD_BT_CLASSIC_ONLY), CMD_POS_ANSWER,
             sizeof(CMD_POS_ANSWER));
     // Sets the prefix dans the sufix of status
-    sendCMD_RN4678(CMD_PREFIX_SUFIX, sizeof(CMD_PREFIX_SUFIX), CMD_POS_ANSWER, 
+    initIsDone &= sendCMD_RN4678(CMD_PREFIX_SUFIX, sizeof(CMD_PREFIX_SUFIX), CMD_POS_ANSWER, 
             sizeof(CMD_POS_ANSWER));
     // Lauches a reboot command
-    sendCMD_RN4678(CMD_REBOOT_DEVICE, sizeof(CMD_REBOOT_DEVICE), CMD_REBOOT_ANSWER,
+    initIsDone &= sendCMD_RN4678(CMD_REBOOT_DEVICE, sizeof(CMD_REBOOT_DEVICE), CMD_REBOOT_ANSWER,
             sizeof(CMD_REBOOT_ANSWER));
     
-    inv_imu_sleep_us(200000);
+    inv_imu_sleep_ms(2000);
+    
+    // Flag is discoverable true
+    appData.isBluetoothDiscoverable = true;
     
     return initIsDone;
 }
 
+//----------------------------------------------------------------------------// turnOffDiscoverBT
+bool turnOffDiscoverBT(void){
+    
+    bool result = 0;
+    
+    inv_imu_sleep_ms(2000);
+    
+//    // Enters in command mode
+    sendCMD_RN4678(CMD_MODE_ENTER, sizeof(CMD_MODE_ENTER), CMD_MODE_ANSWER,
+            sizeof(CMD_MODE_ANSWER));
+    // Turn off the discoverable mode of the module
+    sendCMD_RN4678(CMD_BT_DISCOV_DIS, sizeof(CMD_BT_DISCOV_DIS), CMD_POS_ANSWER, 
+            sizeof(CMD_POS_ANSWER));
+    // Exits command mode
+    sendCMD_RN4678(CMD_MODE_EXIT, sizeof(CMD_MODE_EXIT), CMD_EXIT_ANSWER, 
+            sizeof(CMD_EXIT_ANSWER));
+    
+    return 1;
+}
 
-//----------------------------------------------------------------------------// Sending command function (USART))
+
+//----------------------------------------------------------------------------// sendCMD_RN4678
 bool sendCMD_RN4678(char* pArrayToSend, size_t arraySize, char* pArrayExpected, 
         size_t answerSize){
     
@@ -89,11 +109,12 @@ bool sendCMD_RN4678(char* pArrayToSend, size_t arraySize, char* pArrayExpected,
     
     do{
         // If the number of new char in FIFO is the same as the answer size
-        if(getReadSize(&usartFifoRx) >= answerSize - 1){ 
+        if(getReadSize(&usartFifoRx) >= answerSize - 1){
             
             // Reads the answere received
             getStringFromFifo(&usartFifoRx, &a_answer[0]);
-        }
+
+    }
     }while((strstr((char*)a_answer, pArrayExpected) == NULL));
         //if(strstr((char*)a_answer, pArrayExpected) != NULL) isInitDone = 1;
 
@@ -104,19 +125,19 @@ bool sendCMD_RN4678(char* pArrayToSend, size_t arraySize, char* pArrayExpected,
     return 1;
 }
 
+
+//----------------------------------------------------------------------------// getUsartData <---------------------- ??
 void getUsartData(int8_t* pArrayToModify){
     
     do{
-        
         // Reads the answere received
         getStringFromFifo(&usartFifoRx, &pArrayToModify[0]);
         
     }while(getReadSize(&usartFifoRx));
-    
 }
 
 
-//----------------------------------------------------------------------------//
+//----------------------------------------------------------------------------// sendData_RN4678
 void sendData_RN4678(int8_t* pArrayToSend){
     
     int cursor = 0;
@@ -134,7 +155,7 @@ void sendData_RN4678(int8_t* pArrayToSend){
 }
 
 
-//----------------------------------------------------------------------------//
+//----------------------------------------------------------------------------// readStatus
 void readStatus(char *pArrayStatus){
     
     int cursor = 0;
@@ -148,7 +169,7 @@ void readStatus(char *pArrayStatus){
 }
 
 
-//----------------------------------------------------------------------------//
+//----------------------------------------------------------------------------// clearInt8Array
 void clearInt8Array(size_t arraySize, int8_t* arrayToClear){
     
     int i;

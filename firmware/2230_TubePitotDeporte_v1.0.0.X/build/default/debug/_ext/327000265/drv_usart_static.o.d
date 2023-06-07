@@ -1,5 +1,5 @@
-build/default/production/_ext/1360937237/diffPressSens_driver.o: \
- ../src/diffPressSens_driver.c ../src/diffPressSens_driver.h ../src/app.h \
+build/default/debug/_ext/327000265/drv_usart_static.o: \
+ ../src/system_config/default/framework/driver/usart/src/drv_usart_static.c \
  ../src/system_config/default/system_config.h \
  ../src/system_config/default/system_definitions.h \
  ../../../../../framework/system/common/sys_common.h \
@@ -245,60 +245,7 @@ build/default/production/_ext/1360937237/diffPressSens_driver.o: \
  ../src/imu/inv_imu_regmap_rev_a.h ../src/imu/inv_imu_transport.h \
  ../src/Invn/InvError.h ../src/imu/inv_imu_transport.h \
  ../src/Invn/EmbUtils/RingBuffer.h ../src/I2C_ICM42670P_Functions.h \
- ../src/inv_imu_personnal_functions.h ../src/usart_FIFO.h \
- ../src/Mc32_I2cUtilCCS.h \
- ../../../../../framework/peripheral\i2c\plib_i2c.h \
- ../../../../../framework/peripheral/i2c/plib_i2c_helper_macros.h \
- ../../../../../framework/peripheral/i2c/processor/i2c_processor.h \
- ../../../../../framework/peripheral/i2c/processor/i2c_p32xxxx.h \
- ../../../../../framework/peripheral/i2c/processor/i2c_p32mx130f064b.h \
- ../../../../../framework/peripheral/i2c/processor/../templates/i2c_ClockStretching_Default.h \
- ../../../../../framework/peripheral/i2c/processor/../templates/i2c_Registers.h \
- ../../../../../framework/peripheral/i2c/processor/../templates/i2c_GeneralCall_Default.h \
- ../../../../../framework/peripheral/i2c/processor/../templates/i2c_SMBus_Default.h \
- ../../../../../framework/peripheral/i2c/processor/../templates/i2c_HighFrequency_Default.h \
- ../../../../../framework/peripheral/i2c/processor/../templates/i2c_ReservedAddressProtect_Default.h \
- ../../../../../framework/peripheral/i2c/processor/../templates/i2c_StopInIdle_Default.h \
- ../../../../../framework/peripheral/i2c/processor/../templates/i2c_IPMI_Unsupported.h \
- ../../../../../framework/peripheral/i2c/processor/../templates/i2c_ModuleEnable_Default.h \
- ../../../../../framework/peripheral/i2c/processor/../templates/i2c_StartDetect_Default.h \
- ../../../../../framework/peripheral/i2c/processor/../templates/i2c_StopDetect_Default.h \
- ../../../../../framework/peripheral/i2c/processor/../templates/i2c_ArbitrationLoss_Default.h \
- ../../../../../framework/peripheral/i2c/processor/../templates/i2c_BusIdle_Default.h \
- ../../../../../framework/peripheral/i2c/processor/../templates/i2c_BaudRate_Default.h \
- ../../../../../framework/peripheral/i2c/processor/../templates/i2c_SlaveAddress7Bit_Default.h \
- ../../../../../framework/peripheral/i2c/processor/../templates/i2c_SlaveAddress10Bit_Default.h \
- ../../../../../framework/peripheral/i2c/processor/../templates/i2c_SlaveAddressDetect_Default.h \
- ../../../../../framework/peripheral/i2c/processor/../templates/i2c_GeneralCallAddressDetect_Default.h \
- ../../../../../framework/peripheral/i2c/processor/../templates/i2c_SlaveMask_Default.h \
- ../../../../../framework/peripheral/i2c/processor/../templates/i2c_SlaveReadRequest_Default.h \
- ../../../../../framework/peripheral/i2c/processor/../templates/i2c_SlaveDataDetect_Default.h \
- ../../../../../framework/peripheral/i2c/processor/../templates/i2c_SlaveClockHold_Default.h \
- ../../../../../framework/peripheral/i2c/processor/../templates/i2c_MasterStart_Default.h \
- ../../../../../framework/peripheral/i2c/processor/../templates/i2c_MasterStartRepeat_Default.h \
- ../../../../../framework/peripheral/i2c/processor/../templates/i2c_MasterReceiverClock1Byte_Default.h \
- ../../../../../framework/peripheral/i2c/processor/../templates/i2c_MasterStop_Default.h \
- ../../../../../framework/peripheral/i2c/processor/../templates/i2c_TransmitterBusy_Default.h \
- ../../../../../framework/peripheral/i2c/processor/../templates/i2c_TransmitterByteSend_Default.h \
- ../../../../../framework/peripheral/i2c/processor/../templates/i2c_TransmitterByteComplete_Default.h \
- ../../../../../framework/peripheral/i2c/processor/../templates/i2c_TransmitterByteAcknowledge_Default.h \
- ../../../../../framework/peripheral/i2c/processor/../templates/i2c_TransmitterOverflow_Default.h \
- ../../../../../framework/peripheral/i2c/processor/../templates/i2c_ReceivedByteAvailable_Default.h \
- ../../../../../framework/peripheral/i2c/processor/../templates/i2c_ReceivedByteGet_Default.h \
- ../../../../../framework/peripheral/i2c/processor/../templates/i2c_ReceivedByteAcknowledge_Default.h \
- ../../../../../framework/peripheral/i2c/processor/../templates/i2c_ReceiverOverflow_Default.h \
- ../../../../../framework/peripheral/i2c/processor/../templates/i2c_SlaveInterruptOnStop_Unsupported.h \
- ../../../../../framework/peripheral/i2c/processor/../templates/i2c_SlaveInterruptOnStart_Unsupported.h \
- ../../../../../framework/peripheral/i2c/processor/../templates/i2c_SlaveBufferOverwrite_Unsupported.h \
- ../../../../../framework/peripheral/i2c/processor/../templates/i2c_DataLineHoldTime_Unsupported.h \
- ../../../../../framework/peripheral/i2c/processor/../templates/i2c_SlaveBusCollisionDetect_Unsupported.h \
- ../../../../../framework/peripheral/i2c/processor/../templates/i2c_SlaveAddressHoldEnable_Unsupported.h \
- ../../../../../framework/peripheral/i2c/processor/../templates/i2c_SlaveDataHoldEnable_Unsupported.h \
- ../../../../../framework/peripheral/i2c/processor/../templates/i2c_AcksequenceIsInProgress_Unsupported.h
-
-../src/diffPressSens_driver.h:
-
-../src/app.h:
+ ../src/app.h ../src/inv_imu_personnal_functions.h ../src/usart_FIFO.h
 
 ../src/system_config/default/system_config.h:
 
@@ -800,104 +747,8 @@ build/default/production/_ext/1360937237/diffPressSens_driver.o: \
 
 ../src/I2C_ICM42670P_Functions.h:
 
+../src/app.h:
+
 ../src/inv_imu_personnal_functions.h:
 
 ../src/usart_FIFO.h:
-
-../src/Mc32_I2cUtilCCS.h:
-
-../../../../../framework/peripheral\i2c\plib_i2c.h:
-
-../../../../../framework/peripheral/i2c/plib_i2c_helper_macros.h:
-
-../../../../../framework/peripheral/i2c/processor/i2c_processor.h:
-
-../../../../../framework/peripheral/i2c/processor/i2c_p32xxxx.h:
-
-../../../../../framework/peripheral/i2c/processor/i2c_p32mx130f064b.h:
-
-../../../../../framework/peripheral/i2c/processor/../templates/i2c_ClockStretching_Default.h:
-
-../../../../../framework/peripheral/i2c/processor/../templates/i2c_Registers.h:
-
-../../../../../framework/peripheral/i2c/processor/../templates/i2c_GeneralCall_Default.h:
-
-../../../../../framework/peripheral/i2c/processor/../templates/i2c_SMBus_Default.h:
-
-../../../../../framework/peripheral/i2c/processor/../templates/i2c_HighFrequency_Default.h:
-
-../../../../../framework/peripheral/i2c/processor/../templates/i2c_ReservedAddressProtect_Default.h:
-
-../../../../../framework/peripheral/i2c/processor/../templates/i2c_StopInIdle_Default.h:
-
-../../../../../framework/peripheral/i2c/processor/../templates/i2c_IPMI_Unsupported.h:
-
-../../../../../framework/peripheral/i2c/processor/../templates/i2c_ModuleEnable_Default.h:
-
-../../../../../framework/peripheral/i2c/processor/../templates/i2c_StartDetect_Default.h:
-
-../../../../../framework/peripheral/i2c/processor/../templates/i2c_StopDetect_Default.h:
-
-../../../../../framework/peripheral/i2c/processor/../templates/i2c_ArbitrationLoss_Default.h:
-
-../../../../../framework/peripheral/i2c/processor/../templates/i2c_BusIdle_Default.h:
-
-../../../../../framework/peripheral/i2c/processor/../templates/i2c_BaudRate_Default.h:
-
-../../../../../framework/peripheral/i2c/processor/../templates/i2c_SlaveAddress7Bit_Default.h:
-
-../../../../../framework/peripheral/i2c/processor/../templates/i2c_SlaveAddress10Bit_Default.h:
-
-../../../../../framework/peripheral/i2c/processor/../templates/i2c_SlaveAddressDetect_Default.h:
-
-../../../../../framework/peripheral/i2c/processor/../templates/i2c_GeneralCallAddressDetect_Default.h:
-
-../../../../../framework/peripheral/i2c/processor/../templates/i2c_SlaveMask_Default.h:
-
-../../../../../framework/peripheral/i2c/processor/../templates/i2c_SlaveReadRequest_Default.h:
-
-../../../../../framework/peripheral/i2c/processor/../templates/i2c_SlaveDataDetect_Default.h:
-
-../../../../../framework/peripheral/i2c/processor/../templates/i2c_SlaveClockHold_Default.h:
-
-../../../../../framework/peripheral/i2c/processor/../templates/i2c_MasterStart_Default.h:
-
-../../../../../framework/peripheral/i2c/processor/../templates/i2c_MasterStartRepeat_Default.h:
-
-../../../../../framework/peripheral/i2c/processor/../templates/i2c_MasterReceiverClock1Byte_Default.h:
-
-../../../../../framework/peripheral/i2c/processor/../templates/i2c_MasterStop_Default.h:
-
-../../../../../framework/peripheral/i2c/processor/../templates/i2c_TransmitterBusy_Default.h:
-
-../../../../../framework/peripheral/i2c/processor/../templates/i2c_TransmitterByteSend_Default.h:
-
-../../../../../framework/peripheral/i2c/processor/../templates/i2c_TransmitterByteComplete_Default.h:
-
-../../../../../framework/peripheral/i2c/processor/../templates/i2c_TransmitterByteAcknowledge_Default.h:
-
-../../../../../framework/peripheral/i2c/processor/../templates/i2c_TransmitterOverflow_Default.h:
-
-../../../../../framework/peripheral/i2c/processor/../templates/i2c_ReceivedByteAvailable_Default.h:
-
-../../../../../framework/peripheral/i2c/processor/../templates/i2c_ReceivedByteGet_Default.h:
-
-../../../../../framework/peripheral/i2c/processor/../templates/i2c_ReceivedByteAcknowledge_Default.h:
-
-../../../../../framework/peripheral/i2c/processor/../templates/i2c_ReceiverOverflow_Default.h:
-
-../../../../../framework/peripheral/i2c/processor/../templates/i2c_SlaveInterruptOnStop_Unsupported.h:
-
-../../../../../framework/peripheral/i2c/processor/../templates/i2c_SlaveInterruptOnStart_Unsupported.h:
-
-../../../../../framework/peripheral/i2c/processor/../templates/i2c_SlaveBufferOverwrite_Unsupported.h:
-
-../../../../../framework/peripheral/i2c/processor/../templates/i2c_DataLineHoldTime_Unsupported.h:
-
-../../../../../framework/peripheral/i2c/processor/../templates/i2c_SlaveBusCollisionDetect_Unsupported.h:
-
-../../../../../framework/peripheral/i2c/processor/../templates/i2c_SlaveAddressHoldEnable_Unsupported.h:
-
-../../../../../framework/peripheral/i2c/processor/../templates/i2c_SlaveDataHoldEnable_Unsupported.h:
-
-../../../../../framework/peripheral/i2c/processor/../templates/i2c_AcksequenceIsInProgress_Unsupported.h:

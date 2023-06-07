@@ -143,17 +143,21 @@ typedef enum
 } SERVICE_STATES;
 
 
-
+// Application data structure
 typedef struct{
     
     APP_STATES appState;
     SERVICE_STATES serviceState;
-    uint32_t usCounter32;
-    uint64_t usCounter64;
+    
+    bool isBluethoothModuleInit;
+    bool isBluetoothConnected;
+    bool isBluetoothDiscoverable;
+    bool isBluetoothInOperation;
 
 } APP_DATA;
 
 
+// Sensors data structure
 typedef struct{
     
     uint16_t velocity;
@@ -168,6 +172,8 @@ typedef struct{
     
 } SENS_DATA;
 
+
+// Analogic data structure
 typedef struct{
     
     uint16_t AN9_V_GEN;
@@ -193,12 +199,6 @@ typedef struct{
 
 
 
-
-
-
-
-
-
 // Extern variables and structures
 extern APP_DATA     appData;
 extern SENS_DATA    sensData;
@@ -214,11 +214,11 @@ void APP_Initialize (void);
 void APP_Tasks( void );
 void APP_UpdateAppState(APP_STATES NewState);
 void clearArray(size_t arraySize, char *pArrayToClear);
-
+inline void frameFormatting(char* a_dataToSend, const SENS_DATA* sensData);
 
 // Callback functions prototypes
+void TIMER0_Callback_Function(void);
 void TIMER1_Callback_Function(void);
-void TIMER2_Callback_Function(void);
 void TIMER5_Callback_Function(void);
 void USART1_Callback_Function(void);
 void imu_callback(inv_imu_sensor_event_t *event);
@@ -227,10 +227,6 @@ void imu_callback(inv_imu_sensor_event_t *event);
 // IMU useful functions prototypes
 int         initImuInterface(struct inv_imu_serif *icm_serif);
 uint64_t    inv_imu_get_time_us(void);
-
-
-
-
 
 
 

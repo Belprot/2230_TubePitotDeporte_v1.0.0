@@ -19,6 +19,7 @@ extern "C" {
     int configureImuDevice(void);
     int setupImuDevice(struct inv_imu_serif *icm_serif);
     void inv_imu_sleep_us(uint32_t us);
+    void inv_imu_sleep_ms(uint32_t ms);
     uint64_t inv_imu_get_time_us(void);
     
     

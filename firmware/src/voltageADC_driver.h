@@ -11,11 +11,13 @@
 #ifdef	__cplusplus
 extern "C" {
 #endif
-
+    
+//----------------------------------------------------------------------------// Includes
 #include "app.h"
 #include "peripheral/adc/plib_adc.h"
 
-
+    
+//----------------------------------------------------------------------------// Functions
 void initAdc(void);
 void readRawAdc(RAW_ADC *pRawAdc);
 void convertRawToVoltage(RAW_ADC *pRawAdc, SENS_DATA *pSensData);
