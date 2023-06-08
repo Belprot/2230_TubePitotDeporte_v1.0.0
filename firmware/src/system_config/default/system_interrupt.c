@@ -68,12 +68,16 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 // Section: System Interrupt Vector Functions
 // *****************************************************************************
 // *****************************************************************************
-void __ISR(_UART_1_VECTOR, ipl5AUTO) _IntHandlerDrvUsartInstance0(void){
+void __ISR(_UART_1_VECTOR, ipl7AUTO) _IntHandlerDrvUsartInstance0(void)
+{
     
     USART_ERROR usartStatus;
-    bool  TxBuffFull;
-    int8_t c;
-    int8_t TXsize;
+    bool        isTxBuffFull;
+    static bool        isStatusBeg = false;
+    int8_t      charReceived;
+    int8_t      charToSend;
+    int8_t      charTrash;
+    int8_t      TXsize;
             
     //------------------------------------------------------------------------// RX interrupt
     if(PLIB_INT_SourceFlagGet(INT_ID_0, INT_SOURCE_USART_1_RECEIVE) &&
@@ -89,16 +93,23 @@ void __ISR(_UART_1_VECTOR, ipl5AUTO) _IntHandlerDrvUsartInstance0(void){
             // 1 if ONE_CHAR, 4 if HALF_FULL and 6 3B4FULL
             while(PLIB_USART_ReceiverDataIsAvailable(USART_ID_1)){
                 
-                c = PLIB_USART_ReceiverByteReceive(USART_ID_1);
-                putCharInFifo(&usartFifoRx, c);
+                charReceived = PLIB_USART_ReceiverByteReceive(USART_ID_1);
+                putCharInFifo(&usartFifoRx, charReceived);
                 
-                // Calls the USART callback function when the module is already
-                // initialized and a ">" char is received (end of a command)
-                if(appData.isBluethoothModuleInit && 
-                        /*appData.isBluetoothInOperation &&*/ c == '>'){
-
+                // Beginning of a status
+                if(charReceived == '<' && appData.isBluetoothInCommandMode == false) isStatusBeg = true;
+                
+                // Ending of a status
+                if(appData.isBluethoothModuleInit && charReceived == '>' &&
+                        appData.isBluetoothInCommandMode == false && isStatusBeg == true){
+                    
+                    isStatusBeg = false;
                     USART1_Callback_Function();
                 }
+                
+                //
+                if(isStatusBeg == false && appData.isBluetoothInCommandMode ==
+                        false) getCharFromFifo(&usartFifoRx, &charTrash);
             }
             // Buffer is empty, clear interrupt flag
             PLIB_INT_SourceFlagClear(INT_ID_0, INT_SOURCE_USART_1_RECEIVE);
@@ -122,16 +133,16 @@ void __ISR(_UART_1_VECTOR, ipl5AUTO) _IntHandlerDrvUsartInstance0(void){
         TXsize = getReadSize(&usartFifoTx);
         // i_cts = input(RS232_CTS);
        
-        TxBuffFull = PLIB_USART_TransmitterBufferIsFull(USART_ID_1);
+        isTxBuffFull = PLIB_USART_TransmitterBufferIsFull(USART_ID_1);
        
-        if (/*(i_cts == 0) && */(TXsize > 0) && (TxBuffFull == false)){
+        if (/*(i_cts == 0) && */(TXsize > 0) && (isTxBuffFull == false)){
             do{
-                getCharFromFifo(&usartFifoTx, &c);
-                if(c != '\0') PLIB_USART_TransmitterByteSend(USART_ID_1, c);
+                getCharFromFifo(&usartFifoTx, &charToSend);
+                if(charToSend != '\0') PLIB_USART_TransmitterByteSend(USART_ID_1, charToSend);
                 /*i_cts = RS232_CTS;*/
                 TXsize = getReadSize (&usartFifoTx);
-                TxBuffFull = PLIB_USART_TransmitterBufferIsFull(USART_ID_1);
-            }while(/*(i_cts == 0) && */( TXsize > 0 ) && TxBuffFull == false);
+                isTxBuffFull = PLIB_USART_TransmitterBufferIsFull(USART_ID_1);
+            }while(/*(i_cts == 0) && */( TXsize > 0 ) && isTxBuffFull == false);
         }
 		
         // Disables TX interrupt (to avoid unnecessary interruptions if there's 

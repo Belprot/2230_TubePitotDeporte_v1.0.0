@@ -96,14 +96,6 @@ typedef struct
     /* Client specific error */
     DRV_USART_ERROR error;
 
-    /* Byte model transmit callback function */
-    DRV_USART_BYTE_EVENT_HANDLER transmitCallback;
-    
-    /* Byte model receive callback function */
-    DRV_USART_BYTE_EVENT_HANDLER receiveCallback;
-
-    /* Byte model error callback function */
-    DRV_USART_BYTE_EVENT_HANDLER errorCallback;
 
 } DRV_USART_OBJ;
 
@@ -112,9 +104,6 @@ typedef struct
 // Section: Local functions.
 // *****************************************************************************
 // *****************************************************************************
-void _DRV_USART0_ByteTransmitTasks (void);
-void _DRV_USART0_ByteReceiveTasks (void);
-void _DRV_USART0_ByteErrorTasks (void);
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus

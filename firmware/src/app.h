@@ -153,6 +153,7 @@ typedef struct{
     bool isBluetoothConnected;
     bool isBluetoothDiscoverable;
     bool isBluetoothInOperation;
+    bool isBluetoothInCommandMode;
 
 } APP_DATA;
 

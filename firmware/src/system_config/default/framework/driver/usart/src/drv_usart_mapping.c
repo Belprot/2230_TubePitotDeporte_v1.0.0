@@ -409,54 +409,6 @@ bool DRV_USART_TransmitBufferIsFull( const DRV_HANDLE handle )
     return returnValue;
 }
 
-void DRV_USART_ByteTransmitCallbackSet ( const SYS_MODULE_INDEX index, const DRV_USART_BYTE_EVENT_HANDLER eventHandler )
-{
-    switch(index)
-    {
-        case DRV_USART_INDEX_0:
-        {
-            DRV_USART0_ByteTransmitCallbackSet(eventHandler);
-            break;
-        }
-        default:
-        {
-            break;
-        }
-    }
-}
-
-void DRV_USART_ByteReceiveCallbackSet ( const SYS_MODULE_INDEX index, const DRV_USART_BYTE_EVENT_HANDLER eventHandler )
-{
-    switch(index)
-    {
-        case DRV_USART_INDEX_0:
-        {
-            DRV_USART0_ByteReceiveCallbackSet(eventHandler);
-            break;
-        }
-        default:
-        {
-            break;
-        }
-    }
-}
-
-void DRV_USART_ByteErrorCallbackSet ( const SYS_MODULE_INDEX index, const DRV_USART_BYTE_EVENT_HANDLER eventHandler )
-{
-    switch(index)
-    {
-        case DRV_USART_INDEX_0:
-        {
-            DRV_USART0_ByteErrorCallbackSet(eventHandler);
-            break;
-        }
-        default:
-        {
-            break;
-        }
-    }
-}
-
 DRV_USART_BAUD_SET_RESULT DRV_USART_BaudSet(const DRV_HANDLE handle, uint32_t baud)
 {
     uintptr_t instance;

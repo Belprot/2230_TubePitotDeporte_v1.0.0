@@ -76,14 +76,8 @@ SYS_MODULE_OBJ DRV_USART0_Initialize(void)
 {
     uint32_t clockSource;
 
-    DRV_USART_OBJ *dObj = (DRV_USART_OBJ*)NULL;
-    dObj = &gDrvUSART0Obj;
-
     /* Disable the USART module to configure it*/
     PLIB_USART_Disable (USART_ID_1);
-    dObj->transmitCallback      = NULL;
-    dObj->receiveCallback       = NULL;
-    dObj->errorCallback         = NULL;
 
     /* Initialize the USART based on configuration settings */
     PLIB_USART_InitializeModeGeneral(USART_ID_1,
@@ -159,8 +153,8 @@ void DRV_USART0_TasksTransmit(void)
     /* Reading the transmit interrupt flag */
     if(SYS_INT_SourceStatusGet(INT_SOURCE_USART_1_TRANSMIT))
     {
-        /* Call the Transmit callback function*/
-        _DRV_USART0_ByteTransmitTasks ();
+        /* Disable the interrupt, to avoid calling ISR continuously*/
+        SYS_INT_SourceDisable(INT_SOURCE_USART_1_TRANSMIT);
 
         /* Clear up the interrupt flag */
         SYS_INT_SourceStatusClear(INT_SOURCE_USART_1_TRANSMIT);
@@ -176,8 +170,6 @@ void DRV_USART0_TasksReceive(void)
     /* Reading the receive interrupt flag */
     if(SYS_INT_SourceStatusGet(INT_SOURCE_USART_1_RECEIVE))
     {
-        /* Call the Receive callback function*/
-        _DRV_USART0_ByteReceiveTasks ();
 
         /* Clear up the interrupt flag */
         SYS_INT_SourceStatusClear(INT_SOURCE_USART_1_RECEIVE);
@@ -195,9 +187,6 @@ void DRV_USART0_TasksError(void)
     if(SYS_INT_SourceStatusGet(INT_SOURCE_USART_1_ERROR))
     {
         /* This means an error has occurred */
-        /* Call the Error callback function*/
-        _DRV_USART0_ByteErrorTasks ();
-
         /* Clear up the error interrupt flag */
         SYS_INT_SourceStatusClear(INT_SOURCE_USART_1_ERROR);
     }
@@ -300,49 +289,6 @@ void _DRV_USART0_ErrorConditionClear()
     SYS_INT_SourceStatusClear(INT_SOURCE_USART_1_RECEIVE);
 }
 
-
-void _DRV_USART0_ByteTransmitTasks (void)
-{
-    DRV_USART_OBJ *dObj = (DRV_USART_OBJ*)NULL;
-
-    dObj = &gDrvUSART0Obj;
-
-
-    /* Disable the interrupt, to avoid calling ISR continuously*/
-    SYS_INT_SourceDisable(INT_SOURCE_USART_1_TRANSMIT);
-
-    if (dObj->transmitCallback != NULL)
-    {
-        dObj->transmitCallback (DRV_USART_INDEX_0);
-    }
-}
-
-void _DRV_USART0_ByteReceiveTasks (void)
-{
-    DRV_USART_OBJ *dObj = (DRV_USART_OBJ*)NULL;
-
-    dObj = &gDrvUSART0Obj;
-
-    if (dObj->receiveCallback != NULL)
-    {
-        dObj->receiveCallback (DRV_USART_INDEX_0);
-    }
-}
-
-void _DRV_USART0_ByteErrorTasks (void)
-{
-    DRV_USART_OBJ *dObj = (DRV_USART_OBJ*)NULL;
-
-    dObj = &gDrvUSART0Obj;
-
-    /* Clear error condition */
-    _DRV_USART0_ErrorConditionClear();
-
-    if (dObj->errorCallback != NULL)
-    {
-        dObj->errorCallback (DRV_USART_INDEX_0);
-    }
-}
 
 
 DRV_USART_BAUD_SET_RESULT DRV_USART0_BaudSet(uint32_t baud)

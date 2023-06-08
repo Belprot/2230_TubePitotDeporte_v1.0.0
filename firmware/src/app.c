@@ -101,8 +101,8 @@ void TIMER1_Callback_Function(){ // 20Hz
         
         if(inv_imu_get_time_us() >= 120000000){ // 120 000 000 = 120 seconds
             
-            turnOffDiscoverBT();
-            appData.isBluetoothDiscoverable = false;
+//            turnOffDiscoverBT();
+//            appData.isBluetoothDiscoverable = false;
         }
     }
     // Update the main state machine
@@ -281,8 +281,6 @@ void APP_Tasks(void){
                 
             }while(appData.isBluethoothModuleInit == false);
             
-            //turnOffDiscoverBT();
-                    
             // Initialization of the ADC module
             initAdc();
             
@@ -326,9 +324,10 @@ void APP_Tasks(void){
                     break;
                     
                 case SERVICE_STATE_SEND_DATA_BT:
-                    
+                    turnOffDiscoverBT(); // IMPOSSIBLE CONNECTE BT
                     // Bluetooth is connected to a device
                     if(appData.isBluetoothConnected == true){
+                        
                         // Sends frame through USART
                         sendData_RN4678(&a_frameToSend[0]);
                         // Toggle signalisation LED

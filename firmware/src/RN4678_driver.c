@@ -19,22 +19,23 @@
 
 //----------------------------------------------------------------------------// Constants
 // Commands
-#define CMD_MODE_ENTER      "$$$\r"
-#define CMD_MODE_EXIT       "---\r"
-#define CMD_BLE_DISCOV_EN   "Q,0\r"
-#define CMD_BT_DISCOV_DIS   "Q\r"
-#define CMD_BLE_ONLY        "SG,1\r"
-#define CMD_BT_CLASSIC_ONLY "SG,2\r"
-#define CMD_PREFIX_SUFIX    "SO,<,>\r"
-#define CMD_REBOOT_DEVICE   "R,1\r"
+#define CMD_MODE_ENTER      "$$$\r\0"
+#define CMD_MODE_EXIT       "---\r\0"
+#define CMD_BLE_DISCOV_EN   "Q,0\r\0"
+// The module is able to connect, but is undiscoverable in Bluetooth Classic
+#define CMD_BT_DISCOV_DIS   "Q,2\r\0"
+#define CMD_BLE_ONLY        "SG,1\r\0"
+#define CMD_BT_CLASSIC_ONLY "SG,2\r\0"
+#define CMD_PREFIX_SUFIX    "SO,<,>\r\0"
+#define CMD_REBOOT_DEVICE   "R,1\r\0"
 
 // Answers
 #define CMD_MODE_ANSWER     "CMD> "
-#define CMD_EXIT_ANSWER     "END\r"
+#define CMD_EXIT_ANSWER     "END\r\n"
 #define CMD_POS_ANSWER      "AOK\r\nCMD> "
 #define CMD_NEG_ANSWER      "ERR\r\nCMD> "
-#define CMD_REBOOT_ANSWER   "<REBOOT>"
-//#define CMD_REBOOT_ANSWER   "Rebooting\r\n"
+//#define CMD_REBOOT_ANSWER   "<REBOOT>"
+#define CMD_REBOOT_ANSWER   "Rebooting\r\n"
 
 // Device name
 #define DEVICE_NAME         "SN,TubePitotDeporte_v1.0.0\r"
@@ -51,6 +52,7 @@ bool init_RN4678(void){
     RESET_BLEOn();
     inv_imu_sleep_ms(2000);
     
+    appData.isBluetoothInCommandMode = true;
     // Enters in command mode
     initIsDone = sendCMD_RN4678(CMD_MODE_ENTER, sizeof(CMD_MODE_ENTER), CMD_MODE_ANSWER,
             sizeof(CMD_MODE_ANSWER));
@@ -72,6 +74,8 @@ bool init_RN4678(void){
     // Flag is discoverable true
     appData.isBluetoothDiscoverable = true;
     
+    appData.isBluetoothInCommandMode = false;
+    
     return initIsDone;
 }
 
@@ -80,8 +84,7 @@ bool turnOffDiscoverBT(void){
     
     bool result = 0;
     
-    inv_imu_sleep_ms(2000);
-    
+    appData.isBluetoothInCommandMode = true;
 //    // Enters in command mode
     sendCMD_RN4678(CMD_MODE_ENTER, sizeof(CMD_MODE_ENTER), CMD_MODE_ANSWER,
             sizeof(CMD_MODE_ANSWER));
@@ -91,6 +94,8 @@ bool turnOffDiscoverBT(void){
     // Exits command mode
     sendCMD_RN4678(CMD_MODE_EXIT, sizeof(CMD_MODE_EXIT), CMD_EXIT_ANSWER, 
             sizeof(CMD_EXIT_ANSWER));
+    
+    appData.isBluetoothInCommandMode = false;
     
     return 1;
 }
@@ -113,8 +118,8 @@ bool sendCMD_RN4678(char* pArrayToSend, size_t arraySize, char* pArrayExpected,
             
             // Reads the answere received
             getStringFromFifo(&usartFifoRx, &a_answer[0]);
-
-    }
+        }
+        
     }while((strstr((char*)a_answer, pArrayExpected) == NULL));
         //if(strstr((char*)a_answer, pArrayExpected) != NULL) isInitDone = 1;
 
