@@ -19,15 +19,17 @@
 
 //----------------------------------------------------------------------------// Constants
 // Commands
-#define CMD_MODE_ENTER      "$$$\r\0"
-#define CMD_MODE_EXIT       "---\r\0"
-#define CMD_BLE_DISCOV_EN   "Q,0\r\0"
+#define CMD_MODE_ENTER      "$$$\r"
+#define CMD_MODE_EXIT       "---\r"
+#define CMD_BLE_DISCOV_EN   "Q,0\r"
 // The module is able to connect, but is undiscoverable in Bluetooth Classic
-#define CMD_BT_DISCOV_DIS   "Q,2\r\0"
-#define CMD_BLE_ONLY        "SG,1\r\0"
-#define CMD_BT_CLASSIC_ONLY "SG,2\r\0"
-#define CMD_PREFIX_SUFIX    "SO,<,>\r\0"
-#define CMD_REBOOT_DEVICE   "R,1\r\0"
+#define CMD_BT_DISCOV_DIS   "Q,2\r"
+#define CMD_BLE_ONLY        "SG,1\r"
+#define CMD_BT_CLASSIC_ONLY "SG,2\r"
+#define CMD_PREFIX_SUFIX    "SO,<,>\r"
+#define CMD_REBOOT_DEVICE   "R,1\r"
+#define CMD_BITMAP          "SQ,8000\r"
+#define CMD_SCAN_DURATION   "SL,01\r"
 
 // Answers
 #define CMD_MODE_ANSWER     "CMD> "
@@ -39,6 +41,7 @@
 
 // Device name
 #define DEVICE_NAME         "SN,TubePitotDeporte_v1.0.0\r"
+
 
 
 //----------------------------------------------------------------------------// init_RN4678
@@ -59,11 +62,17 @@ bool init_RN4678(void){
     // Sets the name of the device
     initIsDone &= sendCMD_RN4678(DEVICE_NAME, sizeof(DEVICE_NAME), CMD_POS_ANSWER, 
             sizeof(CMD_POS_ANSWER));
-    // Sets the Bluetooth mode (Classic or BLE)
+    // Sets the Bluetooth mode in Classic
     initIsDone &= sendCMD_RN4678(CMD_BT_CLASSIC_ONLY, sizeof(CMD_BT_CLASSIC_ONLY), CMD_POS_ANSWER,
             sizeof(CMD_POS_ANSWER));
-    // Sets the prefix dans the sufix of status
+    // Sets the prefix and the sufix of status
     initIsDone &= sendCMD_RN4678(CMD_PREFIX_SUFIX, sizeof(CMD_PREFIX_SUFIX), CMD_POS_ANSWER, 
+            sizeof(CMD_POS_ANSWER));
+    // Sets the scan duration to 10 seconds
+    initIsDone &= sendCMD_RN4678(CMD_SCAN_DURATION, sizeof(CMD_SCAN_DURATION), CMD_POS_ANSWER, 
+            sizeof(CMD_POS_ANSWER));
+    // Sets the RN4678 into Fast mode
+    initIsDone &= sendCMD_RN4678(CMD_BITMAP, sizeof(CMD_BITMAP), CMD_POS_ANSWER, 
             sizeof(CMD_POS_ANSWER));
     // Lauches a reboot command
     initIsDone &= sendCMD_RN4678(CMD_REBOOT_DEVICE, sizeof(CMD_REBOOT_DEVICE), CMD_REBOOT_ANSWER,
@@ -80,6 +89,9 @@ bool init_RN4678(void){
 }
 
 //----------------------------------------------------------------------------// turnOffDiscoverBT
+// For the moment, this function isn't used. The Fast mode affects the detection
+// of the "$$$\r" message and it is impossible to inter in command mode when the
+// data mode is enable.
 bool turnOffDiscoverBT(void){
     
     bool result = 0;
@@ -131,7 +143,7 @@ bool sendCMD_RN4678(char* pArrayToSend, size_t arraySize, char* pArrayExpected,
 }
 
 
-//----------------------------------------------------------------------------// getUsartData <---------------------- ??
+//----------------------------------------------------------------------------// getUsartData
 void getUsartData(int8_t* pArrayToModify){
     
     do{

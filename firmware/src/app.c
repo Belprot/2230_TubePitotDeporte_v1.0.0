@@ -97,14 +97,14 @@ struct inv_imu_serif    myImuSertif;
 //----------------------------------------------------------------------------// TIMER1 callback function
 void TIMER1_Callback_Function(){ // 20Hz
     
-    if(appData.isBluetoothDiscoverable){
-        
-        if(inv_imu_get_time_us() >= 120000000){ // 120 000 000 = 120 seconds
-            
+//    if(appData.isBluetoothDiscoverable){
+//        
+//        if(inv_imu_get_time_us() >= 120000000){ // 120 000 000 = 120 seconds
+//            
 //            turnOffDiscoverBT();
 //            appData.isBluetoothDiscoverable = false;
-        }
-    }
+//        }
+//    }
     // Update the main state machine
     APP_UpdateAppState(APP_STATE_SERVICE_TASKS);
 }
@@ -324,7 +324,7 @@ void APP_Tasks(void){
                     break;
                     
                 case SERVICE_STATE_SEND_DATA_BT:
-                    turnOffDiscoverBT(); // IMPOSSIBLE CONNECTE BT
+                    
                     // Bluetooth is connected to a device
                     if(appData.isBluetoothConnected == true){
                         
