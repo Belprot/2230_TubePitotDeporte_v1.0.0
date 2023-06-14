@@ -168,6 +168,9 @@ typedef struct{
     float accelX;
     float accelY;
     float accelZ;
+    float GyrAngleX;
+    float GyrAngleY;
+    float GyrAngleZ;
     float batVoltage;
     float genVoltage;
     

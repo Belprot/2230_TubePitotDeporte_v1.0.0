@@ -148,11 +148,19 @@ void USART1_Callback_Function(void){
 //----------------------------------------------------------------------------// IMU callback function
 void imu_callback(inv_imu_sensor_event_t *event){
     
+    // USES PREVIOUS VALUES TO ENSURE STABLE TIME 
+    // Calculate the angle with the gyro values
+    // 0.05 correspond to the period between each reading 1/20Hz = 0.05s
+    sensData.GyrAngleX += sensData.gyroX * 0.05;
+    sensData.GyrAngleY += sensData.gyroY * 0.05;
+    sensData.GyrAngleZ += sensData.gyroZ * 0.05;
+    
     // Transforms 16bits values into degrees and saves them in the sensor data 
     // structure
-    sensData.gyroX = (event->gyro[0])/250; // 250 dps
-    sensData.gyroY = (event->gyro[1])/250; // 250 dps
-    sensData.gyroZ = (event->gyro[2])/250; // 250 dps
+    // 250 dps
+    sensData.gyroX = (event->gyro[0])/250 + 1; // + offset
+    sensData.gyroY = (event->gyro[1])/250 + 1; // + offset
+    sensData.gyroZ = (event->gyro[2])/250;
     
     // Reads and transforms 16bits values into 
     // Transforms 16bits values into g acceleration and saves them in the sensor 
@@ -199,10 +207,17 @@ void clearArray(size_t arraySize, char *pArrayToClear){
 inline void frameFormatting(char* a_dataToSend, const SENS_DATA* sensData){
     
     // Saves all data into a simple frame
-    sprintf(a_dataToSend, "S=%03dkm/h GX=%+.02f GY=%+.02f GZ=%+.02f AX=%+.02f "
-            "AY=%+.02f AZ=%+.02f VB=%.02f VG=%.02f\n\r",
+    // Speed in [km/h]
+    // Gyros in [dps]
+    // Angles in [°]
+    // Accelerations in [g]
+    // VB and VG in [V]
+    sprintf(a_dataToSend, "S=%03d GX=%+.02f GY=%+.02f GZ=%+.02f GAX=%+.02f "
+            "GAY=%+.02f GAZ=%+.02f AX=%+.02f AY=%+.02f AZ=%+.02f VB=%.02f "
+            "VG=%.02f\n\r",
             sensData->velocity,
             sensData->gyroX, sensData->gyroY, sensData->gyroZ,
+            sensData->GyrAngleX, sensData->GyrAngleY, sensData->GyrAngleZ,
             sensData->accelX, sensData->accelY, sensData->accelZ,
             sensData->batVoltage, sensData->genVoltage);
 }
@@ -222,6 +237,9 @@ void APP_Initialize(void){
     appData.isBluethoothModuleInit  = false;
     appData.isBluetoothConnected    = false;
     appData.isBluetoothDiscoverable = false;
+    sensData.GyrAngleX = 0;
+    sensData.GyrAngleY = 0;
+    sensData.GyrAngleZ = 0;
 }
 
 
@@ -247,10 +265,7 @@ int initImuInterface(struct inv_imu_serif *icm_serif){
 //----------------------------------------------------------------------------// APP_Tasks
 void APP_Tasks(void){
     
-    int         rc = 0;
-    int8_t      a_frameToSend[110];
-    RAW_ADC     rawAdc;
-    
+    RAW_ADC rawAdc;
     
     // Check the application's current state
     switch(appData.appState){
@@ -258,6 +273,8 @@ void APP_Tasks(void){
         // Application's initial state
         case APP_STATE_INIT:
         { 
+            int rc = 0;
+            
             // Initialization of the I2C communication
             i2c_init(SLOW);
             
@@ -297,6 +314,8 @@ void APP_Tasks(void){
 
         case APP_STATE_SERVICE_TASKS:
         {
+            int8_t a_frameToSend[130];
+            
             switch(appData.serviceState){
                 
                 case SERVICE_STATE_READ_SENSORS:
@@ -308,6 +327,7 @@ void APP_Tasks(void){
                     convertRawToVelocity(readRawDiffPress(), &sensData);
                     // Gets new IMU data
                     get_imu_data();
+                    
                     
                     APP_UpdateServiceState(SERVICE_STATE_PROCESS);
                     break;

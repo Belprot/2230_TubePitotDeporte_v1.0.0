@@ -94,8 +94,6 @@ bool init_RN4678(void){
 // data mode is enable.
 bool turnOffDiscoverBT(void){
     
-    bool result = 0;
-    
     appData.isBluetoothInCommandMode = true;
 //    // Enters in command mode
     sendCMD_RN4678(CMD_MODE_ENTER, sizeof(CMD_MODE_ENTER), CMD_MODE_ANSWER,
