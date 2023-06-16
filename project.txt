@@ -1,6 +1,6 @@
-nom du projet : A COMPLETER 
-no de projet  : A COMPLETER 
-date          : A COMPLETER 
+nom du projet : Tube Pitot déporté v1.0.0
+no de projet  : 2230 
+date          : Juin 2023
 
 explicatif du projet:
 ---------------------
