@@ -128,7 +128,7 @@ extern "C" {
 typedef enum
 {
 	APP_STATE_INIT=0,
-	APP_STATE_SERVICE_TASKS,
+	APP_STATE_SERVICE,
     APP_STATE_WAIT,
             
 } APP_STATES;

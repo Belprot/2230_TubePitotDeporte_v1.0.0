@@ -106,7 +106,7 @@ void TIMER1_Callback_Function(){ // 20Hz
 //        }
 //    }
     // Update the main state machine
-    APP_UpdateAppState(APP_STATE_SERVICE_TASKS);
+    APP_UpdateAppState(APP_STATE_SERVICE);
 }
 
 
@@ -122,7 +122,6 @@ void USART1_Callback_Function(void){
     // If "<RFCOMM_OPEN>" is present in the array received 
     result = strstr(a_received, "<RFCOMM_OPEN>");
     if(result != NULL){
-        
         
         appData.isBluetoothDiscoverable = false;
         appData.isBluetoothConnected = true;
@@ -148,13 +147,6 @@ void USART1_Callback_Function(void){
 //----------------------------------------------------------------------------// IMU callback function
 void imu_callback(inv_imu_sensor_event_t *event){
     
-    // USES PREVIOUS VALUES TO ENSURE STABLE TIME 
-    // Calculate the angle with the gyro values
-    // 0.05 correspond to the period between each reading 1/20Hz = 0.05s
-    sensData.GyrAngleX += sensData.gyroX * 0.05;
-    sensData.GyrAngleY += sensData.gyroY * 0.05;
-    sensData.GyrAngleZ += sensData.gyroZ * 0.05;
-    
     // Transforms 16bits values into degrees and saves them in the sensor data 
     // structure
     // 250 dps
@@ -168,6 +160,12 @@ void imu_callback(inv_imu_sensor_event_t *event){
     sensData.accelX = (float)(event->accel[0])/8192.0; 
     sensData.accelY = (float)(event->accel[1])/8192.0;
     sensData.accelZ = (float)(event->accel[2])/8192.0 + 0.075; // + offset
+    
+    // Calculate the angle with the gyro values
+    // 0.05 correspond to the period between each reading 1/20Hz = 0.05s
+    sensData.GyrAngleX += sensData.gyroX * 0.05;
+    sensData.GyrAngleY += sensData.gyroY * 0.05;
+    sensData.GyrAngleZ += sensData.gyroZ * 0.05;
 }
 
 
@@ -209,7 +207,7 @@ inline void frameFormatting(char* a_dataToSend, const SENS_DATA* sensData){
     // Saves all data into a simple frame
     // Speed in [km/h]
     // Gyros in [dps]
-    // Angles in [°]
+    // Angles in [degrees]
     // Accelerations in [g]
     // VB and VG in [V]
     sprintf(a_dataToSend, "S=%03d GX=%+.02f GY=%+.02f GZ=%+.02f GAX=%+.02f "
@@ -276,10 +274,10 @@ void APP_Tasks(void){
             int rc = 0;
             
             // Initialization of the I2C communication
-            i2c_init(SLOW);
+            i2c_init(SLOW); 
             
             do{
-                // Initialization of the ICM42670 interface
+                // Initialization of the ICM42670 interface 
                 rc |= initImuInterface(&myImuSertif);
                 // Resets and prepares the chip for the configuration
                 rc |= setupImuDevice(&myImuSertif);
@@ -288,7 +286,7 @@ void APP_Tasks(void){
                 
             }while(rc != INV_ERROR_SUCCESS);
             
-            // Initilization of the USART FIFOs
+            // Initialization of the USART FIFOs
             initFifo(&usartFifoRx, FIFO_RX_SIZE, a_fifoRx, 0);
             initFifo(&usartFifoTx, FIFO_TX_SIZE, a_fifoTx, 0);
             
@@ -312,7 +310,7 @@ void APP_Tasks(void){
             break;
         }
 
-        case APP_STATE_SERVICE_TASKS:
+        case APP_STATE_SERVICE:
         {
             int8_t a_frameToSend[130];
             

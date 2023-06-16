@@ -14,7 +14,6 @@ extern "C" {
 
     
     
-    
     int get_imu_data(void);
     int configureImuDevice(void);
     int setupImuDevice(struct inv_imu_serif *icm_serif);
@@ -23,13 +22,6 @@ extern "C" {
     uint64_t inv_imu_get_time_us(void);
     
     
-    
-    
-    
-    
-    
-    
-
 
 
 #ifdef	__cplusplus
