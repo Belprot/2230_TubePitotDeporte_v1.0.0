@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/vbat_viewer"
+            android:layout_width="150dp"
+            android:layout_height="20dp"
+            android:hint="VOLTAGE BATTERY"
+            android:textColor="@color/colorRecieveText"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/vgen_viewer"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:hint="VOLTAGE GENERATOR"
+            android:textColor="@color/colorRecieveText"
+            android:textSize="15dp" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="?android:attr/listDivider" />
+
+    <TextView
+        android:id="@+id/speed_viewer"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:hint="SPEED"
+        android:textColor="@color/colorTextGrey"
+        android:textSize="30dp" />
+
+    <TextView
+        android:id="@+id/accelX_viewer"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:hint="ACCEL X"
+        android:textColor="@color/colorTextGrey"
+        android:textSize="15dp" />
+
+    <TextView
+        android:id="@+id/accelY_viewer"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:hint="ACCEL Y"
+        android:textColor="@color/colorTextGrey"
+        android:textSize="15dp" />
+
+    <TextView
+        android:id="@+id/accelZ_viewer"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:hint="ACCEL Z"
+        android:textColor="@color/colorTextGrey"
+        android:textSize="15dp" />
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="?android:attr/listDivider" />
+
+    <TextView
+        android:id="@+id/pitch_viewer"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:hint="PITCH"
+        android:textColor="@color/colorTextGrey"
+        android:textSize="30dp" />
+
+    <ImageView
+        android:id="@+id/imageView_Pitch"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        app:srcCompat="@drawable/pitch_picture" />
+
+    <View
+        android:id="@+id/view3"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="?android:attr/listDivider" />
+
+    <TextView
+        android:id="@+id/roll_viewer"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:hint="ROLL"
+        android:textColor="@color/colorTextGrey"
+        android:textSize="30dp" />
+
+    <ImageView
+        android:id="@+id/imageView_Roll"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        app:srcCompat="@drawable/roll_picture" />
+
+    <View
+        android:id="@+id/view4"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="?android:attr/listDivider" />
+
+    <TextView
+        android:id="@+id/gravityForce_viewer"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:hint="GRAVITY FORCE"
+        android:textColor="@color/colorTextGrey"
+        android:textSize="30dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="?android:attr/listDivider" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button_setZero"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:text="Set to zero"
+            android:textColor="@color/colorTextGrey" />
+
+        <Button
+            android:id="@+id/button_log"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/colorTextGrey"
+            android:text="Log data" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/send_text"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:inputType="text|textNoSuggestions"
+            android:singleLine="true" />
+
+        <ImageButton
+            android:id="@+id/send_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_send_white_24dp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Button" />
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Button" />
+
+
+</LinearLayout>
+
