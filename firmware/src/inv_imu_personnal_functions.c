@@ -68,11 +68,11 @@ int configureImuDevice(void)
 
 	if (USE_LOW_NOISE_MODE) {
 		rc |= inv_imu_set_accel_frequency(&myImuDevice, ACCEL_CONFIG0_ODR_50_HZ);
-		rc |= inv_imu_set_gyro_frequency(&myImuDevice, GYRO_CONFIG0_ODR_200_HZ);
+		rc |= inv_imu_set_gyro_frequency(&myImuDevice, GYRO_CONFIG0_ODR_50_HZ); 
 		rc |= inv_imu_enable_accel_low_noise_mode(&myImuDevice);
 	} else {
 		rc |= inv_imu_set_accel_frequency(&myImuDevice, ACCEL_CONFIG0_ODR_50_HZ);
-		rc |= inv_imu_set_gyro_frequency(&myImuDevice, GYRO_CONFIG0_ODR_200_HZ);
+		rc |= inv_imu_set_gyro_frequency(&myImuDevice, GYRO_CONFIG0_ODR_50_HZ);
 		rc |= inv_imu_enable_accel_low_power_mode(&myImuDevice);
 	}
 //    rc |= inv_imu_set_accel_lp_avg(&myImuDevice, ACCEL_CONFIG1_ACCEL_FILT_AVG_8);

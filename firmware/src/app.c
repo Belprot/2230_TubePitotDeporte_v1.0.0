@@ -95,7 +95,7 @@ struct inv_imu_serif    myImuSertif;
 
 
 //----------------------------------------------------------------------------// TIMER1 callback function
-void TIMER1_Callback_Function(){ // 20Hz
+void TIMER1_Callback_Function(){ // 50Hz
     
 //    if(appData.isBluetoothDiscoverable){
 //        
@@ -150,22 +150,23 @@ void imu_callback(inv_imu_sensor_event_t *event){
     // Transforms 16bits values into degrees and saves them in the sensor data 
     // structure
     // 250 dps
-    sensData.gyroX = (event->gyro[0])/250 + 1; // + offset
-    sensData.gyroY = (event->gyro[1])/250 + 1; // + offset
+    sensData.gyroX = (event->gyro[0])/250 + 1.0; // + offset
+    sensData.gyroY = (event->gyro[1])/250 + 1.0; // + offset
     sensData.gyroZ = (event->gyro[2])/250;
     
     // Reads and transforms 16bits values into 
     // Transforms 16bits values into g acceleration and saves them in the sensor 
     // data structure (8192 bits per g)
-    sensData.accelX = (float)(event->accel[0])/8192.0; 
-    sensData.accelY = (float)(event->accel[1])/8192.0;
+    sensData.accelX = (float)(event->accel[0])/8192.0 + 0.03; 
+    sensData.accelY = (float)(event->accel[1])/8192.0 + 0.03;
     sensData.accelZ = (float)(event->accel[2])/8192.0 + 0.075; // + offset
     
     // Calculate the angle with the gyro values
-    // 0.05 correspond to the period between each reading 1/20Hz = 0.05s
-    sensData.GyrAngleX += sensData.gyroX * 0.05;
-    sensData.GyrAngleY += sensData.gyroY * 0.05;
-    sensData.GyrAngleZ += sensData.gyroZ * 0.05;
+    // 0.05 correspond to the period between each reading 1/20Hz = 0.05s <-- not now
+    // 0.02 correspond to the period between each reading 1/50Hz = 0.02s
+    sensData.GyrAngleX += sensData.gyroX * 0.02 * 2.0;
+    sensData.GyrAngleY += sensData.gyroY * 0.02 * 2.0; // <-----------------------------???? 45 instead of 90 without * 2
+    sensData.GyrAngleZ += sensData.gyroZ * 0.02 * 2.0;
 }
 
 
@@ -210,14 +211,21 @@ inline void frameFormatting(char* a_dataToSend, const SENS_DATA* sensData){
     // Angles in [degrees]
     // Accelerations in [g]
     // VB and VG in [V]
-    sprintf(a_dataToSend, "S=%03d GX=%+.02f GY=%+.02f GZ=%+.02f GAX=%+.02f "
-            "GAY=%+.02f GAZ=%+.02f AX=%+.02f AY=%+.02f AZ=%+.02f VB=%.02f "
-            "VG=%.02f\n\r",
-            sensData->velocity,
+    sprintf(a_dataToSend, "%3.0f %.03f %.03f %.03f %.03f %.03f %.03f %.03f %.03f "
+            "%.03f %.02f %.02f \r\n",
+            (float)sensData->velocity,
             sensData->gyroX, sensData->gyroY, sensData->gyroZ,
             sensData->GyrAngleX, sensData->GyrAngleY, sensData->GyrAngleZ,
             sensData->accelX, sensData->accelY, sensData->accelZ,
             sensData->batVoltage, sensData->genVoltage);
+//    sprintf(a_dataToSend, "S=%03d GX=%.03f GY=%.03f GZ=%.03f GAX=%.03f "
+//            "GAY=%.03f GAZ=%.03f AX=%.03f AY=%.03f AZ=%.03f VB=%.02f "
+//            "VG=%.02f\r\n",
+//            sensData->velocity,
+//            sensData->gyroX, sensData->gyroY, sensData->gyroZ,
+//            sensData->GyrAngleX, sensData->GyrAngleY, sensData->GyrAngleZ,
+//            sensData->accelX, sensData->accelY, sensData->accelZ,
+//            sensData->batVoltage, sensData->genVoltage);
 }
 
 // *****************************************************************************

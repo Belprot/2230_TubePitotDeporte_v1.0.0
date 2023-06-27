@@ -230,7 +230,7 @@
       <Template dnOrder="19">
         <Name dnOrder="0">drv_tmr_static.c</Name>
         <Path dnOrder="1">Source&amp;#160;Files/app/system_config/default/framework/driver/tmr/src</Path>
-        <Checksum dnOrder="2">95BFB7A72EEF5E8B7BA87835024FD160</Checksum>
+        <Checksum dnOrder="2">CF604F5C137145DF24292CCCBE56DEBA</Checksum>
       </Template>
       <Template dnOrder="20">
         <Name dnOrder="0">system_interrupt.c</Name>
