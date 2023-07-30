@@ -4,6 +4,7 @@ import static java.lang.Math.atan;
 import static java.lang.Math.pow;
 import static java.lang.Math.sqrt;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
@@ -12,12 +13,16 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.IBinder;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,19 +30,28 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.os.Vibrator;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.SimpleDateFormat;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.io.FileWriter;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 
 public class TerminalFragment extends Fragment implements ServiceConnection, SerialListener {
@@ -46,8 +60,6 @@ public class TerminalFragment extends Fragment implements ServiceConnection, Ser
 
     private String deviceAddress;
     private SerialService service;
-
-    //private TextView receiveText;
 
     private TextView speedText;
     private TextView gyroXText;
@@ -64,32 +76,43 @@ public class TerminalFragment extends Fragment implements ServiceConnection, Ser
     private TextView pitchText;
     private TextView rollText;
     private TextView gravityForceText;
+    private TextView sendText;
+
     private Button button_setZero;
+    private Button button_logData;
+    private Button button_reset;
+
     private ImageView imageView_Roll;
     private ImageView imageView_Pitch;
 
+    private EditText editTextNumberDecimal_triggerPoint;
+    private EditText editTextNumberDecimal_detectionDuration;
 
-    private TextView sendText;
+    private Switch switch_detectionMode;
+
     private TextUtil.HexWatcher hexWatcher;
 
     private Connected connected = Connected.False;
     private boolean initialStart = true;
     private boolean hexEnabled = false;
+    private boolean logEnabled = false;
+    private boolean fileCreated = false;
+    private boolean isFreezed = false;
     private String newline = TextUtil.newline_crlf;
+    private String fileName = "RPT_data.csv"; // Remote Pitot tube data
 
-    // Personal variables
-    static double sValue;
-    static double axValue = 0.0;
-    static double ayValue = 0.0;
-    static double azValue = 0.0;
-    double vbatValue = 0.0;
-    double vgenValue = 0.0;
-    public double gravityForce = 0;
-    public double offset_pitch = 0;
-    public double offset_roll = 0;
-    float pitch = 0;
-    float roll;
-    int counter= 0;
+    private double sValue;
+    private double axValue = 0.0;
+    private double ayValue = 0.0;
+    private double azValue = 0.0;
+    private double vbatValue = 0.0;
+    private double vgenValue = 0.0;
+    private double gravityForce = 0;
+    private double offset_pitch = 0;
+    private double offset_roll = 0;
+    private float pitch = 0;
+    private float roll;
+    private int counter= 0;
 
     /*
      * Lifecycle
@@ -166,6 +189,7 @@ public class TerminalFragment extends Fragment implements ServiceConnection, Ser
     /*
      * UI
      */
+    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_terminal, container, false);
@@ -188,8 +212,17 @@ public class TerminalFragment extends Fragment implements ServiceConnection, Ser
         gravityForceText = view.findViewById(R.id.gravityForce_viewer);
 
         button_setZero = view.findViewById(R.id.button_setZero);
+        button_logData = view.findViewById(R.id.button_logData);
+        button_reset = view.findViewById(R.id.button_reset);
         imageView_Roll = view.findViewById(R.id.imageView_Roll);
         imageView_Pitch = view.findViewById(R.id.imageView_Pitch);
+
+        editTextNumberDecimal_triggerPoint = view.findViewById(R.id.editTextNumberDecimal_triggerPoint);
+        editTextNumberDecimal_detectionDuration = view.findViewById(R.id.editTextNumberDecimal_detectionDuration);
+        editTextNumberDecimal_triggerPoint.setText("0.95");
+        editTextNumberDecimal_detectionDuration.setText("0.2");
+
+        switch_detectionMode = view.findViewById(R.id.switch_detectionMode);
 
         sendText = view.findViewById(R.id.send_text);
         hexWatcher = new TextUtil.HexWatcher(sendText);
@@ -207,6 +240,42 @@ public class TerminalFragment extends Fragment implements ServiceConnection, Ser
 
                 offset_pitch = - pitch;
                 offset_roll = - roll;
+            }
+        });
+
+        button_logData.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+
+                logEnabled = !logEnabled;
+
+                if(logEnabled){
+
+                    fileCreated = false;
+
+                    // Obtenir la date et l'heure actuelles
+                    Date currentDate = new Date();
+
+                    // Format du nom de fichier avec la date et l'heure
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss", Locale.getDefault());
+                    fileName = "RPT_data_" + dateFormat.format(currentDate) + ".csv";
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        button_logData.setBackgroundTintList(ColorStateList.valueOf(Color.WHITE));
+                    }
+                } else {
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        button_logData.setBackgroundTintList(ColorStateList.valueOf(Color.DKGRAY));
+                    }
+                }
+            }
+        });
+
+        button_reset.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+
+                isFreezed = false;
             }
         });
 
@@ -299,13 +368,18 @@ public class TerminalFragment extends Fragment implements ServiceConnection, Ser
 
 
 
-
-
     private void receive(ArrayDeque<byte[]> datas) {
         List<Double> valeurs = new ArrayList<>();
         double[] a_dataReceived = new double[12];
         StringBuilder sb = new StringBuilder(); // Pour construire le message
         int tableauIndex = 0; // Compteur pour suivre l'indice dans le tableau
+        // Chemin d'acces
+
+        File downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+        File csvFile = new File(downloadsDir, fileName);
+
+        Log.i(TerminalFragment.class.getName(),"chemin ::: " + csvFile);
+
 
         for (byte[] data : datas) {
             String msg = new String(data);
@@ -353,6 +427,7 @@ public class TerminalFragment extends Fragment implements ServiceConnection, Ser
                 vgenValue += a_dataReceived[11];
 
 
+                // Toutes les 5 mesures
                 if(counter >= 5){
 
                     // Moyennage des données
@@ -368,12 +443,14 @@ public class TerminalFragment extends Fragment implements ServiceConnection, Ser
 
                     // Calcul de la force de gravité pour chute libre
                     gravityForce = sqrt(pow(axValue, 2) + pow(ayValue, 2) + pow(azValue, 2));
-                    if(gravityForce <= 0.95){
-
-                        gravityForceText.setTextColor(Color.parseColor("#FF0000"));
-                    } else {
-
-                        gravityForceText.setTextColor(Color.parseColor("#00FF00"));
+                    // Vérifier la validité du texte (exemple : vérifier si c'est un nombre)
+                    try {
+                        float floatValue = Float.parseFloat(String.valueOf(editTextNumberDecimal_triggerPoint.getText()));
+                        // Le texte est valide, faire ce que vous souhaitez avec la valeur floatValue
+                    } catch (NumberFormatException e) {
+                        // Le texte n'est pas valide, définir une valeur par défaut
+                        String defaultValue = "0";
+                        editTextNumberDecimal_triggerPoint.setText(defaultValue);
                     }
 
 
@@ -398,20 +475,75 @@ public class TerminalFragment extends Fragment implements ServiceConnection, Ser
                     float pitchDegrees = (float) ((float) Math.toDegrees(pitch + offset_pitch));
                     float rollDegrees = (float) ((float) Math.toDegrees(roll + offset_roll));
 
-                    // Mise à jour de l'affichage des
-                    speedText.setText("SPEED    : " + String.format("%3.0f", sValueKn) + " KNOT");
-                    accelXText.setText("ACCEL X  : " + String.format("%3.3f", axValue) + " g");
-                    accelYText.setText("ACCEL Y  : " + String.format("%3.3f", ayValue) + " g");
-                    accelZText.setText("ACCEL Z  : " + String.format("%3.3f", azValue) + " g");
-                    pitchText.setText("PITCH   : " + String.format("%3.2f", pitchDegrees) + " °");
-                    rollText.setText("ROLL     : " + String.format("%3.2f", rollDegrees) + " °");
-                    vbatText.setText("VBAT     : " + String.format("%2.1f", vbatValue) + " V");
-                    vgenText.setText("VGEN     : " + String.format("%2.1f", vgenValue) + " V");
-                    gravityForceText.setText("GRAVITY VALUE : " + String.format("%3.3f", gravityForce) + " g");
+                    // Mise à jour de l'affichage
+                    if(!isFreezed){
+                        speedText.setText("SPEED    : " + String.format("%3.0f", sValueKn) + " KNOT");
+                        accelXText.setText("ACCEL X  : " + String.format("%3.3f", axValue) + " g");
+                        accelYText.setText("ACCEL Y  : " + String.format("%3.3f", ayValue) + " g");
+                        accelZText.setText("ACCEL Z  : " + String.format("%3.3f", azValue) + " g");
+                        pitchText.setText("PITCH   : " + String.format("%3.2f", pitchDegrees) + " °");
+                        rollText.setText("ROLL     : " + String.format("%3.2f", rollDegrees) + " °");
+                        vbatText.setText("VBAT     : " + String.format("%2.1f", vbatValue) + " V");
+                        vgenText.setText("VGEN     : " + String.format("%2.1f", vgenValue) + " V");
+                        gravityForceText.setText("GRAVITY VALUE : " + String.format("%3.3f", gravityForce) + " g");
+                    }
+
+                    // Si la valeur dépasse le seuil fixé, les valeurs sont freeze
+                    if(gravityForce <= Float.parseFloat(String.valueOf(editTextNumberDecimal_triggerPoint.getText()))){
+
+                        gravityForceText.setTextColor(Color.parseColor("#FF0000"));
+                        if(switch_detectionMode.isChecked()) {
+                            isFreezed = true;
+                        }
+                    } else {
+                        if(!isFreezed) {
+                            gravityForceText.setTextColor(Color.parseColor("#00FF00"));
+                        }
+                    }
 
                     // Mise à jour des images
                     imageView_Pitch.setRotation((float) -pitchDegrees);
                     imageView_Roll.setRotation((float) rollDegrees);
+
+                    if(logEnabled) {
+                        //logEnabled = false;
+
+                        // Sauvegarde des données dans un fichier CSV
+                        try {
+                            FileWriter writer = new FileWriter(csvFile, true);
+
+                            // Créez un format pour formater les nombres avec une virgule comme séparateur décimal
+                            DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.getDefault());
+                            symbols.setDecimalSeparator(',');
+                            DecimalFormat decimalFormat = new DecimalFormat("#0.00", symbols);
+
+                            if(!fileCreated) {
+                                fileCreated = true;
+                                // En-têtes des colonnes
+                                writer.append("SPEED [KNOT]; ACCEL X [g]; ACCEL Y [g]; ACCEL Z [g];" +
+                                        "PITCH [degree]; ROLL [degree]; VBAT [V]; VGEN [V]; GRAVITY  [g]\n");
+                            }
+                            // Data
+                            writer.append(decimalFormat.format(sValueKn) + ";" +
+                                    decimalFormat.format(axValue) + ";" +
+                                    decimalFormat.format(ayValue) + ";" +
+                                    decimalFormat.format(azValue) + ";" +
+                                    decimalFormat.format(pitchDegrees) + ";" +
+                                    decimalFormat.format(rollDegrees) + ";" +
+                                    decimalFormat.format(vbatValue) + ";" +
+                                    decimalFormat.format(vgenValue) + ";" +
+                                    decimalFormat.format(gravityForce) +"\n");
+
+                            writer.flush();
+                            writer.close();
+
+                            Log.i(TerminalFragment.class.getName(),"WRITING OK");
+
+                        } catch (IOException e) {
+                            Log.i(TerminalFragment.class.getName(),"WRITING ERROR");
+                            throw new RuntimeException(e);
+                        }
+                    }
 
                     // Mise à zéro des variables moyennées
                     sValue = 0;
@@ -427,8 +559,6 @@ public class TerminalFragment extends Fragment implements ServiceConnection, Ser
             }
         }
     }
-
-
 
 
     private void status(String str) {
