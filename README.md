@@ -16,3 +16,7 @@ Electronic system designed to measure historical aircraft stall data and transmi
 ![](doc/images/DesignMecEtPCB/AssemblageComplet.jpg)
 ![](doc/Images/PhotosProjetTerminé/PhotoRenduFinal2.jpg)
 ![](doc/Images/PhotosProjetTerminé/PhotoRenduFinal.jpg)
+
+## Application preview
+<img src="doc/Images/Software/ScreenshotApp3.jpg" alt="Application preview" width="300">
+
